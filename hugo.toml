@@ -6,3 +6,69 @@ canonifyurls = true
 languagecode = "de"
 defaultcontentlanguage = "de"
 DefaultContentLanguage = "de"
+theme = ["projektemacher-base"]
+disableKinds = ["taxonomy"]
+ignoreErrors = ["error-disable-taxonomy"]
+
+[languages]
+  [languages.de]
+    languagename = "Deutsch"
+
+  [languages.de.params]
+
+  [languages.de.menu]
+
+    [[languages.de.menu.main]]
+      name = "Start"
+      weight = 1
+      url = "/"
+
+    [[languages.de.menu.main]]
+      name = "Über"
+      weight = 2
+      url = "about/"
+
+  [languages.en]
+    languagename = "English"
+
+    [languages.en.params]
+
+
+    [languages.en.menu]
+
+    [[languages.en.menu.main]]
+      name = "Start"
+      weight = 1
+      url = "/"
+
+    [[languages.en.menu.main]]
+      name = "About"
+      weight = 2
+      url = "about/"
+
+[imaging]
+  quality = 95
+
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+
+[markup.goldmark]
+  [markup.goldmark.renderer]
+    unsafe= true
+
+  [markup.goldmark.extensions]
+    attribute = true
+    strikethrough = true
+
+  [markup.goldmark.extensions.typographer]
+    apostrophe = '&rsquo;'
+    disable = false
+    ellipsis = '&hellip;'
+    emDash = '&mdash;'
+    enDash = '&ndash;'
+    leftAngleQuote = '&laquo;'
+    leftDoubleQuote = '&ldquo;'
+    leftSingleQuote = '&lsquo;'
+    rightAngleQuote = '&raquo;'
+    rightDoubleQuote = '&rdquo;'
+    rightSingleQuote = '&rsquo;'
