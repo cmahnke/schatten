@@ -1,0 +1,8 @@
+baseURL = "https://schatten.yaapb.projektemacher.org/"
+title = 'Nächtliche Schatten'
+languageCode = "de"
+publishDir = "docs"
+canonifyurls = true
+languagecode = "de"
+defaultcontentlanguage = "de"
+DefaultContentLanguage = "de"

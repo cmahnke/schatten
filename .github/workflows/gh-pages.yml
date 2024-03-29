@@ -1,0 +1,63 @@
+name: Publish on GitHub pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install required dependencies
+        run: |
+          ./scripts/github-setup.sh
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Generate Files
+        run: |
+          ./scripts/setup.sh
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.124.1'
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --printI18nWarnings --printUnusedTemplates
+
+      - name: Puppeteer
+        run: |
+          ./themes/projektemacher-base/scripts/init/package.json.sh
+          ./themes/projektemacher-base/scripts/github/check-js-errors.sh
+
+      - name: Deploy site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true

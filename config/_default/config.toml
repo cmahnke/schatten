@@ -1,0 +1,10 @@
+[params]
+    author = "Christian Mahnke"
+    keywords = "Schatten, Nacht, Fotographie"
+    description = "Die „Digitalisierung“ der Nacht"
+    logo = "/images/logo.png"
+    svgIcon = "/images/favicon.svg"
+    enableImageViewer = true
+    enablePDFViewer = false
+    copyrightYears = "MMXXIV"
+    disableScale = true
