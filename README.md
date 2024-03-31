@@ -14,3 +14,7 @@ Nächtliche Schatten
 ## Inspirationen
 
 * https://university.webflow.com/lesson/variable-fonts?topics=layout-design
+
+## Images
+
+* https://github.com/albertz/playground/blob/master/ultrahdr.py

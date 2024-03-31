@@ -8,6 +8,8 @@ done
 
 convert "Source Files/Images/preview-transparent.png" -channel RGB -negate static/images/title-bg.png
 
+#convert <input> -type Grayscale <output>
+
 if [ -d ./scripts/post-build ] ; then
     echo "Don't forget to run post build scripts after 'hugo'!"
 fi

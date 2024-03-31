@@ -12,3 +12,6 @@ static/images/logo.png
 assets/css/**
 static/fonts/**
 static/images/title-bg.png
+patches/
+static/pdfjs/
+content/**/*-hdr.jpeg
