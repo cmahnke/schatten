@@ -1,0 +1,37 @@
+{{ $class := .Params.type }}
+
+
+<div class="post {{ $class }}">
+  {{- partial "post-header.html" . -}}
+  <div class="post-body">
+    {{- partial "content.html" . -}}
+  </div>
+  {{- if .IsSection -}}
+    {{- partial "section-listing.html" . -}}
+  {{- end -}}
+</div>
+
+{{- define "partials/post-header.html" -}}
+  <div class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- if not .Params.metaPage -}}
+      <div class="post-meta">
+        {{- if and (ne .CurrentSection.Path "/post") (ne .CurrentSection.Path .Path) -}}
+          <div class="parent-section">
+            {{ i18n "sectionParent" }}
+            <a href="{{ .CurrentSection.RelPermalink }}" title="{{ .CurrentSection.Title }}">{{ .CurrentSection.Title }}</a>
+          </div>
+        {{- end -}}
+        {{/*
+        <div class="date">
+          {{ if not .Date.IsZero }}
+            <span class="key">{{ i18n "publishedOn" }}</span>
+            <span class="val"><time itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02" }}">{{- partial "date.html" . -}}</time></span>
+          {{ end }}
+        </div>
+        */}}
+        {{ partial "meta/tags.html" . }}
+      </div>
+    {{- end -}}
+  </div>
+{{- end -}}

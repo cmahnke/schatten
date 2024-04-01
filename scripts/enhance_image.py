@@ -61,6 +61,7 @@ def main(argv) -> int:
     parser = argparse.ArgumentParser(prog='enhance_image.py')
     parser.add_argument('--input', '-i', required=True, help='input')
     parser.add_argument('--output', '-o', help='output')
+    parser.add_argument('--keep', '-k', default=False, action='store_true', help='keep intermediate files')
     args = parser.parse_args()
 
     if ultrahdr_app_bin == '' or os.path.isfile(ultrahdr_app_bin) and os.access(ultrahdr_app_bin, os.X_OK):
@@ -74,7 +75,8 @@ def main(argv) -> int:
     else:
         output = f"{input}-out.jpg"
     yuv_output = f"{output}.yuv"
-    atexit.register(os.remove, yuv_output)
+    if not args.keep:
+        atexit.register(os.remove, yuv_output)
 
     with Image.open(input) as im:
         #Crop if needed

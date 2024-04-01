@@ -6,12 +6,14 @@ $font-color-body: $text-color;
 $secondary-icon-color: #69c;
 $text-font: 'Special Elite', courier;
 $special-font: 'Special Elite', sans-serif;
+$heading-font: '';
 
 @import "icons";
 @import "footer";
 @import "menu";
 @import "normalize";
 @import "fonts/special-elite";
+@import "404";
 
 html {
   scroll-behavior: smooth;
