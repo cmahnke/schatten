@@ -3,7 +3,7 @@
 set -e -o pipefail
 
 IMAGE_PREFIX=content
-IMAGE_PATTERN="*.jpeg"
+IMAGE_GLOB="-name *.jpg -o -name *.jpeg ! -name *-hdr*"
 
 SCRIPT=`dirname $0`/./enhance_image.py
 
@@ -26,7 +26,7 @@ JOBFILE=$(mktemp) # The GNU version of the tool is a step backwards, on BSD this
 mkdir -p ~/.parallel
 touch ~/.parallel/will-cite
 
-for IMAGE in `find "$IMAGE_PREFIX" -name "$IMAGE_PATTERN"`
+for IMAGE in `find "$IMAGE_PREFIX" $IMAGE_GLOB`
 do
     echo "Processing $IMAGE"
     DIR=`dirname $IMAGE`

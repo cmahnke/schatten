@@ -2,6 +2,7 @@
 title: Startseite
 src: mock.html
 layout: html-body
+draft: true
 ---
 
 Ein Entwurf für die Startseite

@@ -13,6 +13,7 @@ ignoreErrors = ["error-disable-taxonomy"]
 [languages]
   [languages.de]
     languagename = "Deutsch"
+    title = 'Nächtliche Schatten'
 
   [languages.de.params]
 
@@ -30,6 +31,7 @@ ignoreErrors = ["error-disable-taxonomy"]
 
   [languages.en]
     languagename = "English"
+    title = 'Nocturnal shadows'
 
     [languages.en.params]
 

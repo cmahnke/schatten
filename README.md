@@ -15,6 +15,11 @@ Nächtliche Schatten
 
 * https://university.webflow.com/lesson/variable-fonts?topics=layout-design
 
+# Theme
+* Flächig
+* SW, ggf grau
+* Animation der schrift
+
 ## Images
 
 * https://github.com/albertz/playground/blob/master/ultrahdr.py

@@ -1,0 +1,27 @@
+{{- $items := .Pages -}}
+{{- range .Translations -}}
+  {{- $items = $items | lang.Merge .Pages -}}
+{{- end -}}
+
+{{- $i := 1 -}}
+{{- range $items -}}
+  {{- if eq .Kind "section" -}}
+    {{ errorf "[section-list.html] Handling of sections not implemented yet; %s" .File.Dir }}
+  {{- end -}}
+
+  {{- $slug := lower (path.Base .File.Dir) -}}
+  {{- $class := "" -}}
+  {{- if .Params.type -}}
+    {{ $class = .Params.type }}
+  {{- end -}}
+  {{- if .Weight -}}
+    {{ $class = printf "%s row%s" $class .Weight }}
+  {{- else -}}
+    {{ $class = printf "%s row%d" $class $i }}
+  {{- end -}}
+
+  <div class="item card {{ $slug }} {{ $class }}" id="{{ $slug }}">
+    {{- partial "item.html" . -}}
+  </div>
+  {{- $i = add $i 1 -}}
+{{- end -}}

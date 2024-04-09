@@ -1,3 +1,23 @@
 <div class="post-content">
-  {{ .Content }}
+  <div class="post-text">
+    {{- .Content -}}
+  </div>
+
+  <div class="images">
+    {{- $hdrSuffix := "-hdr" -}}
+    {{- $imageResources := "" -}}
+    {{- $class := "" -}}
+    {{- if (.Resources.Match (printf "*%s.jp*" $hdrSuffix)) -}}
+      {{- $imageResources = .Resources.Match (printf "*%s.jp*" $hdrSuffix) -}}
+      {{- $class = "hdr" -}}
+    {{- else if (.Resources.Match "*.jp*")  -}}
+      {{- $imageResources = .Resources.Match "*.jp*" -}}
+      {{- $class = "sdr" -}}
+    {{- end -}}
+    {{- with $imageResources -}}
+      {{- range . -}}
+        <img src="{{ .RelPermalink }}" class="post-image {{ $class }}">
+      {{- end -}}
+    {{- end -}}
+  </div>
 </div>

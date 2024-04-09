@@ -15,3 +15,5 @@ PYTHON=`./themes/projektemacher-base/scripts/find-python3.sh` ./scripts/hdr.sh
 if [ -d ./scripts/post-build ] ; then
     echo "Don't forget to run post build scripts after 'hugo'!"
 fi
+
+./themes/projektemacher-base/scripts/saxon.sh -s:themes/projektemacher-base/static/images/cm.svg  -xsl:themes/projektemacher-base/scripts/xslt/svg-clippath.xsl -o:static/images/svgs/cm-clippath.svg

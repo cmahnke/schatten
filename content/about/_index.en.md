@@ -1,8 +1,8 @@
 ---
 title: About
-date: 2024-03-29T19:01:09+02:00
 metaPage: true
 displayInList: false
+weight: 2
 ---
 # Introduction
 
@@ -21,6 +21,9 @@ Tags with less then three occurrences aren't shown.
 This page(s) have been generated with [Hugo](https://gohugo.io/).
 
 The page is hosted by [GitHub](https://github.com/).
+
+### HDR
+The HDR converter has been [inspired](https://github.com/albertz/playground/blob/master/ultrahdr.py) by the work of [Albert Zeyer](http://www.az2000.de/)
 
 # Contact
 

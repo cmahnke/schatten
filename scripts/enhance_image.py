@@ -32,6 +32,10 @@ def safe_yuv(img, name):
     if len(img.shape) < 3:
         img = cv.cvtColor(img, cv.COLOR_GRAY2BGR)
     height, width, channels = img.shape
+
+    args = ['ffmpeg', '-i', 'pipe:', '-filter:v', 'format=p010', name]
+    cprint(f"$ {' '.join(args)}", 'yellow')
+
     converter = (
         ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f"{width}x{height}")
         .filter("format", "p010").output(name).overwrite_output().run_async(pipe_stdin=True)
@@ -81,9 +85,16 @@ def main(argv) -> int:
     with Image.open(input) as im:
         #Crop if needed
         w, h = im.size
-        w -= w % 2
-        h -= h % 2
-        im = im.crop((0, 0, w, h))
+        new_w, new_h = im.size
+        new_w -= w % 2
+        new_h -= h % 2
+        im = im.crop((0, 0, new_w, new_h))
+        if w != new_w or h != new_h:
+            temp_input = f"{input}-tmp.jpg"
+            if not args.keep:
+                atexit.register(os.remove, temp_input)
+            im.save(temp_input)
+            input = temp_input
         # Convert PIL to opencv
         img = cv.cvtColor(np.array(im.convert('RGB')), cv.COLOR_RGB2BGR)
         if len(pipeline):
@@ -92,8 +103,8 @@ def main(argv) -> int:
 
         #show_write(img, output)
     safe_yuv(img, yuv_output)
-    args = [ultrahdr_app_bin, "-m", "0", "-p", yuv_output, "-i", input, "-w", str(w), "-h", str(h)]
-    print("$", " ".join(args))
+    args = [ultrahdr_app_bin, "-m", "0", "-p", yuv_output, "-i", input, "-w", str(new_w), "-h", str(new_h)]
+    cprint(f"$ {' '.join(args)}", 'yellow')
     subprocess.check_call(args)
     hdr_out = os.path.join(os.getcwd(), 'out.jpeg')
     print(f"Renaming {hdr_out} to {output}")

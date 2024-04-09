@@ -1,5 +1,5 @@
 {{- if isset .Params "tags" -}}
-  <ul class="tags">
+  <ul class="post-tags">
     <h3 class="tags-head">{{ i18n "tags" }}:</h3>
     {{ range $tag := .Params.tags }}
       {{ $tagTranslation := (i18n $tag) }}

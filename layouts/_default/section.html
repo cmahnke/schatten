@@ -14,8 +14,13 @@
 
   {{ $title }} · {{ .Site.Title }}
 {{ end }}
+
 {{ define "content" }}
-    <main role="main" class="single">
-      {{ partial "item.html" . }}
-    </main>
-{{ end }}
+  <main role="main" class="section">
+    {{- if .IsHome -}}
+      {{- partial "home.html" -}}
+    {{- end -}}
+    {{/* TODO: Check if we need this */}}
+    {{- partial "page-sections.html" . -}}
+  </main>
+{{- end -}}

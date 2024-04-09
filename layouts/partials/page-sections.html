@@ -1,0 +1,23 @@
+{{- $context := . -}}
+{{- $sections := where .Pages "Kind" "section" -}}
+{{/* TODO: Filter subsections if they have been intoduced
+{{- $sections = where $sections "section" .CurrentSection -}}
+*/}}
+{{- $i := 1 -}}
+
+{{- range $sections -}}
+  {{- $slug := lower (path.Base .File.Dir) -}}
+  {{- $class := "" -}}
+  {{- if .Weight -}}
+    {{ $class = printf "column%d" .Weight }}
+  {{- else -}}
+    {{ $class = printf "%s column%d" $class $i }}
+  {{- end -}}
+  <div class="section column {{ $slug }} {{ $class }}" id="{{ $slug }}">
+    {{- if and $context.IsHome (eq $i 1) -}}
+      {{- partial "home.html" . -}}
+    {{- end -}}
+    {{- partial "section-list.html" . -}}
+  </div>
+  {{- $i = add $i 1 -}}
+{{- end -}}

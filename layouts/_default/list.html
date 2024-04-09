@@ -1,0 +1,30 @@
+{{ define "title" }}
+  {{- .Title }} · {{ .Site.Title -}}
+{{ end }}
+{{ define "content" }}
+  {{- $class := "" -}}
+  {{- if .IsHome -}}
+    {{- $class = "home" -}}
+  {{- else if and (ne .Path nil) (hasPrefix .Path "/tags") -}}
+    {{- $class = "tags" -}}
+  {{- end -}}
+  <main role="main" class="list {{ $class }}">
+    {{- if .IsHome -}}
+      {{- partial "page-sections.html" . -}}
+    {{- else  if and (ne .Path nil) (hasPrefix .Path "/tags") -}}
+      {{ $tagTranslation := (i18n .Title) }}
+      {{- if eq $tagTranslation "" -}}
+        {{- $tagTranslation = .Title -}}
+      {{- end -}}
+      <div class="tag-header">
+        <h1 class="tag-title">{{ i18n "allTags" }} {{ $tagTranslation }}</h1>
+      </div>
+      {{- errorf "[list.html] There shouldn't be any tags!" -}}
+    {{- else -}}
+      {{- errorf "[list.html] There shouldn't be any lists" -}}
+      {{- range . -}}
+        {{- partial "list-item.html" . -}}
+      {{- end -}}
+    {{- end -}}
+  </main>
+{{ end }}

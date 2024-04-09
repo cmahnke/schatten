@@ -1,0 +1,25 @@
+<div class="menu">
+  {{ partial "menu.html" . }}
+</div>
+<header class="header header-container header-menu {{ if .IsHome }}home{{ end }}" id="head">
+  <ul class="header-menu-list">
+    {{- $sections := where .Pages "Kind" "section" -}}
+    {{- range $sections -}}
+      {{- $slug := lower (path.Base .File.Dir) -}}
+      <li class='menu-item {{ $slug }}'>
+        <a href="#{{ $slug }}">{{ .Title }}</a>
+      </li>
+    {{- end -}}
+    {{/*
+    {{- with .Site.Menus.main -}}
+      {{- range sort . -}}
+        {{- if ne (path.Base .URL) "/" -}}
+          <li class='menu-item {{ if eq ("/") (.URL) }}menu-item-type-custom menu-item-object-custom{{ else }}menu-item-type-post_type menu-item-object-page{{ end }}'>
+            <a href="{{ .URL | absLangURL }}">{{ .Name }}</a>
+          </li>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    */}}
+  </ul>
+</header>

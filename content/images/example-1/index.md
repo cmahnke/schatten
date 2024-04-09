@@ -1,0 +1,10 @@
+---
+title: "Example post #1"
+resources:
+- name: image-:counter
+  src: img*.jpeg
+---
+
+This is a made up digital example file. This will be used to:
+* Check if the enhancer works
+* Have an example to build an example

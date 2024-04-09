@@ -1,0 +1,25 @@
+.card.home {
+  min-height: 100vh;
+  padding-block-start: 2em;
+}
+
+.section.column {
+  /*scroll-snap-type: x mandatory;*/
+  scroll-snap-type: y mandatory;
+
+  &.column1 {
+
+  }
+
+  &.column2 {
+    display: none;
+
+  }
+
+  .card.item,
+  .card.home {
+    scroll-snap-align: start end;
+    max-height: 100vh;
+  }
+
+}
