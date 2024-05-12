@@ -1,25 +1,79 @@
-.card.home {
-  min-height: 100vh;
-  padding-block-start: 2em;
-}
+@use 'sass:color';
 
-.section.column {
-  /*scroll-snap-type: x mandatory;*/
-  scroll-snap-type: y mandatory;
+main {
+  /* Make sure this covers the whole screen */
+  display: flex;
 
-  &.column1 {
+  &.home {
+    /*
+    display: flex;
+    flex-direction: row;
+    */
+
+    .card.home {
+      min-height: 100vh;
+      padding-block-start: 2em;
+    }
+
+    .section.column {
+      /*scroll-snap-type: x mandatory;*/
+
+      display: inline-block;
+
+      &.active {
+        scroll-snap-type: y mandatory;
+      }
+
+      &.active {
+        flex-basis: 100%;
+        transition: all 400ms linear;
+      }
+
+      &.inactive {
+        flex-basis: 3%;
+        min-width: 2em;
+        overflow: hidden;
+        background-color: color.adjust(black, $lightness: 15%);
+        transition: all 400ms linear;
+        /* TODO: Add Arrow icons */
+
+        &.left {
+
+        }
+
+        &.right {
+
+        }
+      }
+
+      &.column1, &.column2 {
+
+
+
+
+      }
+    }
+/*
+      &.column2 {
+
+        &.active {
+          flex-basis: calc(100% - 1em);
+        }
+
+        &.inactive {
+          flex-basis: 1em;
+          overflow: hidden;
+          ba
+        }
+
+      }
+*/
+    .card.item,
+    .card.home {
+      scroll-snap-align: start end;
+      max-height: 100vh;
+    }
+
 
   }
-
-  &.column2 {
-    display: none;
-
-  }
-
-  .card.item,
-  .card.home {
-    scroll-snap-align: start end;
-    max-height: 100vh;
-  }
-
 }

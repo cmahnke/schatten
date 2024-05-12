@@ -1,0 +1,197 @@
+
+/*
+html {
+  overflow: hidden;
+  height: 100vh;
+  scrollbar-width: none;
+}
+*/
+
+html {
+  scroll-snap-type: both mandatory;
+  scroll-behavior: smooth;
+  /* TODO: Enable this, only needed for debug
+  scrollbar-width: none;
+  */
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+body {
+  margin: unset;
+  height: 100vh;
+}
+
+.header {
+  background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, var(--background) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: brightness(100%) blur(3px);
+}
+
+section {
+  background-color: #000000;
+  color: white;
+}
+
+.stack-switcher {
+
+  .left,
+  .right,
+  .up,
+  .down {
+    position: fixed;
+    color: white;
+    background : url('/Arrow.svg');
+    height: 1em;
+    width: 2em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 100ms;
+
+    &:hover {
+      transition: 100ms;
+      transform: scale(1.1);
+    }
+
+    &.hidden {
+      transition: 100ms;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .left,
+  .right {
+
+    top: 50vh;
+    vertical-align: middle;
+  }
+
+  .left {
+    left: 1em;
+    transform: rotate(90deg);
+    &:hover {
+      transition: 100ms;
+      transform: rotate(90deg) scale(1.2);
+    }
+  }
+
+  .right {
+    left: calc(100vw - 2em);
+    transform: rotate(270deg);
+    &:hover {
+      transition: 100ms;
+      transform: rotate(270deg) scale(1.2);
+    }
+  }
+
+  .up,
+  .down {
+    height: 1em;
+    width: 2em;
+    left: 50vw;
+  }
+
+  .up {
+    top: 1em;
+    transform: rotate(180deg);
+    &:hover {
+      transition: 100ms;
+      transform: rotate(180deg) scale(1.2);
+    }
+  }
+
+  .down {
+    bottom: 1em;
+    &:hover {
+      transition: 100ms;
+      transform: scale(1.2);
+    }
+  }
+
+}
+
+menu {
+  display: none;
+}
+
+.cards {
+  display: flex;
+  width: 190vw;
+  position: relative;
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border: 1px solid black;
+    flex-direction: column;
+    flex-basis: calc(100vw - 2em);
+    scroll-snap-align: start;
+
+
+    section {
+      display: flex;
+      flex-direction: row;
+      border: 1px solid red;
+      min-height: calc(100vh - 2em);
+      scroll-snap-align: start;
+      /* Center content */
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+
+
+}
+
+
+/*
+.cards {
+
+  display: flex;
+  scroll-snap-type: x mandatory;
+  flex-direction: row;
+  overflow: scroll;
+  height: 100vh;
+
+
+  section {
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    flex-basis: 95vw;
+
+    section {
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: row;
+      border: 1px solid red;
+      min-height: 95vh;
+    }
+
+  }
+
+}
+*/
+
+/*
+.slide-number,
+.progress {
+  display: none;
+}
+
+
+*/
+/*
+section.present {
+  color: yellow;
+}
+*/

@@ -1,5 +1,13 @@
 <div class="post-content">
-  <div class="post-text">
+  {{- $contentClass := "" -}}
+  {{- $contentStyle := ""  -}}
+  {{- if (isset .Params "class") -}}
+    {{- $contentClass = .Params.class -}}
+  {{- end -}}
+  {{- if (isset .Params "style") -}}
+    {{- $contentStyle = .Params.style -}}
+  {{- end -}}
+  <div class="post-text {{ $contentClass }}" style="{{ $contentStyle }}">
     {{- .Content -}}
   </div>
 
@@ -16,7 +24,15 @@
     {{- end -}}
     {{- with $imageResources -}}
       {{- range . -}}
-        <img src="{{ .RelPermalink }}" class="post-image {{ $class }}">
+        {{- $ar := printf "aspect-ratio: %d / %d;" .Height .Width -}}
+        {{- $bg := printf "background-image: url(%s);" .RelPermalink  -}}
+        <div class="image-container" style="{{ $ar | safeCSS }}">
+          <div class="single-image" style="{{ $bg | safeCSS }}">
+          </div>
+          {{/*
+          <img src="{{ .RelPermalink }}" class="post-image {{ $class }}">
+        */}}
+        </div>
       {{- end -}}
     {{- end -}}
   </div>

@@ -1,7 +1,7 @@
-<div class="menu">
-  {{ partial "menu.html" . }}
-</div>
 <header class="header header-container header-menu {{ if .IsHome }}home{{ end }}" id="head">
+  <div class="menu">
+    {{ partial "menu.html" . }}
+  </div>
   <ul class="header-menu-list">
     {{- $sections := where .Pages "Kind" "section" -}}
     {{- range $sections -}}

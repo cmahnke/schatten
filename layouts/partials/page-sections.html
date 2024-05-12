@@ -13,6 +13,11 @@
   {{- else -}}
     {{ $class = printf "%s column%d" $class $i }}
   {{- end -}}
+  {{- if eq $i 1 -}}
+    {{ $class = printf "%s initial active" $class }}
+  {{- else -}}
+    {{ $class = printf "%s inactive" $class }}
+  {{- end -}}
   <div class="section column {{ $slug }} {{ $class }}" id="{{ $slug }}">
     {{- if and $context.IsHome (eq $i 1) -}}
       {{- partial "home.html" . -}}
