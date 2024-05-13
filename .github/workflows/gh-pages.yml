@@ -44,7 +44,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.124.2'
+          hugo-version: '0.124.7'
           extended: true
 
       - name: Build Hugo site
@@ -54,6 +54,9 @@ jobs:
         run: |
           ./themes/projektemacher-base/scripts/init/package.json.sh
           ./themes/projektemacher-base/scripts/github/check-js-errors.sh
+
+      - name: Archive links
+        run: python ./themes/projektemacher-base/scripts/archive.py -d docs/ -e schatten.yaapb.projektemacher.org,projektemacher.org
 
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v4

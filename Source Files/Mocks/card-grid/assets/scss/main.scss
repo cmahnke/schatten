@@ -1,3 +1,8 @@
+:root {
+  --background-color: #000;
+  --text-color: #fff;
+}
+
 
 /*
 html {
@@ -10,6 +15,7 @@ html {
 html {
   scroll-snap-type: both mandatory;
   scroll-behavior: smooth;
+  background-color: var(--background-color);
   /* TODO: Enable this, only needed for debug
   scrollbar-width: none;
   */
@@ -23,17 +29,12 @@ html {
 body {
   margin: unset;
   height: 100vh;
-}
-
-.header {
-  background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, var(--background) 1px);
-  background-size: 4px 4px;
-  backdrop-filter: brightness(100%) blur(3px);
+  position: relative;
 }
 
 section {
-  background-color: #000000;
-  color: white;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .stack-switcher {
@@ -43,7 +44,7 @@ section {
   .up,
   .down {
     position: fixed;
-    color: white;
+    color: var(--text-color);
     background : url('/Arrow.svg');
     height: 1em;
     width: 2em;
@@ -114,8 +115,84 @@ section {
 
 }
 
+menu.burger-menu {
+  /*display: none;*/
+  background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, var(--background-color) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: brightness(100%) blur(3px);
+  position: fixed;
+  top: 1em;
+  left: 50vw;
+  z-index: 5;
+  color: var(--text-color);
+  gap: .4rem;
+
+  li {
+    display: inline-block;
+
+    ul {
+
+      li {
+        display: block;
+      }
+
+    }
+
+  }
+}
+
 menu {
-  display: none;
+  list-style-type: none;
+  margin-block-start: unset;
+  margin-block-end: unset;
+  padding-inline-start: unset;
+  display: flex;
+
+  ul {
+    list-style-type: none;
+    margin-block-start: unset;
+    margin-block-end: unset;
+    padding-inline-start: unset;
+  }
+}
+
+menu.lang-switch {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: var(--text-color);
+  background: transparent;
+  font-size: 2em;
+  z-index: 5;
+  align-items: center;
+  gap: .4rem;
+  /*
+  border: dashed value(--text-color);
+  padding: .4rem;
+  aspect-ratio: 19/10;
+  */
+
+  li {
+    display: inline-block;
+    transition: all 200ms linear;
+
+    &.active {
+      transition: all 200ms linear;
+    }
+
+    &.hidden {
+      transition: all 200ms linear;
+      transform: scale(0, 1);
+      transform-origin: left;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+      transition: all 200ms linear;
+    }
+
+  }
+
 }
 
 .cards {
