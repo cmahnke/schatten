@@ -1,0 +1,25 @@
+<nav class="menu">
+  <input class="burger-menu-button" type="checkbox" aria-label="Hamburger Menu Button" aria-expanded="true">
+  <div class="burger-menu-icon">
+    <span></span>
+    <span></span>
+  </div>
+  <menu id="menu" class="burger-menu-overlay">
+    {{- $sections := where .Pages "Kind" "section" -}}
+    {{- range $i, $section := $sections -}}
+      <li class="stack-menu">
+        <lh class="menu-heading">{{- $section.Title -}}</lh>
+        <ul>
+          {{- $items := $section.Pages -}}
+          {{- range $items -}}
+            {{- $slug := lower (path.Base .File.Dir) -}}
+            <li><a hef="#{{ $slug }}">{{ .Title }}</a></li>
+          {{- end -}}
+        </ul>
+      <li>
+      {{- if lt (add $i 1) (len $sections) -}}
+        <li class="seperator"></li>
+      {{- end -}}
+    {{- end -}}
+  </menu>
+</nav>

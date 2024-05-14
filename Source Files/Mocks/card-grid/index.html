@@ -6,51 +6,62 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<title>Mock with scroll snapping</title>
-	<link rel="stylesheet" href="./assets/scss/main.scss">
+	<link rel="stylesheet" href="./assets/scss/base.scss">
 
 </head>
 
 <body>
 	<menu class="lang-switch">
-		<li>DE</li>
-		<li>EN</li>
+		<li class="active">DE</li>
+		<li class="inactive">EN</li>
 	</menu>
 
-	<menu class="burger-menu">
-		<li>
-			<ul>
-				<li>Start</li>
-				<li>Images</li>
-			</ul>
-		</li>
-		<li>
-			<ul>
-				<li>Light</li>
-				<li>Metamodernism</li>
-				<li>Colophon</li>
-			</ul>
-		</li>
-	</menu>
+	<nav class="menu">
+
+		<input class="burger-menu-button" type="checkbox" aria-label="Hamburger Menu Button" aria-expanded="true">
+		<div class="burger-menu-icon">
+			<span></span>
+			<span></span>
+		</div>
+		<menu id="menu" class="burger-menu-overlay">
+			<li class="stack-menu">
+				<lh class="menu-heading">Images</lh>
+				<ul>
+					<li><a href=#example1>Example 1</a></li>
+					<li>Example 2</li>
+				</ul>
+			</li>
+			<li class="seperator"></li>
+			<li class="stack-menu">
+				<lh class="menu-heading">About</lh>
+				<ul>
+					<li>Light</li>
+					<li>Metamodernism</li>
+					<li>Colophon</li>
+				</ul>
+			</li>
+		</menu>
+	</nav>
 
 
 	<div class="cards">
-		<section class="stack">
-			<section>
+		<section class="stack column">
+			<section class="card" data-slug="example1">
 				photo 1
 			</section>
-			<section>
+			<section class="card">
 				photo 2
 			</section>
 		</section>
 
-		<section class="stack">
-			<section>
+		<section class="stack column">
+			<section class="card">
 				Text 1
 			</section>
-			<section>
+			<section class="card">
 				Text 2
 			</section>
-			<section data-markdown>
+			<section class="card" data-markdown>
 				# Links to check
 
 				* https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2

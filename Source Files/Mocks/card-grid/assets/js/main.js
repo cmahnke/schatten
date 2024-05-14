@@ -7,17 +7,24 @@ const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--ba
 const maxShade = 20; // In percent
 const colorSteps = 255 / 100 * maxShade;
 const lang = 'de';
+const directions = ['left', 'right', 'up', 'down'];
 
 function generateURLFragment(col, row, fragment) {
+  var id;
   if (fragment === undefined) {
-    window.location.hash = `${col}/${row}`;
+     id = `${col}/${row}`;
   } else {
-    window.location.hash = `${col}/${row}/${fragment}`;
+    id = `${col}/${row}/${fragment}`;
   }
+  const target = document.getElementById(id);
+  if (target !== null && 'slug' in target.dataset) {
+    id = target.dataset['slug'];
+  }
+  window.location.hash = id
 }
 
 function toggleNav(elem) {
-  var directions = ['left', 'right', 'up', 'down'];
+
   for (const direction of directions) {
     if (direction in elem.dataset) {
       const clickHandler = () => {
@@ -80,6 +87,22 @@ function handleCardIntersect(entries, observer) {
   });
 }
 
+function findTarget(target) {
+  var targetElem = document.getElementById(target);
+  if (targetElem == null) {
+    targetElem = document.querySelector(`*[data-slug='${target}']`);
+  }
+  return targetElem;
+}
+
+function menuLinkHandler(e) {
+  var target = e.target.href.split('#')[1]
+  var targetElem = findTarget(target);
+  e.preventDefault();
+  //TODO: Close menu
+  targetElem.scrollIntoView();
+}
+
 function buildThresholdList(numSteps) {
   let thresholds = [];
   for (let i = 1.0; i <= numSteps; i++) {
@@ -136,6 +159,7 @@ function setupGrid(root, columnSelector, cardSelector) {
       console.log(`Inserting at ${i}, after ${grid[i]}`);
       var newCard = document.createElement(cardSelector);
       newCard.classList.add('__inserted');
+      newCard.classList.add('card');
       newCard.dataset.row = maxCards;
       newCard.dataset.col = i;
 
@@ -200,7 +224,6 @@ function setupGrid(root, columnSelector, cardSelector) {
 }
 
 function setupNav(selector) {
-  var directions = ['left', 'right', 'up', 'down'];
   if (selector === undefined) {
     for (const direction of directions) {
       selector += `nav.stack-switcher .${direction},`
@@ -210,8 +233,15 @@ function setupNav(selector) {
   document.querySelectorAll(selector).forEach((arrow) => {
     arrow.classList.add('hidden');
   });
+  //TODO: This doen't always work
+  document.addEventListener('scroll', () => {
+    document.querySelectorAll(selector).forEach((arrow) => {
+      arrow.classList.add('hidden');
+    });
+  });
 }
 
+// TODO: Remove for production
 function parseMarkdown() {
   document.querySelectorAll('*[data-markdown]').forEach((text) => {
     var content = text.innerText || text.textContent;
@@ -219,17 +249,6 @@ function parseMarkdown() {
     text.innerHTML = parsed;
     /* console.log(`${content} -> ${parsed}`); */
   });
-}
-
-function setupMenu(selector) {
-  if (selector === undefined) {
-    selector = 'menu.burger-menu';
-  }
-  const menu = document.querySelector(selector);
-  menu.addEventListener('click', () => {
-
-  });
-
 }
 
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
@@ -241,14 +260,15 @@ function setupLangSwitch(curLang, selector) {
 
   switcher.addEventListener('click', () => {
     switcher.querySelectorAll(`li`).forEach((lang) => {
-      lang.classList.remove('hidden');
+      lang.classList.remove('inactive');
     });
   });
 
+  // TODO: This doesn't really work as intended
   switcher.addEventListener('mouseout', () => {
     switcher.querySelectorAll(`li`).forEach((lang) => {
       if (!lang.classList.contains('active')) {
-        lang.classList.add('hidden');
+        lang.classList.add('inactive');
       }
     });
   });
@@ -264,18 +284,57 @@ function setupLangSwitch(curLang, selector) {
 
 }
 
+function textEffects (selector) {
+  if (selector === undefined) {
+    selector = '.card *';
+  }
+  document.querySelectorAll(selector).forEach((fragment) => {
+
+  });
+
+}
+
+function setupMenu() {
+  document.querySelectorAll('#menu a').forEach((link) => {
+    link.addEventListener('click', menuLinkHandler);
+  });
+
+  document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
+    if (e.target.checked) {
+        e.target.setAttribute('aria-expanded', "true");
+        document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + "px";
+        document.body.classList.add('no-scroll');
+    } else {
+        e.target.setAttribute('aria-expanded', "false");
+        document.body.classList.remove('no-scroll');
+        document.body.style.paddingRight = 0 + "px";
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
   setupGrid('.cards', '.stack', 'section');
   let observer = new IntersectionObserver(handleCardIntersect, {root: null, rootMargin: "0px", threshold: buildThresholdList(colorSteps)});
   setupNav();
   parseMarkdown();
+  setupMenu();
   setupLangSwitch(lang);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
+
   if (window.location.hash !== '') {
-    console.log(`Moving to ${window.location.hash}`)
+    var id;
+    var target = document.querySelector(`*[data-slug='${window.location.hash}']`);
+    if (target !== null && 'id' in target) {
+      id = target.id;
+    } else {
+      id = window.location.hash;
+    }
+
+
+    console.log(`Moving to ${id}`)
   }
 
 

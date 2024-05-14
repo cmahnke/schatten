@@ -13,6 +13,10 @@
         <meta name="projektemacher:notes" content="{{ .Params.notes }}">
     {{- end -}}
 
+
+    {{- partial "opengraph.html" . -}}
+    {{- partial "google_analytics.html" . -}}
+
     {{- partial "html/head/style.html" (dict "context" . "css" "css/style.css") -}}
     {{- partial "html/head/script.html" (dict "js" (partial "html/head/iiif-js.html" .)) -}}
 

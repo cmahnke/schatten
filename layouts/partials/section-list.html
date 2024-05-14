@@ -20,8 +20,8 @@
     {{ $class = printf "%s row%d" $class $i }}
   {{- end -}}
 
-  <div class="item card {{ $slug }} {{ $class }}" id="{{ $slug }}">
+  <section class="item card {{ $slug }} {{ $class }}" data-slug="{{ $slug }}">
     {{- partial "item.html" . -}}
-  </div>
+  </section>
   {{- $i = add $i 1 -}}
 {{- end -}}

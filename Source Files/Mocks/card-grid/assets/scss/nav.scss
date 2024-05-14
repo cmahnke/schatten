@@ -1,0 +1,88 @@
+.stack-switcher {
+
+  .left,
+  .right,
+  .up,
+  .down {
+    pointer-events: all;
+    position: fixed;
+    color: var(--text-color);
+    background : url('/Arrow.svg');
+    height: 1em;
+    width: 2em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 100ms;
+    transform-origin: center;
+    cursor: pointer;
+    z-index: 5;
+    /*padding: .2em;*/
+
+    &:hover {
+      transition: 100ms;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    &.hidden {
+      transition: 100ms;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .left,
+  .right {
+
+    top: 50%;
+    vertical-align: middle;
+  }
+
+  .left {
+    left: 1em;
+    transform: translate(0%, -50%) rotate(90deg);
+    &:hover {
+      transition: 100ms;
+      transform: translate(-20%, -50%) rotate(90deg) scale(1.2);
+    }
+  }
+
+  .right {
+    left: calc(100vw - 2em);
+    transform: translate(0%, -50%) rotate(270deg);
+
+
+    &:hover {
+      transition: 100ms;
+      transform: translate(20%, -50%) rotate(270deg) scale(1.2);
+    }
+  }
+
+  .up,
+  .down {
+    height: 1em;
+    width: 2em;
+    left: 50%;
+  }
+
+  .up {
+    top: 1em;
+    transform: translate(-50%, 0%) rotate(180deg);
+
+    &:hover {
+      transition: 100ms;
+      transform: translate(-50%, -20%) rotate(180deg) scale(1.2);
+    }
+  }
+
+  .down {
+    bottom: 1em;
+    transform: translate(-50%, 0%);
+
+    &:hover {
+      transition: 100ms;
+      transform: translate(-50%, 20%) scale(1.2);
+    }
+  }
+
+}

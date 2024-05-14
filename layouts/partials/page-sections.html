@@ -18,11 +18,11 @@
   {{- else -}}
     {{ $class = printf "%s inactive" $class }}
   {{- end -}}
-  <div class="section column {{ $slug }} {{ $class }}" id="{{ $slug }}">
+  <section class="stack section column {{ $slug }} {{ $class }}" data-slug="{{ $slug }}">
     {{- if and $context.IsHome (eq $i 1) -}}
       {{- partial "home.html" . -}}
     {{- end -}}
     {{- partial "section-list.html" . -}}
-  </div>
+  </section>
   {{- $i = add $i 1 -}}
 {{- end -}}

@@ -74,3 +74,7 @@ ignoreErrors = ["error-disable-taxonomy"]
     rightAngleQuote = '&raquo;'
     rightDoubleQuote = '&rdquo;'
     rightSingleQuote = '&rsquo;'
+
+[services]
+  [services.googleAnalytics]
+    ID = 'G-S4Y6YQ7EHQ'
