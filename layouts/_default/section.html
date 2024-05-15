@@ -17,6 +17,8 @@
 
 {{ define "content" }}
   <main role="main" class="section">
+    {{- partial "lang-switcher.html" . -}}
+    {{- partial "menu.html" . -}}
     {{- if .IsHome -}}
       {{- partial "home.html" -}}
     {{- end -}}

@@ -4,9 +4,21 @@
 
 window.addEventListener("load", (event) => {
   slider();
+  links();
 });
 
 
+function links() {
+  const links = document.querySelectorAll('a');
+  links.forEach((link) => {
+    const href = link.getAttribute("href")
+    if (href.startsWith('#')) {
+      console.log(href);
+    }
+
+
+  });
+}
 
 function slider() {
   const inactive = document.querySelectorAll('.section.column.inactive');

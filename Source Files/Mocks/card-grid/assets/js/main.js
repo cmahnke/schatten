@@ -288,6 +288,9 @@ function textEffects (selector) {
   if (selector === undefined) {
     selector = '.card *';
   }
+
+//.post-text
+//.post-title
   document.querySelectorAll(selector).forEach((fragment) => {
 
   });

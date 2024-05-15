@@ -9,6 +9,8 @@
     {{- $class = "tags" -}}
   {{- end -}}
   <main role="main" class="list {{ $class }}">
+    {{- partial "lang-switcher.html" . -}}
+    {{- partial "menu.html" . -}}
     {{- if .IsHome -}}
       {{- partial "page-sections.html" . -}}
     {{- else  if and (ne .Path nil) (hasPrefix .Path "/tags") -}}

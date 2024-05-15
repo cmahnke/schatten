@@ -8,3 +8,4 @@
     enablePDFViewer = false
     copyrightYears = "MMXXIV"
     disableScale = true
+    disableOpenGraph = true

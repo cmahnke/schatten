@@ -1,5 +1,9 @@
 #head {
-  width: 100%;
+  width: calc(100% - 3% * 2);
+  max-width: calc(100% - 4em);
+  padding-top: 2em;
+  left: 3%;
+  right: 3%;
 
   &.header-menu {
     position: fixed;

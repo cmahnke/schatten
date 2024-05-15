@@ -14,8 +14,10 @@
     {{- end -}}
 
 
-    {{- partial "opengraph.html" . -}}
-    {{- partial "google_analytics.html" . -}}
+    {{- template "_internal/opengraph.html" . -}}
+    {{- if not hugo.IsServer -}}
+      {{- template "_internal/google_analytics.html" . -}}
+    {{- end -}}
 
     {{- partial "html/head/style.html" (dict "context" . "css" "css/style.css") -}}
     {{- partial "html/head/script.html" (dict "js" (partial "html/head/iiif-js.html" .)) -}}

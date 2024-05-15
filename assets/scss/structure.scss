@@ -15,7 +15,8 @@ main {
       padding-block-start: 2em;
     }
 
-    .section.column {
+    .section.column,
+    .stack {
       /*scroll-snap-type: x mandatory;*/
 
       display: inline-block;

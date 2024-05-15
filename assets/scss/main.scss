@@ -36,6 +36,7 @@
   .page-title {
     position: relative;
     max-width: 100vw;
+    margin-block-start: 10vh;
 
     .home-title {
       mix-blend-mode: unset;
@@ -55,6 +56,7 @@
 
 /* ---------- post ----------- */
 
+.card,
 .item {
   max-height: 100vh;
 
