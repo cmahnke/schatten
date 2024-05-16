@@ -78,3 +78,10 @@ ignoreErrors = ["error-disable-taxonomy"]
 [services]
   [services.googleAnalytics]
     ID = 'G-S4Y6YQ7EHQ'
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false

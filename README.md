@@ -35,3 +35,13 @@ Nächtliche Schatten
 
 * https://www.reddit.com/r/Python/comments/1ac8ooy/playing_around_with_ultra_hdr/
 * https://github.com/albertz/playground/blob/master/ultrahdr.py
+
+# TODO
+* Cookie banner
+  * Add close button
+  * Check if external requests are blocked if declined
+* HDR detection
+  * Bundle as library
+* Finish mock in Source Files/Mocks/card-grid
+* Transplant mock code to assets
+* Write texts

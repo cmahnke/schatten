@@ -5,7 +5,7 @@
   --heading-font: '';
   --sub-heading-font: '';
   --menu-heading-font: 'Special Elite';
-  --menu-text-font: '';
+  --menu-text-font: 'Figtree';
 }
 
 
@@ -38,7 +38,9 @@ body {
 
   .no-scroll {
       overflow: hidden;
-      position: fixed;
+      position: static;
+      pointer-events: none;
+      /*position: fixed;*/
   }
 }
 

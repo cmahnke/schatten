@@ -1,4 +1,9 @@
 /*----- Imports -----*/
+import checkHDR from './hdr-check';
+
+/*----- Reexport -----*/
+
+window.checkHDR = checkHDR;
 
 /*----- Page functions -----*/
 
@@ -12,8 +17,10 @@ function links() {
   const links = document.querySelectorAll('a');
   links.forEach((link) => {
     const href = link.getAttribute("href")
-    if (href.startsWith('#')) {
+    if (href !== null && href.startsWith('#')) {
       console.log(href);
+    } else if (href == null) {
+      console.log('Link is missing href attribute: ', link);
     }
 
 

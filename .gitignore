@@ -15,3 +15,5 @@ static/images/title-bg.png
 patches/
 static/pdfjs/
 content/**/*-hdr.jpeg
+assets/jsconfig.json
+static/images/svgs/cm-clippath.svg

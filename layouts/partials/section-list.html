@@ -1,4 +1,4 @@
-{{- $items := .Pages -}}
+{{- $items := where .Pages "Params.grid" "ne" false -}}
 {{- range .Translations -}}
   {{- $items = $items | lang.Merge .Pages -}}
 {{- end -}}

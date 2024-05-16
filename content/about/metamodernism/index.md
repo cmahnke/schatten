@@ -1,3 +1,8 @@
+---
+title: "Metamoderne"
+weight: 2
+---
+
 
 Sachen explizit machen
 

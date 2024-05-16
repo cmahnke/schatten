@@ -8,6 +8,7 @@
   {{- else if and (ne .Path nil) (hasPrefix .Path "/tags") -}}
     {{- $class = "tags" -}}
   {{- end -}}
+  {{- partial "hdr-warning.html" . -}}
   <main role="main" class="list {{ $class }}">
     {{- partial "lang-switcher.html" . -}}
     {{- partial "menu.html" . -}}

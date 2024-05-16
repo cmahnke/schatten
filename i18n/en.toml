@@ -1,0 +1,5 @@
+[hdrWarning]
+other = 'This page offers HDR content that your monitor unfortunately does not support. Further information can be found on the <a href="https://gregbenzphotography.com/hdr/">HDR page by Greg Benz</a>.'
+
+[hdrOk]
+other = "Ok"

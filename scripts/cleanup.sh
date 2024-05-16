@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#cd i18n
-#rm *.toml
-#git checkout .
-rm static/images/title-bg.png
-find content/post -name "*-hdr.jpeg" -exec rm {} \;
+./themes/projektemacher-base/scripts/cleanup.sh
+
+find content -name "*-hdr.jpeg" -exec rm {} \;

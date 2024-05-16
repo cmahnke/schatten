@@ -13,7 +13,15 @@
           {{- $items := $section.Pages -}}
           {{- range $items -}}
             {{- $slug := lower (path.Base .File.Dir) -}}
-            <li><a hef="#{{ $slug }}">{{ .Title }}</a></li>
+            {{- $link := "" -}}
+            {{- if or (not (isset .Params "grid")) (eq .Params.grid true) -}}
+              {{- $link = printf "#%s" $slug -}}
+            {{- else -}}
+              {{- $link = .RelPermalink -}}
+            {{- end -}}
+            <li>
+              <a href="{{ $link }}">{{ .Title }}</a>
+            </li>
           {{- end -}}
         </ul>
       <li>

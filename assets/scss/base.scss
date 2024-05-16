@@ -21,6 +21,8 @@ $hdr-bg: url(/images/white-hdr.jpeg);
 @import "main";
 @import "structure";
 @import "nav";
+@import "services/cookie-consent";
+@import "hdr-warning";
 
 @font-face {
     font-family: "Handjet Variable";

@@ -15,6 +15,7 @@
 
 
     {{- template "_internal/opengraph.html" . -}}
+    {{- partial "html/head/dnt-cookie.html" . -}}
     {{- if not hugo.IsServer -}}
       {{- template "_internal/google_analytics.html" . -}}
     {{- end -}}
@@ -47,8 +48,9 @@
     {{ $class = printf "%s %s" $class "meta" }}
   {{ end }}
   <body class="{{ $class }} {{ if .IsHome }}home{{ end }}">
-    {{ partial "header.html" . }}
+    {{- partial "header.html" . -}}
     {{ block "content" . }}{{ end }}
-    {{ partialCached "footer.html" . }}
+    {{- partialCached "services/cookie-consent.html" . -}}
+    {{- partialCached "footer.html" . -}}
   </body>
  </html>

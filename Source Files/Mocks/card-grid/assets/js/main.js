@@ -305,6 +305,7 @@ function setupMenu() {
   document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
     if (e.target.checked) {
         e.target.setAttribute('aria-expanded', "true");
+        //TODO: Pin position fixed here
         document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + "px";
         document.body.classList.add('no-scroll');
     } else {
