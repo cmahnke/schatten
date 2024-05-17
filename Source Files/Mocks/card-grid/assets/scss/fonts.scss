@@ -1,0 +1,15 @@
+
+$text-font: 'montserrat',roboto;
+$title-font: 'Handjet';
+$heading-font: '';
+$sub-heading-font: '';
+$menu-heading-font: 'Special Elite';
+$menu-text-font: 'Figtree', Arial, sans-serif;
+
+@supports (font-variation-settings: normal) {
+    body {
+        font-family: "Roboto Flex Variable", sans-serif;
+        font-weight: 500;
+        font-variation-settings: "wdth" 75, "wght" 500;
+    }
+}

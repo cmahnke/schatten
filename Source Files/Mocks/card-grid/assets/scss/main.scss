@@ -1,11 +1,12 @@
 :root {
   --background-color: #000;
   --text-color: #fff;
-  --text-font: 'montserrat',roboto;
-  --heading-font: '';
-  --sub-heading-font: '';
-  --menu-heading-font: 'Special Elite';
-  --menu-text-font: 'Figtree';
+  --text-font: $text-font;
+  --title-font: $title-font;
+  --heading-font: $heading-font;
+  --sub-heading-font: $sub-heading-font;
+  --menu-heading-font: $menu-heading-font;
+  --menu-text-font: $menu-text-font;
 }
 
 

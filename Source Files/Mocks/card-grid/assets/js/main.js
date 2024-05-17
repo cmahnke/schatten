@@ -1,3 +1,9 @@
+//Fonts
+import "@fontsource/figtree";
+import "@fontsource-variable/handjet";
+import "@fontsource/special-elite";
+import "@fontsource-variable/montserrat";
+
 import {animate, scroll, inView} from 'motion';
 import Color from 'color';
 //import SweetScroll from 'sweet-scroll';
