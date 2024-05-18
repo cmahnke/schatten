@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import { viteSingleFile } from "vite-plugin-singlefile"
@@ -18,6 +19,10 @@ export default defineConfig({
   build: {
     commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'card-grid/index.html'),
+        nested: resolve(__dirname, 'css-draft/index.html'),
+      },
       output: {
         assetFileNames: `assets/[name].[ext]`
       }

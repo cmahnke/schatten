@@ -1,6 +1,6 @@
 //Fonts
-import "@fontsource/figtree";
-import "@fontsource-variable/handjet";
+import "@fontsource-variable/pixelify-sans";
+import "@fontsource-variable/handjet/full.css";
 import "@fontsource/special-elite";
 import "@fontsource-variable/montserrat";
 

@@ -1,4 +1,11 @@
+/* Colors */
+$background-color: #000;
+$text-color: #fff;
+$hdr-bg: url('/images/white-hdr.jpeg');
+$arrow-icon: url('/images/Arrow.svg');
+/* Fonts */
 @import "fonts";
 @import "main";
 @import "nav";
 @import "menu";
+@import "card"

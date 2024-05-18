@@ -10,6 +10,8 @@
   position: fixed;
   right: 3em;
   top: 2em;
+  font-family: var(--menu-text-font);
+  font-weight: 400;
 
   .burger-menu-icon {
     position: relative;
@@ -39,7 +41,6 @@
 
   .burger-menu-overlay {
     padding: .6em;
-
     position: fixed;
     box-sizing: border-box;
     top: 0;
@@ -58,15 +59,17 @@
     opacity: 0;
     color: var(--text-color);
     transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
-    justify-content: space-evenly;
     /*display: none;*/
+    align-content: flex-start;
     visibility: hidden;
     flex-direction: column;
 
     @media all and (orientation:landscape) {
+      flex-wrap: wrap;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-evenly;
       padding-top: 4em;
+      align-content: space-between;
 
       .seperator {
         content: '';
@@ -77,27 +80,69 @@
 
     .menu-heading {
       padding-bottom: 1.4em;
-      font-size: 10vh;
+      font-size: 6.4vh;
     }
 
     .seperator {
       display: none;
     }
 
+    .menu-start {
+      flex-basis: 100%;
+      display: flex;
+      text-align: center;
+      color: var(--text-color);
+      justify-content: center;
+      align-items: center;
+      font-size: 10vh;
+      min-height: 15vh;
+
+      .home-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span {
+          display: block;
+          width: 3vw;
+          height: 2vw;
+          background-color: #fff;
+
+          &:first-of-type {
+            width: 4vw;
+            height: 2vw;
+            clip-path: polygon(50% 0,100% 100%,0 100%);
+
+            /*
+            
+
+              clip-path: polygon(0 100%,100% 0,100% 100%);
+
+            */
+
+          }
+
+        }
+      }
+    }
+
+    .menu-start,
+    .stack-menu {
+      a {
+        text-decoration: none;
+        color: var(--text-color);
+      }
+    }
+
     .stack-menu {
       display: inline-block;
-      padding: 0 .6em;
 
       ul {
+        padding-top: 1.4em;
 
         li {
           display: block;
-          font-size: 5vh;
-
-          a {
-            text-decoration: none;
-            color: var(--text-color);
-          }
+          font-size: 3.6vh;
         }
       }
     }
@@ -164,6 +209,7 @@ menu.lang-switch {
   gap: .6rem;
   font-weight: 200;
   display: flex;
+  font-family: var(--menu-text-font);
   /*
   border: dashed value(--text-color);
   padding: .4rem;

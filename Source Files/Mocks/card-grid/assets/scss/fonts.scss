@@ -1,11 +1,11 @@
-
 $text-font: 'montserrat',roboto;
-$title-font: 'Handjet';
+$title-font: 'Handjet Variable';
 $heading-font: '';
 $sub-heading-font: '';
 $menu-heading-font: 'Special Elite';
-$menu-text-font: 'Figtree', Arial, sans-serif;
+$menu-text-font: 'Handjet Variable', 'Courier New', Courier, monospace;
 
+/*
 @supports (font-variation-settings: normal) {
     body {
         font-family: "Roboto Flex Variable", sans-serif;
@@ -13,3 +13,4 @@ $menu-text-font: 'Figtree', Arial, sans-serif;
         font-variation-settings: "wdth" 75, "wght" 500;
     }
 }
+*/

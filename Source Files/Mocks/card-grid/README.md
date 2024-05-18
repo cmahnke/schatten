@@ -7,5 +7,5 @@
   * Menu masks navigation
 * Finish even by height
 
-# Fonts
-* Figtree - Menu ?
+# Tools
+ * Clip paths: https://css-generators.com/triangle-shapes/

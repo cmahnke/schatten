@@ -1,12 +1,12 @@
 :root {
-  --background-color: #000;
-  --text-color: #fff;
-  --text-font: $text-font;
-  --title-font: $title-font;
-  --heading-font: $heading-font;
-  --sub-heading-font: $sub-heading-font;
-  --menu-heading-font: $menu-heading-font;
-  --menu-text-font: $menu-text-font;
+  --background-color: #{$background-color};
+  --text-color: #{$text-color};
+  --text-font: #{$text-font};
+  --title-font: #{$title-font};
+  --heading-font: #{$heading-font};
+  --sub-heading-font: #{$sub-heading-font};
+  --menu-heading-font: #{$menu-heading-font};
+  --menu-text-font: #{$menu-text-font};
 }
 
 
@@ -50,6 +50,12 @@ section {
   color: var(--text-color);
 }
 
+/* Reset some things */
+h1 {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
 .cards {
   display: flex;
   /*TODO: calculate dynamically */
@@ -67,11 +73,11 @@ section {
     flex-direction: column;
     flex-basis: calc(100vw - 2em);
 
+/*
     .card {
       display: flex;
       flex-direction: row;
       min-height: calc(100vh - 2em);
-      /* Center content */
       justify-content: center;
       align-items: center;
       transition: z-index 300ms linear, box-shadow 300ms linear;
@@ -89,6 +95,6 @@ section {
       }
 
     }
-
+*/
   }
 }
