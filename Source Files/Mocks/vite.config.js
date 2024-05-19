@@ -5,6 +5,7 @@ import { viteSingleFile } from "vite-plugin-singlefile"
 import stylelint from 'vite-plugin-stylelint';
 import { join } from 'path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import DynamicPublicDirectory from "vite-multiple-assets";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,9 @@ export default defineConfig({
       apply: 'build'
     },
     stylelint({'build': true, 'dev': false, 'lintOnStart': true}),
+    DynamicPublicDirectory(["card-grid/public"], {
+        ssr: false
+    })
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },

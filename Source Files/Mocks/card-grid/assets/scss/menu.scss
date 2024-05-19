@@ -29,11 +29,15 @@
       /*
       transform-origin: center;
       */
-      transform-origin: 45%;
+      transform-origin: 25%;
       transition: transform 0.3s cubic-bezier(0.77,0.2,0.05,1.0),
                   background-color 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
 
       &:first-of-type {
+        margin-bottom: .4em;
+      }
+
+      &:nth-of-type(2) {
         margin-bottom: .4em;
       }
     }
@@ -114,7 +118,7 @@
             clip-path: polygon(50% 0,100% 100%,0 100%);
 
             /*
-            
+
 
               clip-path: polygon(0 100%,100% 0,100% 100%);
 
@@ -164,9 +168,14 @@
         position: fixed;
       }
 
-      & + .burger-menu-icon span {
+      & + .burger-menu-icon span:first-of-type {
         background-color: white;
         transform: rotate(45deg) translate(3.2px , 3.2px);
+      }
+
+      & + .burger-menu-icon span:nth-of-type(2) {
+        background-color: var(--background-color);
+
       }
 
       & + .burger-menu-icon span:last-of-type {
