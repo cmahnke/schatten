@@ -1,5 +1,84 @@
 .stack-switcher {
 
+  a {
+    text-decoration: none;
+    color: var(--background-color);
+    position: fixed;
+    z-index: 5;
+    transition: 100ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:has(.left),
+    &:has(.right) {
+      height: 4em;
+      width: 2em;
+      top: 50%;
+      vertical-align: middle;
+    }
+
+    &:has(.left) {
+      left: 1em;
+      transform: translate(0%, -50%);
+    }
+
+    &:has(.right) {
+      right: 1em;
+      transform: translate(0%, -50%);
+    }
+
+    &:has(.up),
+    &:has(.down) {
+      height: 2em;
+      width: 4em;
+      left: 50%;
+    }
+
+    &:has(.up) {
+      top: 1em;
+      transform: translate(-50%, 0%);
+    }
+
+    &:has(.down) {
+      bottom: 1em;
+      transform: translate(-50%, 0%);
+    }
+
+    &:hover {
+      .up {
+        transform: translate(-50%, -20%) rotate(180deg) scale(1.2);
+      }
+
+      .left {
+        transform: translate(-20%, -50%) rotate(90deg) scale(1.2);
+      }
+
+      .right {
+        transform: translate(20%, -50%) rotate(270deg) scale(1.2);
+      }
+
+      .down {
+        transform: translate(-50%, 20%) scale(1.2);
+      }
+
+    }
+
+    &.hidden {
+      transition: 100ms;
+      opacity: 0;
+      pointer-events: none;
+
+      .left,
+      .right,
+      .up,
+      .down {
+        pointer-events: none;
+        cursor: unset;
+      }
+    }
+  }
+
   .left,
   .right,
   .up,
@@ -8,81 +87,42 @@
     position: fixed;
     color: var(--text-color);
     background : $arrow-icon;
-    height: 1em;
-    width: 2em;
+
     background-size: contain;
     background-repeat: no-repeat;
     transition: 100ms;
     transform-origin: center;
     cursor: pointer;
     z-index: 5;
-    /*padding: .2em;*/
-
-    &:hover {
-      transition: 100ms;
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-
-    &.hidden {
-      transition: 100ms;
-      opacity: 0;
-      pointer-events: none;
-    }
   }
 
   .left,
   .right {
-
-    top: 50%;
+    height: 1em;
+    width: 2em;
     vertical-align: middle;
   }
 
   .left {
-    left: 1em;
     transform: translate(0%, -50%) rotate(90deg);
-    &:hover {
-      transition: 100ms;
-      transform: translate(-20%, -50%) rotate(90deg) scale(1.2);
-    }
   }
 
   .right {
-    left: calc(100vw - 2em);
     transform: translate(0%, -50%) rotate(270deg);
-
-
-    &:hover {
-      transition: 100ms;
-      transform: translate(20%, -50%) rotate(270deg) scale(1.2);
-    }
   }
 
   .up,
   .down {
     height: 1em;
     width: 2em;
-    left: 50%;
   }
 
   .up {
-    top: 1em;
     transform: translate(-50%, 0%) rotate(180deg);
-
-    &:hover {
-      transition: 100ms;
-      transform: translate(-50%, -20%) rotate(180deg) scale(1.2);
-    }
   }
 
   .down {
-    bottom: 1em;
     transform: translate(-50%, 0%);
-
-    &:hover {
-      transition: 100ms;
-      transform: translate(-50%, 20%) scale(1.2);
-    }
   }
 
 }

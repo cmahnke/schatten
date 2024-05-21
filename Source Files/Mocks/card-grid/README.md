@@ -2,10 +2,10 @@
 
 * Fix scroll snap on Firefrog
 * Finish menu
-  * Currently the slide moves if menu is activated
-  * See https://hibbard.eu/display-ui-blocking-overlay-on-page-load/
-  * Menu masks navigation
+  * Better Home icon
 * Finish even by height
+* navToggle not working properly
+* Menu overlay transition - mostly works
 
 # Tools
  * Clip paths: https://css-generators.com/triangle-shapes/

@@ -6,14 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<title>Mock with scroll snapping</title>
-	<link rel="stylesheet" href="./assets/scss/base.scss">
-
+	<link rel="stylesheet preload prefetch" as="style" href="./assets/scss/base.scss" crossorigin>
+	<link rel="preload" href="/node_modules/@fontsource-variable/handjet/files/handjet-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 
 <body>
 	<menu class="lang-switch">
-		<li class="active">DE</li>
-		<li class="inactive">EN</li>
+		<li class="active"><a href="#de">DE</a></li>
+		<li class="inactive"><a href="#de">EN</a></li>
 	</menu>
 
 	<nav class="menu">
@@ -28,8 +28,11 @@
 			<li class="menu-start">
 				<a href=#start>
 					<div class="home-icon">
+						<!--
 						<span></span>
 						<span></span>
+					-->
+						<div></div>
 					</div>
 					<span>Home</span>
 				</a>
@@ -63,35 +66,88 @@
 			  </div>
 			</section>
 			<section class="card" data-slug="example1">
-				photo 1
+				<div class="post-header">
+    			<h1 class="post-title">Example post #1</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text " style="">
+							<p>This is a made up digital example file 1.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="card" data-slug="example2">
+				<div class="post-header">
+					<h1 class="post-title">Example post #2</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text " style="">
+							<p>This is a made up digital example file 2.</p>
+						</div>
+					</div>
+				</div>
 			</section>
 			<section class="card">
-				photo 2
+				<div class="post-header">
+					<h1 class="post-title">Example post #3</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text " style="">
+							<p>This is a made up digital example file 3.</p>
+						</div>
+					</div>
+				</div>
 			</section>
+
 		</section>
 
 		<section class="stack column">
 			<section class="card">
+				<div class="post-header">
+					<h1 class="post-title">Example text #1</h1>
+					<div class="post-meta"></div>
+				</div>
 				Text 1
 			</section>
 			<section class="card">
+				<div class="post-header">
+					<h1 class="post-title">Example text #2</h1>
+					<div class="post-meta"></div>
+				</div>
 				Text 2
 			</section>
-			<section class="card" data-markdown>
-				# Links to check
-
-				* https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2
-				* https://github.com/denehyg/reveal.js-menu
-				* https://github.com/denehyg/reveal.js-toolbar
-				* https://github.com/peterdoherty01/reveal.js-typed
+			<section class="card" >
+				<div class="post-body">
+					<h2>Links to check</h2>
+					<ul>
+						<li>
+							<a href="https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2">https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2</a>
+						</li>
+						<li>
+							<a href="https://github.com/denehyg/reveal.js-menu">https://github.com/denehyg/reveal.js-menu</a>
+						</li>
+						<li>
+							<a href="https://github.com/denehyg/reveal.js-toolbar">https://github.com/denehyg/reveal.js-toolbar</a>
+						</li>
+						<li>
+							<a href="https://github.com/peterdoherty01/reveal.js-typed">https://github.com/peterdoherty01/reveal.js-typed</a>
+						</li>
+					</ul>
+			</div>
 			</section>
 		</section>
 
 		<nav class="stack-switcher">
-			<div class="up"></div>
-			<div class="left"></div>
-			<div class="right"></div>
-			<div class="down"></div>
+			<a href="#up"><div class="up"></div></a>
+			<a href="#left"><div class="left"></div></a>
+			<a href="#right"><div class="right"></div></a>
+			<a href="#down"><div class="down"></div></a>
 		</nav>
 	</div>
 

@@ -58,7 +58,7 @@
     /* padding: 3.5em 0 0 0; */
     /*background-color: #000;*/
     background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, var(--background-color) 1px);
-    background-size: 4px 4px;
+    background-size: 5px 5px;
     backdrop-filter: brightness(100%) blur(3px);
     opacity: 0;
     color: var(--text-color);
@@ -73,7 +73,7 @@
       flex-direction: row;
       justify-content: space-evenly;
       padding-top: 4em;
-      align-content: space-between;
+      /*align-content: space-between;*/
 
       .seperator {
         content: '';
@@ -84,7 +84,7 @@
 
     .menu-heading {
       padding-bottom: 1.4em;
-      font-size: 6.4vh;
+      font-size: 4em;
     }
 
     .seperator {
@@ -100,17 +100,37 @@
       align-items: center;
       font-size: 10vh;
       min-height: 15vh;
+      margin-bottom: .4em;
 
       .home-icon {
         display: flex;
         flex-direction: column;
         align-items: center;
 
+        div {
+          width: 4vw;
+          height: 4vw;
+
+          background-color: var(--text-color);
+          transition: all 500ms linear;
+          clip-path: polygon(50% -100%, 100% 0, 100% 50%, 100% 100%, 0 100%, 0 50%, 0 0);
+
+
+          &:hover {
+            transition: all 500ms linear;
+            clip-path: polygon(50% 0, 100% 50%, 85% 50%, 85% 100%, 15% 100%, 15% 50%, 0 50%);
+            background: repeating-linear-gradient(30deg, rgba(2,0,36,.5), rgba(212,212,212,.5), rgba(2,0,36,.5) 10%),
+                        repeating-linear-gradient(-30deg, rgba(2,0,36,.5), rgba(212,212,212,.5), rgba(2,0,36,.5) 10%);
+
+          }
+        }
+
         span {
           display: block;
           width: 3vw;
           height: 2vw;
-          background-color: #fff;
+          /*background-color: #fff;*/
+          background-color: transparent;
 
           &:first-of-type {
             width: 4vw;
@@ -146,7 +166,7 @@
 
         li {
           display: block;
-          font-size: 3.6vh;
+          font-size: 2.6em;
         }
       }
     }
@@ -185,7 +205,7 @@
       & ~ .burger-menu-overlay {
           visibility: visible;
           /*display: flex;*/
-          opacity: 0.9;
+          opacity: 1;
       }
     }
   }
@@ -219,11 +239,29 @@ menu.lang-switch {
   font-weight: 200;
   display: flex;
   font-family: var(--menu-text-font);
+  transition: opacity 100ms ease-in-out;
+  opacity: 0;
+  cursor: pointer;
   /*
   border: dashed value(--text-color);
   padding: .4rem;
   aspect-ratio: 19/10;
   */
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  &.show {
+    li.inactive {
+      transform: unset;
+
+      &:hover {
+        transform: scale(1.2, 1.2) !important;
+      }
+    }
+  }
 
   li {
     display: inline-block;

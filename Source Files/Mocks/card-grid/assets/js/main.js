@@ -7,13 +7,14 @@ import "@fontsource-variable/montserrat";
 import {animate, scroll, inView} from 'motion';
 import Color from 'color';
 //import SweetScroll from 'sweet-scroll';
-import { marked } from 'marked';
+//import { marked } from 'marked';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
 const colorSteps = 255 / 100 * maxShade;
 const lang = 'de';
 const directions = ['left', 'right', 'up', 'down'];
+const fonts = {'handjet': '1em Handjet'}
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -26,7 +27,7 @@ function generateURLFragment(col, row, fragment) {
   if (target !== null && 'slug' in target.dataset) {
     id = target.dataset['slug'];
   }
-  window.location.hash = id
+  return id;
 }
 
 function toggleNav(elem) {
@@ -39,12 +40,13 @@ function toggleNav(elem) {
         const target = document.getElementById(targetId);
         target.scrollIntoView({behavior: 'smooth'});
       }
-      document.querySelectorAll(`nav.stack-switcher .${direction}`).forEach((arrow) => {
+      document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
         arrow.classList.remove('hidden');
         arrow.onclick = clickHandler;
+        console.log(`Activated ${direction}`);
       });
     } else {
-      document.querySelectorAll(`nav.stack-switcher .${direction}`).forEach((arrow) => {
+      document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
         arrow.classList.add('hidden');
       });
     }
@@ -77,10 +79,13 @@ function handleCardIntersect(entries, observer) {
     }
     if (entry.intersectionRatio == 1) {
       entry.target.classList.add('active');
-      generateURLFragment(entry.target.dataset.col, entry.target.dataset.row);
+      window.location.hash = generateURLFragment(entry.target.dataset.col, entry.target.dataset.row);
       toggleNav(entry.target);
-      if (entry.target.classList.contains('__inserted')) {
+
+      if (entry.target != null && entry.target.classList.contains('__inserted')) {
         generatedCallback(entry.target);
+      } else if (entry.target == null) {
+        console.log('Card intersect got no target!');
       }
 
     /* TODO: Check if we really need the previous ones */
@@ -105,8 +110,9 @@ function menuLinkHandler(e) {
   var target = e.target.href.split('#')[1]
   var targetElem = findTarget(target);
   e.preventDefault();
-  //TODO: Close menu
-  targetElem.scrollIntoView();
+  // Close menu
+  document.querySelector('.menu .burger-menu-button').checked = false;
+  targetElem.scrollIntoView({behavior: 'smooth'});
 }
 
 function buildThresholdList(numSteps) {
@@ -161,6 +167,7 @@ function setupGrid(root, columnSelector, cardSelector) {
   for (var i = 0; i < grid.length; i++) {
     var column = startSelector.querySelectorAll(columnSelector)[i];
     if (grid[i].cards < maxCards) {
+      var newTiles = grid[i].cards - maxCards;
       /* TODO: Make this work for more then one missing card using a loop */
       console.log(`Inserting at ${i}, after ${grid[i]}`);
       var newCard = document.createElement(cardSelector);
@@ -171,7 +178,7 @@ function setupGrid(root, columnSelector, cardSelector) {
 
       newCard.setAttribute('id', `${i + 1}/${maxCards}`)
       var next;
-      if (grid.length > i) {
+      if (grid.length > i + 1) {
         next = `${i + 2}/1`
       } else {
         next = '1/1';
@@ -185,7 +192,10 @@ function setupGrid(root, columnSelector, cardSelector) {
     //Add navigation links
     function lookArround(id) {
       const next = document.getElementById(id)
-      if (next.classList.contains('__inserted')) {
+      if (next != null && next.classList.contains('__inserted')) {
+        return false;
+      } else if (next == null) {
+        console.log(`Next element for id ${id} is null!`);
         return false;
       }
       return true;
@@ -205,6 +215,12 @@ function setupGrid(root, columnSelector, cardSelector) {
         if (lookArround(nextId)) {
           cards[j].dataset.down = nextId;
         }
+      }  else if (j + 1 == cards.length && i + 1 < maxWidth) {
+        const nextId = `${i + 2}/1`;
+        if (lookArround(nextId)) {
+          cards[j].dataset.down = nextId;
+        }
+        console.log(`Reached end for ${i}/${j} => ${nextId}`);
       }
       if (i + 1 < maxWidth) {
         const nextId = `${i + 2}/${j + 1}`;
@@ -248,14 +264,15 @@ function setupNav(selector) {
 }
 
 // TODO: Remove for production
+/*
 function parseMarkdown() {
   document.querySelectorAll('*[data-markdown]').forEach((text) => {
     var content = text.innerText || text.textContent;
     var parsed = marked.parse(content);
     text.innerHTML = parsed;
-    /* console.log(`${content} -> ${parsed}`); */
   });
 }
+*/
 
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 function setupLangSwitch(curLang, selector) {
@@ -264,19 +281,21 @@ function setupLangSwitch(curLang, selector) {
   }
   const switcher = document.querySelector(selector);
 
-  switcher.addEventListener('click', () => {
-    switcher.querySelectorAll(`li`).forEach((lang) => {
-      lang.classList.remove('inactive');
-    });
+  switcher.addEventListener('click', (event) => {
+    console.debug('Clicked lang switcher');
+    if (switcher.classList.contains('show')) {
+      switcher.classList.remove('show');
+    } else {
+      switcher.classList.add('show');
+      switcher.querySelectorAll(`li a`).forEach((link) => {
+        link.style.pointerEvents = 'all';
+      });
+    }
+    event.stopPropagation()
   });
 
-  // TODO: This doesn't really work as intended
-  switcher.addEventListener('mouseout', () => {
-    switcher.querySelectorAll(`li`).forEach((lang) => {
-      if (!lang.classList.contains('active')) {
-        lang.classList.add('inactive');
-      }
-    });
+  switcher.addEventListener('mouseleave', () => {
+    switcher.classList.remove('show');
   });
 
   switcher.querySelectorAll(`li`).forEach((lang) => {
@@ -284,10 +303,10 @@ function setupLangSwitch(curLang, selector) {
     if (content.toUpperCase() == curLang.toUpperCase()) {
       lang.classList.add('active');
     } else {
-      lang.classList.add('hidden');
+      lang.classList.add('inactive');
     }
   });
-
+  //TODO: Switch to actiuall language
 }
 
 function textEffects (selector) {
@@ -309,17 +328,45 @@ function setupMenu() {
   });
 
   document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
+    var active;
     if (e.target.checked) {
-        e.target.setAttribute('aria-expanded', "true");
-        //TODO: Pin position fixed here
-        document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + "px";
-        document.body.classList.add('no-scroll');
+      active = document.querySelectorAll('.card.active')
+      e.target.setAttribute('aria-expanded', "true");
+      document.body.classList.add('noscroll');
     } else {
-        e.target.setAttribute('aria-expanded', "false");
-        document.body.classList.remove('no-scroll');
-        document.body.style.paddingRight = 0 + "px";
+      e.target.setAttribute('aria-expanded', "false");
+      document.body.classList.remove('noscroll');
+      if (active != null) {
+        active.scrollIntoView({behavior: 'smooth'});
+      }
     }
   });
+}
+
+function fontsLoaded() {
+  var interval;
+  var timeouts = [];
+
+  function fontCheck() {
+    if (document.fonts) {
+      for (const font in fonts) {
+        if (document.fonts.check(fonts[font])) {
+          document.querySelector('body').classList.add(`${font}-loaded`);
+        }
+      }
+    }
+    if(interval) {
+      clearInterval(interval);
+    }
+  }
+
+  for (const font in fonts) {
+    timeouts.push(setTimeout(() => {
+      document.querySelector('body').classList.add(`${font}-loaded`);
+    }, 3000));
+  }
+
+  interval = setInterval(fontCheck, 200)
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -327,12 +374,13 @@ document.addEventListener("DOMContentLoaded", function() {
   setupGrid('.cards', '.stack', 'section');
   let observer = new IntersectionObserver(handleCardIntersect, {root: null, rootMargin: "0px", threshold: buildThresholdList(colorSteps)});
   setupNav();
-  parseMarkdown();
+  //parseMarkdown();
   setupMenu();
   setupLangSwitch(lang);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
+  fontsLoaded();
 
   if (window.location.hash !== '') {
     var id;

@@ -9,6 +9,7 @@ DefaultContentLanguage = "de"
 theme = ["projektemacher-base"]
 disableKinds = ["taxonomy"]
 ignoreErrors = ["error-disable-taxonomy"]
+enableGitInfo = true
 
 [languages]
   [languages.de]
@@ -85,3 +86,6 @@ ignoreErrors = ["error-disable-taxonomy"]
     disable = false
     respectDoNotTrack = true
     useSessionStorage = false
+
+[build]
+  writeStats = true

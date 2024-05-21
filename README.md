@@ -45,3 +45,6 @@ Nächtliche Schatten
 * Finish mock in Source Files/Mocks/card-grid
 * Transplant mock code to assets
 * Write texts
+
+# Possible effects:
+* Moving underline text https://codepen.io/RickyMarou/pen/dyoMXYR

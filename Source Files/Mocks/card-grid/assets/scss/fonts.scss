@@ -5,6 +5,13 @@ $sub-heading-font: '';
 $menu-heading-font: 'Special Elite';
 $menu-text-font: 'Handjet Variable', 'Courier New', Courier, monospace;
 
+.handjet-loaded  {
+  .home .home-title,
+  menu.lang-switch {
+    opacity: 1 !important;
+  }
+}
+
 /*
 @supports (font-variation-settings: normal) {
     body {
