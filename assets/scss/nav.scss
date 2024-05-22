@@ -12,12 +12,13 @@
     text-shadow: 0 0 1.2em black, 0 0 1.2em black, 0 0 .9em black, 0 0 .6em black, 0 0 .3em black;
     */
     text-shadow: 0 0 1.2em black, 0 0 1.2em black, 0 0 .9em black, 0 0 .6em black, 0 0 .3em black;
-        mix-blend-mode: difference;
+    mix-blend-mode: difference;
     z-index: 1;
     display: flex;
     justify-content: space-evenly;
 
     .header-menu-list {
+
       min-width: 16em;
       list-style-type: none;
       display: flex;

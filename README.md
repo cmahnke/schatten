@@ -52,7 +52,9 @@ Nächtliche Schatten
 # CSS Tricks
 * [CSS non aninimateable properties](https://developer.chrome.com/blog/entry-exit-animations)
 * [Fitting text](https://css-tricks.com/fitting-text-to-a-container/)
+* [CSS Grids](https://css-tricks.com/animating-css-grid-how-to-examples/)
 
 # Tools
   * [Markdown Lorem Ipsum generator](https://github.com/jaspervdj/lorem-markdownum)
     * [Example with 5 sections and without code](https://jaspervdj.be/lorem-markdownum/markdown.txt?no-code=on&num-blocks=5)
+  * [Online Markdown to HTML](https://markdowntohtml.com/)

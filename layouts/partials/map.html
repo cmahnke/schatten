@@ -1,0 +1,33 @@
+{{- $context := . -}}
+{{- $sections := where $.Site.Pages "Kind" "section" -}}
+{{- $i := 1 -}}
+
+{{- range $sections -}}
+  {{- $slug := lower (path.Base .File.Dir) -}}
+  {{- $class := printf "column%d" $i -}}
+  {{- if eq $i 1 -}}
+    {{ $class = printf "%s initial active" $class }}
+  {{- else -}}
+    {{ $class = printf "%s inactive" $class }}
+  {{- end -}}
+  <div class="slice {{ $slug }} {{ $class }}" data-slug="{{ $slug }}">
+    {{- if and $context.IsHome (eq $i 1) -}}
+      <div class="plot home {{ $slug }} {{ $class }}" data-slug="home"></div>
+    {{- end -}}
+    {{- $items := where .Pages "Params.grid" "ne" false -}}
+    {{- range .Translations -}}
+      {{- $items = $items | lang.Merge .Pages -}}
+    {{- end -}}
+    {{- $j := 1 -}}
+    {{- range $items -}}
+      {{- if eq .Kind "section" -}}
+        {{ errorf "[section-list.html] Handling of sections not implemented yet; %s" .File.Dir }}
+      {{- end -}}
+      {{- $slug := lower (path.Base .File.Dir) -}}
+      {{- $class := printf "%s row%d" $class $j -}}
+      <div class="plot {{ $slug }} {{ $class }}" data-slug="{{ $slug }}"></div>
+      {{- $j = add $j 1 -}}
+    {{- end -}}
+  </div>
+  {{- $i = add $i 1 -}}
+{{- end -}}

@@ -6,7 +6,7 @@
 {{- $i := 1 -}}
 {{- range $items -}}
   {{- if eq .Kind "section" -}}
-    {{ errorf "[section-list.html] Handling of sections not implemented yet; %s" .File.Dir }}
+    {{- errorf "[section-list.html] Handling of sections not implemented yet; %s" .File.Dir -}}
   {{- end -}}
 
   {{- $slug := lower (path.Base .File.Dir) -}}
@@ -15,9 +15,9 @@
     {{ $class = .Params.type }}
   {{- end -}}
   {{- if .Weight -}}
-    {{ $class = printf "%s row%s" $class .Weight }}
+    {{- $class = printf "%s row%s" $class .Weight -}}
   {{- else -}}
-    {{ $class = printf "%s row%d" $class $i }}
+    {{- $class = printf "%s row%d" $class $i -}}
   {{- end -}}
 
   <section class="item card {{ $slug }} {{ $class }}" data-slug="{{ $slug }}">

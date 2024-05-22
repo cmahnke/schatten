@@ -25,7 +25,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'card-grid/index.html'),
-        nested: resolve(__dirname, 'css-draft/index.html'),
+        pattern: resolve(__dirname, 'css-draft/index.html'),
+        hdr: resolve(__dirname, 'hdr-canvas/index.html'),
       },
       output: {
         assetFileNames: `assets/[name].[ext]`

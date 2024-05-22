@@ -60,16 +60,19 @@ section {
 }
 
 /* Reset some things */
-h1, h2, h3, ul {
+h1, h2, h3, h4, h5, ul, p {
+  margin: 0;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
 
-p {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+h1, h2, h3, h4, h5, p {
+  overflow-wrap: break-word;
+}
+
+img, picture {
+  max-width: 100%;
+  display: block;
 }
 
 .cards {

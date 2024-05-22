@@ -12,7 +12,16 @@
     .post-content {
 
       .post-text {
+        display: flex;
+        flex-direction: column;
 
+
+        p {
+          white-space: normal;
+          flex-basis: 100%;
+          text-align: justify;
+
+        }
       }
     }
   }

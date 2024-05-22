@@ -1,10 +1,8 @@
 # TODO
 
-* Fix scroll snap on Firefrog
+* Check scroll snap on Firefrog
 * Finish menu
-  * Better Home icon
   * Improve overlay animation
-* Finish even by height
 * navToggle not working properly
 * Add footer
 

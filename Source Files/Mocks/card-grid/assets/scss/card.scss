@@ -10,6 +10,7 @@ $card-padding: .4rem;
   transition: z-index 300ms linear, box-shadow 300ms linear;
   padding: .6em;
   box-sizing: border-box;
+  width: inherit;
 
   &.active {
     box-shadow: 0px 0px 10px var(--background-color);
@@ -146,6 +147,12 @@ $card-padding: .4rem;
 
   .post-body {
     height: 100%;
+    margin-top: 8.4rem;
+    width: inherit;
+
+    @media all and (orientation:landscape) {
+      margin-top: unset;
+    }
 
     /*
     a {
@@ -170,12 +177,18 @@ $card-padding: .4rem;
         background-color: black;
         box-shadow: rgba(0, 0, 0, 0.5) .45em .45em, rgba(0, 0, 0, 0.4) .9em .9em, rgba(0, 0, 0, 0.3) 1.35em 1.35em;
         padding: .6em;
-        max-width: max-content;
-        margin: 2em;
-        /*position: absolute;*/
+
+        /* max-width: max-content;*/
+
+        /*position: absolute;
         bottom: 0;
         right: 0;
+        */
         z-index: 1;
+
+        @media all and (orientation:landscape) {
+          margin: 2em;
+        }
 
         ul {
           padding-top: .2em;

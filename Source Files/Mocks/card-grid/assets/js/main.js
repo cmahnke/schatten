@@ -125,6 +125,12 @@ function buildThresholdList(numSteps) {
 }
 
 function setupGrid(root, columnSelector, cardSelector) {
+  function columnHeight(column) {
+    return Array.from(column.querySelectorAll('.card')).reduce((h, card) => {
+        return h + card.getBoundingClientRect().height;
+    },0);
+  }
+
   var startSelector = document.querySelector(root);
   var maxHeight = 0;
   var maxCards = 0;
@@ -133,15 +139,20 @@ function setupGrid(root, columnSelector, cardSelector) {
   startSelector.querySelectorAll(columnSelector).forEach((column) => {
     var cards = column.querySelectorAll(cardSelector);
     var numCards = cards.length;
-    var height = column.getBoundingClientRect().height;
+    //var height = column.getBoundingClientRect().height;
+    var overallHeight = columnHeight(column);
+
     maxWidth++;
     if (numCards > maxCards) {
       maxCards = numCards;
     }
-    if (height > maxHeight) {
-      maxHeight = height;
+    if (overallHeight > maxHeight) {
+      maxHeight = overallHeight;
     }
-    grid[maxWidth - 1] = {cards: numCards, height: height};
+
+    grid[maxWidth - 1] = {cards: numCards, height: overallHeight};
+
+    console.log(`Cards ${numCards}, Overall height: ${overallHeight}`)
     column.dataset.col = maxWidth;
     if (!column.hasAttribute('id')) {
       column.setAttribute('id', `${maxWidth}`)
@@ -155,20 +166,13 @@ function setupGrid(root, columnSelector, cardSelector) {
     }
   });
 
-  //Check for height differences
-  for (var i = 0; i < grid.length; i++) {
-    if (grid[i].height < maxHeight) {
-      console.log(`column ${i +1 } has wrong height, is {grid[i].height}, maximum is ${maxHeight}`);
-    }
-  }
-
   //Make the grid even
   for (var i = 0; i < grid.length; i++) {
     var column = startSelector.querySelectorAll(columnSelector)[i];
     if (grid[i].cards < maxCards) {
       const newTiles = maxCards - grid[i].cards;
       for (var n = 0; n < newTiles; n++) {
-        console.log(`Inserting at ${i + 1}/${grid[i].cards + 1 + n}, after ${grid[i]}`);
+        //console.log(`Inserting at ${i + 1}/${grid[i].cards + 1 + n}, after ${grid[i]}`);
         var newCard = document.createElement(cardSelector);
         newCard.classList.add('__inserted');
         newCard.classList.add('card');
@@ -185,8 +189,12 @@ function setupGrid(root, columnSelector, cardSelector) {
         newCard.dataset.jump = next;
         newCard.dataset.down = next;
         newCard.dataset.right = next;
+        if (newTiles == n + 1) {
+          //Last card
+        }
 
         column.appendChild(newCard);
+        grid[i].height = columnHeight(column);
       }
     }
     //Add navigation links
@@ -237,12 +245,18 @@ function setupGrid(root, columnSelector, cardSelector) {
     }
   }
 
-  /*
-  startSelector.querySelectorAll(columnSelector).forEach((column) => {
-    var cards = column.querySelectorAll(cardSelector);
+  //Check for height differences
+  for (var i = 0; i < grid.length; i++) {
+    if (grid[i].height < maxHeight) {
+      var heightDiff = maxHeight - grid[i].height;
+      var lastOfShort = startSelector.querySelectorAll(columnSelector)[i].querySelector(`${cardSelector}:last-child`);
+      var oldHeight = lastOfShort.getBoundingClientRect().height;
+      var newHeight = oldHeight + heightDiff;
+      lastOfShort.style.height = `${newHeight}px`;
+      //console.log(`column ${i + 1} has wrong height, is ${grid[i].height}, maximum is ${maxHeight}, setting height of ${lastOfShort.id} to ${newHeight}`);
+    }
+  }
 
-  });
-  */
 }
 
 function setupNav(selector) {
@@ -329,6 +343,13 @@ function setupMenu() {
   document.querySelectorAll('#menu a').forEach((link) => {
     link.addEventListener('click', menuLinkHandler);
   });
+
+  /*
+  document.querySelector("#menu home-icon").addEventListener('mouseleave', (e) => {
+    e.target.classList.add('hover-out');
+
+  }
+  */
 
   document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
     if (e.target.checked) {

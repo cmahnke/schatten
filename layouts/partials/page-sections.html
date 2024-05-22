@@ -1,20 +1,17 @@
 {{- $context := . -}}
 {{- $sections := where .Pages "Kind" "section" -}}
-{{/* TODO: Filter subsections if they have been intoduced
-{{- $sections = where $sections "section" .CurrentSection -}}
-*/}}
 {{- $i := 1 -}}
 
 {{- range $sections -}}
   {{- $slug := lower (path.Base .File.Dir) -}}
   {{- $class := "" -}}
   {{- if .Weight -}}
-    {{ $class = printf "column%d" .Weight }}
+    {{- $class = printf "column%d" .Weight -}}
   {{- else -}}
-    {{ $class = printf "%s column%d" $class $i }}
+    {{- $class = printf "%s column%d" $class $i -}}
   {{- end -}}
   {{- if eq $i 1 -}}
-    {{ $class = printf "%s initial active" $class }}
+    {{- $class = printf "%s initial active" $class -}}
   {{- else -}}
     {{ $class = printf "%s inactive" $class }}
   {{- end -}}
