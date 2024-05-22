@@ -5,12 +5,21 @@ $sub-heading-font: '';
 $menu-heading-font: 'Special Elite';
 $menu-text-font: 'Handjet Variable', 'Courier New', Courier, monospace;
 
+@mixin handjet-pixelated() {
+  font-family: var(--title-font);
+  @supports (font-variation-settings: normal) {
+    font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+  }
+}
+
 .handjet-loaded  {
   .home .home-title,
+  div.title-font,
   menu.lang-switch {
     opacity: 1 !important;
   }
 }
+
 
 /*
 @supports (font-variation-settings: normal) {

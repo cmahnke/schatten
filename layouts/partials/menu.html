@@ -3,8 +3,21 @@
   <div class="burger-menu-icon">
     <span></span>
     <span></span>
+    <span></span>
   </div>
   <menu id="menu" class="burger-menu-overlay">
+    <li class="menu-start">
+      <a href=#start>
+        <div class="home-icon">
+          <!--
+          <span></span>
+          <span></span>
+        -->
+          <div></div>
+        </div>
+        <span>Home</span>
+      </a>
+    </li>
     {{- $sections := where .Pages "Kind" "section" -}}
     {{- range $i, $section := $sections -}}
       <li class="stack-menu">

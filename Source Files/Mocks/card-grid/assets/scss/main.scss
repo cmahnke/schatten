@@ -38,8 +38,6 @@ body {
   position: relative;
 
   &.noscroll {
-
-    /*position: static;*/
     animation: noscroll 250ms linear forwards;
     /*
     position: fixed;
@@ -62,7 +60,7 @@ section {
 }
 
 /* Reset some things */
-h1 {
+h1, h2, h3, ul {
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
@@ -89,31 +87,9 @@ p {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    max-width: calc(100vw - 1em);
     flex-direction: column;
     flex-basis: calc(100vw - 2em);
 
-/*
-    .card {
-      display: flex;
-      flex-direction: row;
-      min-height: calc(100vh - 2em);
-      justify-content: center;
-      align-items: center;
-      transition: z-index 300ms linear, box-shadow 300ms linear;
-      padding: .6em;
-      box-sizing: border-box;
-
-      &.active {
-        box-shadow: 0px 0px 10px var(--background-color);
-        z-index: 3;
-        transition: z-index 2000ms linear, box-shadow 300ms linear;
-
-        &.__inserted {
-          box-shadow: 0px 0px 10px inset var(--background-color);
-        }
-      }
-
-    }
-*/
   }
 }

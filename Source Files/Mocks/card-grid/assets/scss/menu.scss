@@ -1,6 +1,5 @@
 
 .menu {
-  /* Inspired by https://github.com/josephhutch/aether */
   display: flex;
   align-items: center;
   width: 2.4em;
@@ -8,8 +7,8 @@
   z-index: 105;
   user-select: none;
   position: fixed;
-  right: 3em;
-  top: 2em;
+  right: 2rem;
+  top: 2rem;
   font-family: var(--menu-text-font);
   font-weight: 400;
 
@@ -92,15 +91,21 @@
     }
 
     .menu-start {
-      flex-basis: 100%;
+      flex-basis: 30%;
+
       display: flex;
       text-align: center;
       color: var(--text-color);
       justify-content: center;
       align-items: center;
       font-size: 10vh;
-      min-height: 15vh;
-      margin-bottom: .4em;
+      min-height: 10vh;
+
+      @media all and (orientation:landscape) {
+        flex-basis: 100%;
+        min-height: 15vh;
+        margin-bottom: .4em;
+      }
 
       .home-icon {
         display: flex;
@@ -110,6 +115,9 @@
         div {
           width: 4vw;
           height: 4vw;
+          min-height: 2rem;
+          min-width: 2rem;
+          aspect-ratio: 1 / 1;
 
           background-color: var(--text-color);
           transition: all 500ms linear;
@@ -162,7 +170,12 @@
       display: inline-block;
 
       ul {
-        padding-top: 1.4em;
+        padding-bottom: 1.2em;
+
+        @media all and (orientation:landscape) {
+          padding-top: 1.4em;
+          padding-bottom: unset;
+        }
 
         li {
           display: block;
@@ -228,11 +241,15 @@ menu {
 
 menu.lang-switch {
   position: absolute;
-  top: 2em;
-  left: 3em;
+  top: 2rem;
+  left: 2rem;
+  /*
+  width: 2.4em;
+  height: 2.4em;
+  */
   color: var(--text-color);
   background: transparent;
-  font-size: 2em;
+  font-size: 2.6em;
   z-index: 5;
   align-items: center;
   gap: .6rem;
@@ -248,6 +265,10 @@ menu.lang-switch {
   aspect-ratio: 19/10;
   */
 
+  @supports (font-variation-settings: normal) {
+    font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+  }
+
   a {
     text-decoration: none;
     color: var(--text-color);
@@ -259,6 +280,9 @@ menu.lang-switch {
 
       &:hover {
         transform: scale(1.2, 1.2) !important;
+        @supports (font-variation-settings: normal) {
+          font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
+        }
       }
     }
   }
@@ -281,6 +305,9 @@ menu.lang-switch {
     &:hover {
       transform: scale(1.2);
       transition: all 200ms linear;
+      @supports (font-variation-settings: normal) {
+        font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
+      }
     }
 
   }

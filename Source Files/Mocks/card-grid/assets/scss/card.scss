@@ -1,3 +1,5 @@
+$card-padding: .4rem;
+
 .cards .stack .card {
   display: flex;
   flex-direction: row;
@@ -16,6 +18,15 @@
 
     &.__inserted {
       box-shadow: 0px 0px 10px inset var(--background-color);
+    }
+  }
+
+  &:not(.home) {
+    position: relative;
+    /* display: flex; */
+    padding: $card-padding;
+    @media all and (orientation:landscape) {
+      padding: calc($card-padding * 4);
     }
   }
 
@@ -62,18 +73,38 @@
         background-image: $hdr-bg;
         background-size: 100% 100%;
         background-clip: text;
-        font-size: 35vh;
+        font-size: 25.5vw;
         color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out;
+        white-space: normal;
+        text-align: center;
         @supports (font-variation-settings: normal) {
           font-variation-settings: "wght" 350, "ELSH" 4, "ELGR" 2;
           animation: home-title 15s infinite linear alternate;
+        }
+
+        @media all and (orientation:landscape) {
+          white-space: nowrap;
+          font-size: 35vh;
+          text-align: unset;
         }
       }
 
     }
 
+  }
+
+  @media all and (orientation:landscape) {
+    &:nth-child(even) .post-header .post-title {
+      left: calc($card-padding * 4);
+      right: unset;
+    }
+
+    &:nth-child(odd) .post-header .post-title {
+      left: unset;
+      right: calc($card-padding * 4 + 5rem);
+    }
   }
 
   .post-header {
@@ -82,11 +113,21 @@
     overflow: hidden;
 
     .post-title {
-      font-size: 9vh;
+      font-size: 6vh;
       z-index: 1;
       position: relative;
       mix-blend-mode: exclusion;
-      font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+      text-shadow: 8px 8px #262626, 16px 16px #4d4d4d;
+      padding-bottom: .45em;
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      @include handjet-pixelated;
+
+      @media all and (orientation:landscape) {
+        top: calc($card-padding * 4);
+        font-size: 9vh;
+      }
     }
 
     .post-meta {
@@ -106,6 +147,7 @@
   .post-body {
     height: 100%;
 
+    /*
     a {
       text-decoration: none;
       box-shadow: inset 0 -.4em lighten($background-color, 20%);
@@ -115,6 +157,7 @@
         box-shadow: inset 0 -.6em lighten($background-color, 50%);
       }
     }
+    */
 
 
 

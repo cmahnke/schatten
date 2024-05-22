@@ -6,7 +6,6 @@ import "@fontsource-variable/montserrat";
 
 import {animate, scroll, inView} from 'motion';
 import Color from 'color';
-//import SweetScroll from 'sweet-scroll';
 //import { marked } from 'marked';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
@@ -14,7 +13,7 @@ const maxShade = 20; // In percent
 const colorSteps = 255 / 100 * maxShade;
 const lang = 'de';
 const directions = ['left', 'right', 'up', 'down'];
-const fonts = {'handjet': '1em Handjet'}
+const fonts = {'handjet': '1em Handjet', 'special-elite': '1em Special Elite'}
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -167,27 +166,28 @@ function setupGrid(root, columnSelector, cardSelector) {
   for (var i = 0; i < grid.length; i++) {
     var column = startSelector.querySelectorAll(columnSelector)[i];
     if (grid[i].cards < maxCards) {
-      var newTiles = grid[i].cards - maxCards;
-      /* TODO: Make this work for more then one missing card using a loop */
-      console.log(`Inserting at ${i}, after ${grid[i]}`);
-      var newCard = document.createElement(cardSelector);
-      newCard.classList.add('__inserted');
-      newCard.classList.add('card');
-      newCard.dataset.row = maxCards;
-      newCard.dataset.col = i;
+      const newTiles = maxCards - grid[i].cards;
+      for (var n = 0; n < newTiles; n++) {
+        console.log(`Inserting at ${i + 1}/${grid[i].cards + 1 + n}, after ${grid[i]}`);
+        var newCard = document.createElement(cardSelector);
+        newCard.classList.add('__inserted');
+        newCard.classList.add('card');
+        newCard.dataset.row = grid[i].cards + 1 + n ;
+        newCard.dataset.col = i + 1;
 
-      newCard.setAttribute('id', `${i + 1}/${maxCards}`)
-      var next;
-      if (grid.length > i + 1) {
-        next = `${i + 2}/1`
-      } else {
-        next = '1/1';
+        newCard.setAttribute('id', `${i + 1}/${grid[i].cards + 1 + n}`)
+        var next;
+        if (grid.length > i + 1) {
+          next = `${i + 2}/1`
+        } else {
+          next = '1/1';
+        }
+        newCard.dataset.jump = next;
+        newCard.dataset.down = next;
+        newCard.dataset.right = next;
+
+        column.appendChild(newCard);
       }
-      newCard.dataset.jump = next;
-      newCard.dataset.down = next;
-      newCard.dataset.right = next;
-
-      column.appendChild(newCard);
     }
     //Add navigation links
     function lookArround(id) {
@@ -309,15 +309,18 @@ function setupLangSwitch(curLang, selector) {
   //TODO: Switch to actiuall language
 }
 
-function textEffects (selector) {
-  if (selector === undefined) {
-    selector = '.card *';
-  }
+function textEffects () {
 
-//.post-text
-//.post-title
-  document.querySelectorAll(selector).forEach((fragment) => {
+  document.querySelectorAll('.card .post-header').forEach((fragment) => {
+    inView(fragment, () => {
 
+    });
+  });
+
+  document.querySelectorAll('.card .post-body').forEach((fragment) => {
+    inView(fragment, () => {
+
+    });
   });
 
 }
@@ -328,16 +331,18 @@ function setupMenu() {
   });
 
   document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
-    var active;
     if (e.target.checked) {
-      active = document.querySelectorAll('.card.active')
+      e.target.dataset.caller = document.querySelector('.card.active').id;
       e.target.setAttribute('aria-expanded', "true");
       document.body.classList.add('noscroll');
     } else {
       e.target.setAttribute('aria-expanded', "false");
       document.body.classList.remove('noscroll');
+      var active = document.getElementById(e.target.dataset.caller);
       if (active != null) {
         active.scrollIntoView({behavior: 'smooth'});
+      } else {
+        console.log('Last active card is null!');
       }
     }
   });
@@ -370,7 +375,7 @@ function fontsLoaded() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-
+  fontsLoaded();
   setupGrid('.cards', '.stack', 'section');
   let observer = new IntersectionObserver(handleCardIntersect, {root: null, rootMargin: "0px", threshold: buildThresholdList(colorSteps)});
   setupNav();
@@ -380,7 +385,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
-  fontsLoaded();
+  textEffects();
+
 
   if (window.location.hash !== '') {
     var id;
@@ -392,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    console.log(`Moving to ${id}`)
+    console.log(`Init: Moving to ${id}`)
   }
 
 

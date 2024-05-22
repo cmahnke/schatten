@@ -1,10 +1,11 @@
 {{- if hugo.IsMultilingual -}}
   <menu class="lang-switch">
-    {{- range (default .Site.Home.AllTranslations .Translations) -}}
+    {{- range .Site.Home.AllTranslations -}}
+      {{- $lang := .Lang -}}
       {{- if ne $.Site.Language .Language -}}
-        <li>DE</li>
+        <li><a href="#{{ $lang }}">{{ upper $lang }}</a></li>
       {{- else -}}
-        <li class="active">DE</li>
+        <li class="active"><a href="#{{ $lang }}">{{ upper $lang }}</a></li>
       {{- end -}}
     {{- end -}}
   </menu>

@@ -3,9 +3,10 @@
 * Fix scroll snap on Firefrog
 * Finish menu
   * Better Home icon
+  * Improve overlay animation
 * Finish even by height
 * navToggle not working properly
-* Menu overlay transition - mostly works
+* Add footer
 
 # Tools
  * Clip paths: https://css-generators.com/triangle-shapes/

@@ -40,17 +40,18 @@
 			<li class="stack-menu">
 				<lh class="menu-heading">Images</lh>
 				<ul>
-					<li><a href=#example1>Example 1</a></li>
-					<li>Example 2</li>
+					<li><a href="#example1">Example 1</a></li>
+					<li><a href="#example2">Example 2</a></li>
 				</ul>
 			</li>
 			<li class="seperator"></li>
 			<li class="stack-menu">
 				<lh class="menu-heading">About</lh>
 				<ul>
-					<li>Light</li>
-					<li>Metamodernism</li>
-					<li>Colophon</li>
+					<li><a href="#light">Light</a></li>
+					<li><a href="#metamodernism">Metamodernism</a></li>
+					<li><a href="#example1">Links</a></li>
+					<li><a href="#colophon">Colophon</a></li>
 				</ul>
 			</li>
 
@@ -59,8 +60,8 @@
 
 
 	<div class="cards">
-		<section class="stack column">
-			<section class="home card">
+		<section class="stack column images">
+			<section class="home card" data-slug="home">
 			  <div class="page-title">
 			    <h1 class="home-title">Nächtliche Schatten</h1>
 			  </div>
@@ -68,11 +69,10 @@
 			<section class="card" data-slug="example1">
 				<div class="post-header">
     			<h1 class="post-title">Example post #1</h1>
-					<div class="post-meta"></div>
 				</div>
 				<div class="post-body">
 					<div class="post-content">
-						<div class="post-text " style="">
+						<div class="post-text">
 							<p>This is a made up digital example file 1.</p>
 						</div>
 					</div>
@@ -81,66 +81,139 @@
 			<section class="card" data-slug="example2">
 				<div class="post-header">
 					<h1 class="post-title">Example post #2</h1>
-					<div class="post-meta"></div>
 				</div>
 				<div class="post-body">
 					<div class="post-content">
-						<div class="post-text " style="">
+						<div class="post-text">
 							<p>This is a made up digital example file 2.</p>
 						</div>
 					</div>
 				</div>
 			</section>
+			<!--
 			<section class="card">
 				<div class="post-header">
 					<h1 class="post-title">Example post #3</h1>
-					<div class="post-meta"></div>
 				</div>
 				<div class="post-body">
 					<div class="post-content">
-						<div class="post-text " style="">
+						<div class="post-text">
 							<p>This is a made up digital example file 3.</p>
 						</div>
 					</div>
 				</div>
 			</section>
+		-->
 
 		</section>
 
-		<section class="stack column">
-			<section class="card">
+		<section class="stack column about">
+			<section class="card" data-slug="light">
 				<div class="post-header">
-					<h1 class="post-title">Example text #1</h1>
+					<h1 class="post-title">Light</h1>
 					<div class="post-meta"></div>
 				</div>
-				Text 1
-			</section>
-			<section class="card">
-				<div class="post-header">
-					<h1 class="post-title">Example text #2</h1>
-					<div class="post-meta"></div>
-				</div>
-				Text 2
-			</section>
-			<section class="card" >
 				<div class="post-body">
-					<h2>Links to check</h2>
-					<ul>
-						<li>
-							<a href="https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2">https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2</a>
-						</li>
-						<li>
-							<a href="https://github.com/denehyg/reveal.js-menu">https://github.com/denehyg/reveal.js-menu</a>
-						</li>
-						<li>
-							<a href="https://github.com/denehyg/reveal.js-toolbar">https://github.com/denehyg/reveal.js-toolbar</a>
-						</li>
-						<li>
-							<a href="https://github.com/peterdoherty01/reveal.js-typed">https://github.com/peterdoherty01/reveal.js-typed</a>
-						</li>
-					</ul>
-			</div>
+					<div class="post-content">
+						<div class="post-text">
+							Text 1
+						</div>
+					</div>
+				</div>
 			</section>
+			<section class="card" data-slug="metamodernism">
+				<div class="post-header">
+					<h1 class="post-title">Metamodernism</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text">
+							Text 2
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="card" data-slug="links">
+				<div class="post-header">
+					<h1 class="post-title">Links</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text">
+							<h2>Links to check</h2>
+							<ul>
+								<li>
+									<a href="https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2"><span>https://rogeralmeida.github.io/revealjs-animated-examples/#/0/2</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/denehyg/reveal.js-menu"><span>https://github.com/denehyg/reveal.js-menu</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/denehyg/reveal.js-toolbar"><span>https://github.com/denehyg/reveal.js-toolbar</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/peterdoherty01/reveal.js-typed"><span>https://github.com/peterdoherty01/reveal.js-typed</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="card" data-slug="colophon">
+				<div class="post-header">
+					<h1 class="post-title">Colophon</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text">
+							Colophon
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="card" data-slug="last">
+				<div class="post-header">
+					<h1 class="post-title">Last</h1>
+					<div class="post-meta"></div>
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="post-text">
+							<h1 id="se-et-dubites-adest">Se et dubites adest</h1>
+							<h2 id="fert-sola-alcyonen-cycnum-quem-iras">Fert sola Alcyonen Cycnum quem iras</h2>
+							<p>Lorem markdownum summa, monstris de descenderat refugis, sui silvis sonos
+							uterum. Esse ora dissipat illis. Cupido caelo mihi, spargere aere <em>dignissima</em>,
+							infantia celebri domus; <a href="http://www.veni-limite.org/iamat.php">non</a> summo
+							creberrima facta, de raptamque! Caecis turres, tergo hunc adplicat at tamen.</p>
+							<h2 id="numinis-quia-una-per-memorabile">Numinis quia una per memorabile</h2>
+							<p>Possim dis <em>tenvit</em>, corpore retro condiderant vitisque motus tantus triplici
+							quae. Sublimia unde, mundi rauco nostris, ubi genitor naribus dignus; vestes
+							inque Lucinam, timidae Hypanis Cassiope.</p>
+							<h2 id="ignoro-indiciumque-verba">Ignoro indiciumque verba</h2>
+							<p>Enim tamen. Quoque mihi silices inmortalis Pelides Dromas boves, ait caput.
+							Gemitus dederant oculis erit clausa elimat caput ingrederis paterque aegra
+							quotiens. Fila visis sit: esse baculo, fugiens furor Diomede pugnabam ne nunc me
+							procul. Viderat inmeritam autem creator latos pharetram non.</p>
+							<ul>
+							<li>Precor visa armiger Phaethontida ipse</li>
+							<li>Locis o cognita</li>
+							<li>In nebula ferrum et</li>
+							<li>Nocturnos excutiant saepe loricaeque visus ululatus auro</li>
+							</ul>
+							<p>Sit cum inde Myscelus: c ad quae sectamque quam corpore accipiunt. Capit
+							praemiaque digitis puerum, tenus, nec et defendit. Accedere poterat creati
+							inluxisse carmina Terram petit Maeandros ante sat fuerat promissa humus.
+							Conferat capillis pervia complexa cognita, non Aonides urnae. Adhuc fleturi.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
 		</section>
 
 		<nav class="stack-switcher">

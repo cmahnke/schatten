@@ -11,9 +11,7 @@
     "@fontsource/figtree": "^5.0.20",
     "@fontsource/special-elite": "^5.0.8",
     "color": "^4.2.3",
-    "fitty": "^2.4.2",
     "motion": "^10.17.0",
-    "sweet-scroll": "^4.0.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
