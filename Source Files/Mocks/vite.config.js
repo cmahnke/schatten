@@ -40,5 +40,8 @@ export default defineConfig({
         replacement: join(process.cwd(), 'node_modules/$1'),
       },
     ],
+  },
+  optimizeDeps: {
+    exclude: ['@monogrid/gainmap-js/libultrahdr']
   }
 })

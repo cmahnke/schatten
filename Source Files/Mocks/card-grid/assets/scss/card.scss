@@ -67,6 +67,10 @@ $card-padding: .4rem;
       position: relative;
       max-width: 100vw;
       margin-block-start: 10vh;
+      display: flex;
+      flex-basis: 100%;
+      justify-content: center;
+
 
       .home-title {
         font-family: var(--title-font);
@@ -80,6 +84,7 @@ $card-padding: .4rem;
         transition: opacity 100ms ease-in-out;
         white-space: normal;
         text-align: center;
+
         @supports (font-variation-settings: normal) {
           font-variation-settings: "wght" 350, "ELSH" 4, "ELGR" 2;
           animation: home-title 15s infinite linear alternate;
@@ -87,7 +92,7 @@ $card-padding: .4rem;
 
         @media all and (orientation:landscape) {
           white-space: nowrap;
-          font-size: 35vh;
+          font-size: 14vw;
           text-align: unset;
         }
       }
@@ -151,7 +156,7 @@ $card-padding: .4rem;
     width: inherit;
 
     @media all and (orientation:landscape) {
-      margin-top: unset;
+      margin-top: 4rem;
     }
 
     /*

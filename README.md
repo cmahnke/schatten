@@ -46,8 +46,9 @@ Nächtliche Schatten
 * Transplant mock code to assets
 * Write texts
 
-# Possible effects:
-* Moving underline text https://codepen.io/RickyMarou/pen/dyoMXYR
+# Affects (Acknowledgements):
+* [Moving underline text](https://codepen.io/RickyMarou/pen/dyoMXYR)
+* [CSS Isometric grid](https://codepen.io/avixsoft/pen/mdyOLKR)
 
 # CSS Tricks
 * [CSS non aninimateable properties](https://developer.chrome.com/blog/entry-exit-animations)
