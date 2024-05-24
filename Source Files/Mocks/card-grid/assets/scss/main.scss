@@ -10,13 +10,23 @@
 }
 
 
-/*
-html {
-  overflow: hidden;
-  height: 100vh;
-  scrollbar-width: none;
+/* Reset some things */
+h1, h2, h3, h4, h5, ul, p {
+  margin: 0;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
-*/
+
+h1, h2, h3, h4, h5, p {
+  overflow-wrap: break-word;
+}
+
+img, picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Base */
 
 html {
   scroll-snap-type: both mandatory;
@@ -59,26 +69,8 @@ section {
   color: var(--text-color);
 }
 
-/* Reset some things */
-h1, h2, h3, h4, h5, ul, p {
-  margin: 0;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-}
-
-h1, h2, h3, h4, h5, p {
-  overflow-wrap: break-word;
-}
-
-img, picture {
-  max-width: 100%;
-  display: block;
-}
 
 .cards {
-  display: flex;
-  /*TODO: calculate dynamically */
-  width: calc(200vw - 4em);
   position: relative;
 
   section {
@@ -87,12 +79,7 @@ img, picture {
   }
 
   .stack {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    max-width: calc(100vw - 1em);
-    flex-direction: column;
-    flex-basis: calc(100vw - 2em);
+
 
   }
 }

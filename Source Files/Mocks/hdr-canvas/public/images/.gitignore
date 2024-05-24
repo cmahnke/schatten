@@ -1,0 +1,6 @@
+*.hdr
+*.exr
+*.avif
+*.tiff
+core
+.DS_Store

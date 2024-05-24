@@ -1,0 +1,22 @@
+.cards {
+  display: grid;
+  /*TODO: calculate dynamically
+  width: calc(200vw - 4em); */
+  position: relative;
+
+  section {
+    scroll-snap-align: start;
+    scroll-margin: .1em;
+  }
+
+  .stack {
+  /*
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: calc(100vw - 1em);
+    flex-direction: column;
+    flex-basis: calc(100vw - 2em);
+*/
+  }
+}
