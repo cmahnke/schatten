@@ -119,20 +119,20 @@ $card-padding: .4rem;
     overflow: hidden;
 
     .post-title {
-      font-size: 6vh;
+      font-size: 2.6rem;
       z-index: 1;
       position: relative;
       mix-blend-mode: exclusion;
       text-shadow: 8px 8px #262626, 16px 16px #4d4d4d;
       padding-bottom: .45em;
       position: absolute;
-      top: 2rem;
+      top: 1.8rem;
       left: 2rem;
       @include handjet-pixelated;
 
       @media all and (orientation:landscape) {
         top: calc($card-padding * 4);
-        font-size: 9vh;
+        /* font-size: 9vh; */
       }
     }
 

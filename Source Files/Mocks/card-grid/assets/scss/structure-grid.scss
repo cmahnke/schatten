@@ -3,9 +3,7 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(2, calc(100vw - 1rem));
-  grid-template-rows: repeat(10, 30vw);
-  /*TODO: calculate dynamically
-  width: calc(200vw - 4em); */
+  /* grid-template-rows: repeat(10, 30vw); */
   position: relative;
 
   section {

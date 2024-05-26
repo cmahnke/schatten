@@ -45,6 +45,7 @@ Might need to be enabled:
 # Sample images
 
 * http://www.anyhere.com/gward/hdrenc/pages/originals.html
+* https://github.com/AOMediaCodec/av1-avif/tree/master/testFiles/Netflix/avif
 
 # Other
 

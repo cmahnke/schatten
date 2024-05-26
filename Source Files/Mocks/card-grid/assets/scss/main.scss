@@ -26,6 +26,25 @@ img, picture {
   display: block;
 }
 
+a {
+  text-decoration: none;
+  color: unset;
+
+  /*
+  a:link {
+  }
+
+  &:visited {
+  }
+
+  &:hover {
+  }
+
+  &:active {
+  }
+  */
+}
+
 /* Base */
 
 html {
@@ -46,6 +65,7 @@ body {
   margin: unset;
   height: 100vh;
   position: relative;
+  overflow-x: scroll;
 
   &.noscroll {
     animation: noscroll 250ms linear forwards;

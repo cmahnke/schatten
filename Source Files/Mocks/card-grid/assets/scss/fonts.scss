@@ -5,10 +5,10 @@ $sub-heading-font: '';
 $menu-heading-font: 'Special Elite';
 $menu-text-font: 'Handjet Variable', 'Courier New', Courier, monospace;
 
-@mixin handjet-pixelated() {
+@mixin handjet-pixelated($weight: 550) {
   font-family: var(--title-font);
   @supports (font-variation-settings: normal) {
-    font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+    font-variation-settings: "wght" $weight, "ESHP" 2.4, "EGRD" 1.07;
   }
 }
 

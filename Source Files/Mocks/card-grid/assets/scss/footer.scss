@@ -1,0 +1,63 @@
+.footer {
+  /*font-family: $special-font;*/
+  display: flex;
+  justify-content: center;
+  color: $text-color;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  max-height: 1.8rem;
+  z-index: 11;
+
+
+  .projektemacher {
+    $footer-shadow: 0px 0px .2rem var(--background-color),
+                    0px 0px .2rem var(--background-color),
+                    0px 0px .4rem var(--background-color),
+                    0px 0px .4rem var(--background-color),
+                    0px 0px .6rem var(--background-color),
+                    0px 0px .6rem var(--background-color),
+                    0px 0px .8rem var(--background-color),
+                    0px 0px .8rem var(--background-color),
+                    0px 0px 1rem var(--background-color),
+                    0px 0px 1.2rem var(--background-color);
+
+    @include handjet-pixelated(250);
+    font-size: 1rem;
+    position: relative;
+    text-shadow: $footer-shadow;
+    padding-top: .2rem;
+    text-align: center;
+    min-width: 50%;
+    background-color: var(--background-color);
+    box-shadow: 0px 0px 10px var(--background-color);
+
+    .logo {
+      content: '';
+      height: .8rem;
+      width: .8rem;
+      mask-image: url(/images/cm.png);
+      mask-position: center;
+      mask-size: contain;
+      vertical-align: middle;
+      mask-mode: luminance;
+      display: inline-block;
+      mask-repeat: no-repeat;
+      filter: drop-shadow($footer-shadow);
+
+      &:before {
+        content:"";
+        height: 100%;
+        background-image: url('/images/white-hdr.jpeg');
+        display:block;
+      }
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: .2rem;
+    }
+
+
+  }
+}

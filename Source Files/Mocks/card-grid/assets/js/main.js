@@ -14,6 +14,7 @@ const colorSteps = 255 / 100 * maxShade;
 const lang = 'de';
 const directions = ['left', 'right', 'up', 'down'];
 const fonts = {'handjet': '1em Handjet', 'special-elite': '1em Special Elite'}
+const langBase = {'#en': '/en/', '#de': '/'};
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -38,11 +39,12 @@ function toggleNav(elem) {
         console.log(`Scrolling to ${targetId}`);
         const target = document.getElementById(targetId);
         target.scrollIntoView({behavior: 'smooth'});
+        return false;
       }
       document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
         arrow.classList.remove('hidden');
         arrow.onclick = clickHandler;
-        console.log(`Activated ${direction}`);
+        //console.log(`Activated ${direction}`);
       });
     } else {
       document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
@@ -76,7 +78,31 @@ function handleCardIntersect(entries, observer) {
     if (!entry.target.classList.contains('__inserted')) {
       entry.target.style.backgroundColor = bg;
     }
-    if (entry.intersectionRatio == 1) {
+
+    //TODO: First check what's the highest possible intersect ratio, since cards might be larger then screen
+
+    if (!entry.isIntersecting || !entry.target.classList.contains('card')) {
+      return;
+    }
+
+    let ratio = 1;
+    if (entry.rootBounds.height < entry.target.offsetHeight || entry.rootBounds.width < entry.target.offsetWidth) {
+      // If we are in an overflowing element, just use the given intersaction to compute the ratio, if some heuristics apply
+      if (entry.intersectionRect.width < entry.target.parentNode.getBoundingClientRect().width) {
+        return;
+      }
+      if (entry.intersectionRect.height < entry.rootBounds.height - (entry.rootBounds.height / 20)) {
+        return;
+      }
+
+      const clientSize = entry.boundingClientRect.width * entry.boundingClientRect.height;
+      const intersectionSize = entry.intersectionRect.width * entry.intersectionRect.height;
+      ratio = (intersectionSize / clientSize).toFixed(6);
+
+      entry.target.dataset.ratio = ratio;
+    }
+
+    if (entry.intersectionRatio.toFixed(6) == ratio) {
       entry.target.classList.add('active');
       window.location.hash = generateURLFragment(entry.target.dataset.col, entry.target.dataset.row);
       toggleNav(entry.target);
@@ -279,17 +305,6 @@ function setupNav(selector) {
   });
 }
 
-// TODO: Remove for production
-/*
-function parseMarkdown() {
-  document.querySelectorAll('*[data-markdown]').forEach((text) => {
-    var content = text.innerText || text.textContent;
-    var parsed = marked.parse(content);
-    text.innerHTML = parsed;
-  });
-}
-*/
-
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 function setupLangSwitch(curLang, selector) {
   if (selector === undefined) {
@@ -299,6 +314,7 @@ function setupLangSwitch(curLang, selector) {
 
   switcher.addEventListener('click', (event) => {
     console.debug('Clicked lang switcher');
+    //TODO: Switch to actiuall language
     if (switcher.classList.contains('show')) {
       switcher.classList.remove('show');
     } else {
@@ -322,7 +338,7 @@ function setupLangSwitch(curLang, selector) {
       lang.classList.add('inactive');
     }
   });
-  //TODO: Switch to actiuall language
+
 }
 
 function textEffects () {
@@ -397,17 +413,39 @@ function fontsLoaded() {
   interval = setInterval(fontCheck, 200)
 }
 
+function scrollbarSizes () {
+  const rootElement = document.documentElement;
+  return [rootElement.offsetWidth - rootElement.clientWidth, rootElement.offsetHeight - rootElement.clientHeight];
+}
+
+function checkColumns(root, columnSelector) {
+  const startSelector = document.querySelector(root);
+  const columns = startSelector.querySelectorAll(columnSelector).length;
+
+  if (window.getComputedStyle(startSelector).getPropertyValue("display") == 'grid') {
+    const gridTemplate = window.getComputedStyle(startSelector).getPropertyValue('grid-template-columns');
+
+    if (gridTemplate.split(' ').length != columns) {
+      const templateColumn = `repeat(${columns}, calc(100vw - 1rem))`
+      console.log(`Setting grid-template-column on ${root} to ${templateColumn}`);
+      startSelector.style.gridTemplateColumns = templateColumn;
+    }
+  }
+  return columns;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   fontsLoaded();
   setupGrid('.cards', '.stack', 'section');
   let observer = new IntersectionObserver(handleCardIntersect, {root: null, rootMargin: "0px", threshold: buildThresholdList(colorSteps)});
   setupNav();
-  //parseMarkdown();
   setupMenu();
   setupLangSwitch(lang);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
+  checkColumns('.cards', '.stack');
+  console.log(scrollbarSizes());
   textEffects();
 
 
