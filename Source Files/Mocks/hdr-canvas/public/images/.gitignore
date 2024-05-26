@@ -2,5 +2,15 @@
 *.exr
 *.avif
 *.tiff
+*.miff
+*.rgb
+*.raw
+*.rgba
+*.debug
+*.yuv
+*.uyuy
+out.*
+tmp.*
+temp.*
 core
 .DS_Store

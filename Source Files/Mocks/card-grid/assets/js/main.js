@@ -246,14 +246,16 @@ function setupGrid(root, columnSelector, cardSelector) {
   }
 
   //Check for height differences
-  for (var i = 0; i < grid.length; i++) {
-    if (grid[i].height < maxHeight) {
-      var heightDiff = maxHeight - grid[i].height;
-      var lastOfShort = startSelector.querySelectorAll(columnSelector)[i].querySelector(`${cardSelector}:last-child`);
-      var oldHeight = lastOfShort.getBoundingClientRect().height;
-      var newHeight = oldHeight + heightDiff;
-      lastOfShort.style.height = `${newHeight}px`;
-      //console.log(`column ${i + 1} has wrong height, is ${grid[i].height}, maximum is ${maxHeight}, setting height of ${lastOfShort.id} to ${newHeight}`);
+  if (window.getComputedStyle(startSelector).getPropertyValue("display") != 'grid') {
+    for (var i = 0; i < grid.length; i++) {
+      if (grid[i].height < maxHeight) {
+        var heightDiff = maxHeight - grid[i].height;
+        var lastOfShort = startSelector.querySelectorAll(columnSelector)[i].querySelector(`${cardSelector}:last-child`);
+        var oldHeight = lastOfShort.getBoundingClientRect().height;
+        var newHeight = oldHeight + heightDiff;
+        lastOfShort.style.height = `${newHeight}px`;
+        //console.log(`column ${i + 1} has wrong height, is ${grid[i].height}, maximum is ${maxHeight}, setting height of ${lastOfShort.id} to ${newHeight}`);
+      }
     }
   }
 

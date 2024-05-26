@@ -40,6 +40,7 @@ Might need to be enabled:
 
 # Converter
 * https://gainmap-creator.monogrid.com/
+* JXL https://sturmen.github.io/posts/hdr-jpeg-xl-2022/
 
 # Sample images
 
@@ -49,11 +50,19 @@ Might need to be enabled:
 
 * https://stackoverflow.com/questions/51936897/how-does-one-create-and-display-hdr-images-in-web-browsers
 
+# CSS HDR
+* https://kidi.ng/wanna-see-a-whiter-white/
+
 # TODO
 
 * Check how to generate AVIF HDR
   * Test HDR AVIF on canvas
 * Add HDR canvas test
+
+
+## `ffmpeg` conversions
+
+* https://trac.ffmpeg.org/wiki/colorspace
 
 # To check
 * https://sturmen.github.io/posts/hdr-jpeg-xl-2022/

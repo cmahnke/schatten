@@ -70,19 +70,24 @@ h2 {
   padding: 3em;
   border-radius: 1em;
 
-  canvas {
+  span {
+    display: block;
+  }
 
-    &:before {
-      color: white;
-      content: 'Canvas element'
+  .canvas {
+    background: linear-gradient(180deg, rgba(255,255,255,1) 2em, rgba(0,0,0,1) 2em);
+    canvas {
+      border-top: 1px solid red;
     }
   }
 
-  img {
-
-    &:before {
+  .img {
+    span {
       color: white;
-      content: 'Img element'
+    }
+
+    img {
+
     }
   }
 
