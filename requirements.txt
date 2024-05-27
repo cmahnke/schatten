@@ -1,2 +1,4 @@
 #yuvio
 ffmpeg-python
+opencv-python
+opencv-contrib-python-headless

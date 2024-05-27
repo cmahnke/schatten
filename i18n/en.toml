@@ -3,3 +3,6 @@ other = 'This page offers HDR content that your monitor unfortunately does not s
 
 [hdrOk]
 other = "Ok"
+
+[isA]
+other = "is a"

@@ -1,3 +1,15 @@
 <footer class="footer" role="contentinfo">
-   {{- partialCached "footer-content.html" . -}}
+  <div class="projektemacher">
+			{{ $.Site.Title }} {{ i18n "isA" }} <a href="https://projektemacher.org/">Projektemacher</a> Blog
+			<span class="logo"></span>
+      {{- if and $.Sites.First.Copyright (eq $.Sites.First.Copyright "false") -}}
+          <span class="copyright"></span>
+      {{- else if $.Sites.First.Params.copyrightYears -}}
+          <span class="copyright">&copy; {{ $.Sites.First.Params.copyrightYears }} {{ .Sites.First.Copyright | safeHTML }}</span>
+      {{- else if $.Sites.First.Params.copyright -}}
+          <span class="copyright">{{- .Sites.First.Params.copyright | safeHTML -}}</span>
+      {{- else -}}
+          <span class="copyright">&copy; {{ $.Sites.First.LastChange.Year }} {{ $.Sites.First.Title }}</span>
+      {{- end -}}
+		</div>
 </footer>
