@@ -6,6 +6,7 @@ $arrow-icon: url('/images/Arrow.svg');
 /* Fonts */
 @import "fonts";
 @import "main";
+@import "icons";
 @import "structure-grid";
 @import "nav";
 @import "menu";
@@ -14,3 +15,4 @@ $arrow-icon: url('/images/Arrow.svg');
 @import "about";
 @import "images";
 @import "footer";
+@import "hdr-warning";

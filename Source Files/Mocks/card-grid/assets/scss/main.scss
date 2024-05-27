@@ -51,9 +51,7 @@ html {
   scroll-snap-type: both mandatory;
   scroll-behavior: smooth;
   background-color: var(--background-color);
-  /* TODO: Enable this, only needed for debug
   scrollbar-width: none;
-  */
 }
 
 ::-webkit-scrollbar {

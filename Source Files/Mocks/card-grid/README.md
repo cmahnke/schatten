@@ -1,11 +1,15 @@
 # TODO
 
-* Check scroll out of frame on Chrome
+* Scroll issues
+  * Check scroll out of frame on Chrome
+  * Scroll issues with overflowing text on Firefox
 * Check if arrows in navToggle are aligned properly
-* Finish CSS grid based structure - done
-* Remove scrollbars https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
-* Language switch
-* Cleanup (Comments, console)
+* Add a method to handle screen updates
+* Cleanup (Comments, console, etc)
+
+## Low priority
+
+* Remove scrollbars (if CSS won't work) https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
 
 # Tools
  * Clip paths: https://css-generators.com/triangle-shapes/

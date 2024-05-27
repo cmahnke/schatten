@@ -5,3 +5,7 @@
     </h1>
   </div>
 </section>
+{{/* TODO: remove this */}}
+{{- if hugo.IsProduction -}}
+  {{- errorf "Failed on purpose in home.html" -}}
+{{- end -}}

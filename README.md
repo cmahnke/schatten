@@ -37,6 +37,7 @@ Nächtliche Schatten
 * https://github.com/albertz/playground/blob/master/ultrahdr.py
 
 # TODO
+* Remove production blocker
 * Cookie banner
   * Add close button
   * Check if external requests are blocked if declined

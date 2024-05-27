@@ -6,7 +6,9 @@ import "@fontsource-variable/montserrat";
 
 import {animate, scroll, inView} from 'motion';
 import Color from 'color';
-//import { marked } from 'marked';
+import Cookies from 'js-cookie';
+
+import {checkHDR} from './hdr-check';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
@@ -78,8 +80,6 @@ function handleCardIntersect(entries, observer) {
     if (!entry.target.classList.contains('__inserted')) {
       entry.target.style.backgroundColor = bg;
     }
-
-    //TODO: First check what's the highest possible intersect ratio, since cards might be larger then screen
 
     if (!entry.isIntersecting || !entry.target.classList.contains('card')) {
       return;
@@ -165,7 +165,6 @@ function setupGrid(root, columnSelector, cardSelector) {
   startSelector.querySelectorAll(columnSelector).forEach((column) => {
     var cards = column.querySelectorAll(cardSelector);
     var numCards = cards.length;
-    //var height = column.getBoundingClientRect().height;
     var overallHeight = columnHeight(column);
 
     maxWidth++;
@@ -284,7 +283,6 @@ function setupGrid(root, columnSelector, cardSelector) {
       }
     }
   }
-
 }
 
 function setupNav(selector) {
@@ -314,9 +312,11 @@ function setupLangSwitch(curLang, selector) {
 
   switcher.addEventListener('click', (event) => {
     console.debug('Clicked lang switcher');
-    //TODO: Switch to actiuall language
     if (switcher.classList.contains('show')) {
       switcher.classList.remove('show');
+      const url = event.target.dataset.url;
+      console.log(`Switching to ${url}`);
+      window.location.replace(url);
     } else {
       switcher.classList.add('show');
       switcher.querySelectorAll(`li a`).forEach((link) => {
@@ -434,6 +434,31 @@ function checkColumns(root, columnSelector) {
   return columns;
 }
 
+function displayHDRWarning () {
+  const cookieName = 'hdr-notice';
+  if (!checkHDR()) {
+    console.log("Browser doesn't support HDR images!");
+    if (Cookies.get(cookieName) == 'true') {
+      return
+    }
+    document.querySelector('#hdr-warning').style.display = 'block';
+    document.querySelectorAll('#hdr-warning .close, #hdr-warning .button').forEach((close) => {
+      close.addEventListener("click", function() {
+        Cookies.set(cookieName, 'true', { expires: 7, path: '', sameSite: 'Strict' });
+        document.getElementById('hdr-warning').classList.add('hidden');
+        return;
+      });
+    });
+  }
+}
+
+function checkWindowResize() {
+  //TODO: Also check if window has been moved to another screen
+  window.addEventListener("resize", (e) => {
+    console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`)
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   fontsLoaded();
   setupGrid('.cards', '.stack', 'section');
@@ -445,7 +470,9 @@ document.addEventListener("DOMContentLoaded", function() {
     observer.observe(section);
   });
   checkColumns('.cards', '.stack');
-  console.log(scrollbarSizes());
+  checkWindowResize();
+  displayHDRWarning();
+  //console.log(scrollbarSizes());
   textEffects();
 
 

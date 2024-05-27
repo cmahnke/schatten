@@ -5,7 +5,7 @@
       {{- if ne $.Site.Language .Language -}}
         <li><a href="#{{ $lang }}">{{ upper $lang }}</a></li>
       {{- else -}}
-        <li class="active"><a href="#{{ $lang }}">{{ upper $lang }}</a></li>
+        <li class="active"><a href="#{{ $lang }}" data-url="{{ .RelPermalink }}">{{ upper $lang }}</a></li>
       {{- end -}}
     {{- end -}}
   </menu>

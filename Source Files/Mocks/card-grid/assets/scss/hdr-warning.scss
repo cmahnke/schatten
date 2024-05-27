@@ -1,0 +1,69 @@
+/* Inspired by https://defency.eu/posts/2023/10/hugo.io-how-to-integrate-cookie-consent-for-google-analytics/ */
+
+$accept-color: #0fff50;
+$decline-color: #fd1c03;
+$button-background: gray;
+
+#hdr-warning {
+  margin: auto;
+  font-size: medium;
+  padding: 1.2rem 3rem;
+  display: none;
+  text-align: center;
+  position: fixed;
+  height: fit-content;
+  background: rgba(255, 255, 255, .95);
+  color: #000;
+  z-index: 1000;
+  max-width: 70vw;
+  box-shadow: rgba(0, 0, 0, 0.5) .45em .45em, rgba(0, 0, 0, 0.4) .9em .9em, rgba(0, 0, 0, 0.3) 1.35em 1.35em;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+
+  .close {
+    height: 1.6em;
+    width: 1.6em;
+    content: url($close-light);
+    display: inline-block;
+    vertical-align: bottom;
+    top: .6em;
+    right: .6em;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .button {
+    border: none;
+    padding: 1em;
+    text-align: center;
+    line-height: 1;
+    vertical-align: middle;
+    display: block;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: .4rem;
+    border: 1px solid black;
+    width: 8rem;
+    margin: auto;
+  }
+
+  .hdr-warning-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    display: block;
+    margin: 2rem 0;
+  }
+
+  &.hidden {
+    animation: hide 500ms forwards;
+  }
+
+  @keyframes hide {
+    to {
+      opacity: 0;
+      display: none;
+    }
+  }
+}
