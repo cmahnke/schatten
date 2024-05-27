@@ -2,8 +2,7 @@
 
 * Scroll issues
   * Check scroll out of frame on Chrome
-  * Scroll issues with overflowing text on Firefox
-* Check if arrows in navToggle are aligned properly
+  * Scroll issues with overflowing text on Firefox - check custom scroll-snap-align: start;
 * Add a method to handle screen updates
 * Cleanup (Comments, console, etc)
 

@@ -35,6 +35,7 @@
       left: 50%;
     }
 
+
     &:has(.up) {
       top: 1em;
       transform: translate(-50%, 0%);
@@ -47,19 +48,19 @@
 
     &:hover {
       .up {
-        transform: translate(-50%, -20%) rotate(180deg) scale(1.2);
+        transform: translate(0%, -20%) rotate(180deg) scale(1.2);
       }
 
       .left {
-        transform: translate(-20%, -50%) rotate(90deg) scale(1.2);
+        transform: translate(-20%, 0%) rotate(90deg) scale(1.2);
       }
 
       .right {
-        transform: translate(20%, -50%) rotate(270deg) scale(1.2);
+        transform: translate(20%, 0%) rotate(270deg) scale(1.2);
       }
 
       .down {
-        transform: translate(-50%, 20%) scale(1.2);
+        transform: translate(0%, 20%) scale(1.2);
       }
 
     }
@@ -104,11 +105,11 @@
   }
 
   .left {
-    transform: translate(0%, -50%) rotate(90deg);
+    transform: rotate(90deg);
   }
 
   .right {
-    transform: translate(0%, -50%) rotate(270deg);
+    transform: rotate(270deg);
   }
 
   .up,
@@ -118,11 +119,13 @@
   }
 
   .up {
-    transform: translate(-50%, 0%) rotate(180deg);
-  }
+    transform: rotate(180deg);
+    }
 
+  /* Down is in the right direction
   .down {
-    transform: translate(-50%, 0%);
+
   }
+  */
 
 }
