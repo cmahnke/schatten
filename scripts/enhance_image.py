@@ -7,6 +7,8 @@ import cv2 as cv
 from termcolor import cprint
 import ffmpeg
 
+#TODO: Make `ultrahdr_app` call configurable to support docker
+
 # See also https://github.com/albertz/playground/blob/master/ultrahdr.py
 
 ultrahdr_app_bin = '/usr/local/bin/ultrahdr_app'

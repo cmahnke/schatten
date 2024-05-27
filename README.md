@@ -46,6 +46,7 @@ Nächtliche Schatten
 * Finish mock in Source Files/Mocks/card-grid
 * Transplant mock code to assets
 * Write texts
+* Use UltraHDR converter from Docker image
 
 # Affects (Acknowledgements):
 * [Moving underline text](https://codepen.io/RickyMarou/pen/dyoMXYR)
