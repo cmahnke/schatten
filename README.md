@@ -45,7 +45,9 @@ Nächtliche Schatten
   * Bundle as library
 * Finish mock in Source Files/Mocks/card-grid
 * Transplant mock code to assets
-* Write texts
+* Contents
+  * Write texts
+  * Create illustration
 * Use UltraHDR converter from Docker image
 
 # Affects (Acknowledgements):
