@@ -14,7 +14,7 @@ cd build
 cmake -G "Unix Makefiles"  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DUHDR_BUILD_EXAMPLES=1 -DUHDR_BUILD_TESTS=0 -DCMAKE_INSTALL_PREFIX=/usr/local ../
 
 make
-make install
+sudo make install
 
 mkdir -p /usr/local/bin
 sudo cp ultrahdr_app /usr/local/bin/
