@@ -13,10 +13,9 @@ import {checkHDR} from './hdr-check';
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
 const colorSteps = 255 / 100 * maxShade;
-const lang = 'de';
+//const lang = 'de';
 const directions = ['left', 'right', 'up', 'down'];
 const fonts = {'handjet': '1em Handjet', 'special-elite': '1em Special Elite'}
-const langBase = {'#en': '/en/', '#de': '/'};
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -305,6 +304,9 @@ function setupNav(selector) {
 
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 function setupLangSwitch(curLang, selector) {
+  if (curLang === undefined || curLang == null || curLang == '') {
+    curLang = document.querySelector('html').getAttribute('lang');
+  }
   if (selector === undefined) {
     selector = 'menu.lang-switch';
   }
@@ -465,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let observer = new IntersectionObserver(handleCardIntersect, {root: null, rootMargin: "0px", threshold: buildThresholdList(colorSteps)});
   setupNav();
   setupMenu();
-  setupLangSwitch(lang);
+  setupLangSwitch();
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
