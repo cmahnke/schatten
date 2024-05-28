@@ -1,0 +1,15 @@
+body {
+  margin: 0px;
+}
+
+#dial-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 1em;
+
+  .dial {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

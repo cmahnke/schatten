@@ -7,6 +7,8 @@ import { join } from 'path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import DynamicPublicDirectory from "vite-multiple-assets";
 
+const mimeTypes = {'.glb': 'model/gltf-binary'};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
@@ -16,8 +18,9 @@ export default defineConfig({
       apply: 'build'
     },
     stylelint({'build': true, 'dev': false, 'lintOnStart': true}),
-    DynamicPublicDirectory(["card-grid/public"], {
-        ssr: false
+    DynamicPublicDirectory(["card-grid/public", 'model/public'], {
+        ssr: false,
+        mimeTypes
     })
   ],
   build: {
@@ -27,6 +30,7 @@ export default defineConfig({
         main: resolve(__dirname, 'card-grid/index.html'),
         pattern: resolve(__dirname, 'css-draft/index.html'),
         hdr: resolve(__dirname, 'hdr-canvas/index.html'),
+        model: resolve(__dirname, 'model/index.html'),
       },
       output: {
         assetFileNames: `assets/[name].[ext]`
