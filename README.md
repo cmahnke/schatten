@@ -41,13 +41,13 @@ Nächtliche Schatten
 * Cookie banner
   * Add close button
   * Check if external requests are blocked if declined
-* HDR detection
+* HDR detection - done
   * Bundle as library
 * Finish mock in Source Files/Mocks/card-grid
 * Transplant mock code to assets
 * Contents
   * Write texts
-  * Create illustration
+  * Create illustration - done in Source Files/Mocks/model
 * Use UltraHDR converter from Docker image
 
 # Affects (Acknowledgements):
