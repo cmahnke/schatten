@@ -1,4 +1,4 @@
-import {checkHDR , checkHDRCanvas} from './hdr-check';
+import {checkHDR , checkHDRCanvas} from '@/hdr-check';
 import encodeHDR from './hdr-encode';
 import {marked} from 'marked';
 

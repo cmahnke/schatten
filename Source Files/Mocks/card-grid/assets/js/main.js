@@ -8,14 +8,16 @@ import {animate, scroll, inView} from 'motion';
 import Color from 'color';
 import Cookies from 'js-cookie';
 
-import {checkHDR} from './hdr-check';
+import {checkHDR} from '@/hdr-check';
+import {initModel, ARRAY_SIZE, SWITCH_EVENT_NAME } from '@/model';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
 const colorSteps = 255 / 100 * maxShade;
-//const lang = 'de';
 const directions = ['left', 'right', 'up', 'down'];
 const fonts = {'handjet': '1em Handjet', 'special-elite': '1em Special Elite'}
+const modelUrl = '/gtlf/model-uncompressed.glb';
+const modelSelector = '#renderer';
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -474,9 +476,11 @@ document.addEventListener("DOMContentLoaded", function() {
   checkColumns('.cards', '.stack');
   checkWindowResize();
   displayHDRWarning();
-  //console.log(scrollbarSizes());
+  const canvas = document.querySelector(modelSelector);
+  if (canvas !== null) {
+    initModel(canvas, modelUrl);
+  }
   textEffects();
-
 
   if (window.location.hash !== '') {
     var id;
@@ -486,10 +490,6 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       id = window.location.hash;
     }
-
-
     console.log(`Init: Moving to ${id}`)
   }
-
-
 });

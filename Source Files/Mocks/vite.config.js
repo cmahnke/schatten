@@ -1,9 +1,8 @@
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import { viteSingleFile } from "vite-plugin-singlefile"
 import stylelint from 'vite-plugin-stylelint';
-import { join } from 'path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import DynamicPublicDirectory from "vite-multiple-assets";
 
@@ -18,10 +17,10 @@ export default defineConfig({
       apply: 'build'
     },
     stylelint({'build': true, 'dev': false, 'lintOnStart': true}),
-    DynamicPublicDirectory(["card-grid/public", 'model/public'], {
+    DynamicPublicDirectory(['card-grid/public', 'hdr-canvas/public', 'model/public', 'common-public'], {
         ssr: false,
         mimeTypes
-    })
+    }),
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },
@@ -41,8 +40,12 @@ export default defineConfig({
     alias: [
       {
         find: /~(.+)/,
-        replacement: join(process.cwd(), 'node_modules/$1'),
+        replacement: join(process.cwd(), 'node_modules/$1')
       },
+      {
+        find: /@\/(.+)/,
+        replacement: join(process.cwd(), 'common-assets/js/$1')
+      }
     ],
   },
   optimizeDeps: {

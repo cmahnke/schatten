@@ -43,6 +43,7 @@ Nächtliche Schatten
   * Check if external requests are blocked if declined
 * HDR detection - done
   * Bundle as library
+* Canvas detection
 * Finish mock in Source Files/Mocks/card-grid
 * Transplant mock code to assets
 * Contents

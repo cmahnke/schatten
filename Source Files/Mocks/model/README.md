@@ -1,5 +1,5 @@
 # TODO
 
-* Multiple views
-  * create portrait mode
+* Add seperator
+* Fix touch dimmer
 * Cleanup

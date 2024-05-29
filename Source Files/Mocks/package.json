@@ -14,8 +14,7 @@
     "cookie-js": "^0.0.1",
     "marked": "^12.0.2",
     "motion": "^10.17.0",
-    "three": "^0.164.0",
-    "webfontloader": "^1.6.28"
+    "three": "^0.164.0"
   },
   "devDependencies": {
     "eslint": "^9.1.1",

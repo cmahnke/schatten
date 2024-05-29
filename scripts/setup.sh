@@ -19,3 +19,5 @@ fi
 convert -density 300 -background none ./themes/projektemacher-base/static/images/cm.svg -monochrome -size 256x256  static/images/cm.png
 
 ./themes/projektemacher-base/scripts/saxon.sh -s:themes/projektemacher-base/static/images/cm.svg  -xsl:themes/projektemacher-base/scripts/xslt/svg-clippath.xsl -o:static/images/svgs/cm-clippath.svg
+
+./themes/projektemacher-base/scripts/3d-models.sh
