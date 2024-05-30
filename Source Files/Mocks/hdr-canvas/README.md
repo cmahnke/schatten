@@ -59,6 +59,13 @@ Might need to be enabled:
 * Check how to generate AVIF HDR
   * Test HDR AVIF on canvas
 * Add HDR canvas test
+  * Check how to map colors, maybe https://colorjs.io/docs/spaces
+    * Thre are examples i the HDR Canvas draft
+  * Create abstraction (get / set Pixel on Uint16 Array) - done
+    * add color manipulations on abstraction
+    * load ImageData Array
+  * load image into Uint16 Array with color mapping
+  * manipulate pixel intensity on Uint16
 
 
 ## `ffmpeg` conversions
@@ -68,3 +75,4 @@ Might need to be enabled:
 # To check
 * https://sturmen.github.io/posts/hdr-jpeg-xl-2022/
 * https://github.com/mrdoob/three.js/pull/27183
+* https://discuss.pixls.us/t/experimenting-with-hlg-and-hdr10-for-still-images/23361/45

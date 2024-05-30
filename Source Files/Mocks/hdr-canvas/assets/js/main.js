@@ -1,6 +1,7 @@
 import {checkHDR , checkHDRCanvas} from '@/hdr-check';
 import encodeHDR from './hdr-encode';
 import {marked} from 'marked';
+import Color from 'color';
 
 //See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 /*
@@ -31,6 +32,83 @@ window.matchMedia('(color-gamut: p3)').matches
 window.matchMedia('(color-gamut: rec2020)').matches
 
 */
+
+
+class Uint16Image {
+  height;
+  width;
+  data;
+  static DEFAULT_COLORSPACE = 'rec2100-hlg';
+  colorSpace;
+
+  constructor(width, height, colorspace) {
+    if (colorspace === undefined || colorSpace === null) {
+      this.colorSpace = Uint16Image.DEFAULT_COLORSPACE;
+    } else {
+      this.colorSpace = colorspace
+    }
+
+    this.height = height;
+    this.width = width;
+    this.data = new Uint16Array(height * width * 4);
+  }
+
+  fill(color) {
+    if (color.length != 4) {
+      return
+    }
+    for (var i = 0; i < this.data.length; i += 4) {
+      this.data[i] = color[0];
+      this.data[i + 1] = color[1];
+      this.data[i + 2] = color[2];
+      this.data[i + 3] = color[3];
+    }
+    return this;
+  }
+
+  getPixel(w, h) {
+    const pos = (h * this.width + w) * 4;
+
+    return this.data.slice(pos, pos + 4)
+    /* Keep this for illustration
+    const red = this.data[pos + 0];
+    const green = this.data[pos + 1];
+    const blue = this.data[pos + 2];
+    const alpha = this.data[pos + 3];
+    return [red, green, blue, alpha];
+    */
+  }
+
+  setPixel(w, h, px) {
+    const pos = (h * this.width + w) * 4;
+    this.data[pos + 0] = px[0];
+    this.data[pos + 1] = px[1];
+    this.data[pos + 2] = px[2];
+    this.data[pos + 3] = px[3];
+  }
+
+  getImageData() {
+    if (this.data === undefined || this.data === null) {
+      return null
+    }
+    return new ImageData(this.data, this.width, this.height, {colorSpace: this.colorSpace});
+  }
+
+  static fromImageData(imageData) {
+    const i = new Uint16Image(0, 0);
+    i.setImageData(imageData);
+    return i;
+  }
+
+  setImageData(imageData) {
+    this.colorSpace = imageData.colorSpace;
+    this.width = imageData.width;
+    this.height = imageData.height;
+    //TODO: We need to convert colors here!
+    this.data = new Uint16Array(imageData.data);
+  }
+
+}
 
 function loadImage() {
   // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/blink/renderer/core/html/canvas/high_dynamic_range_options.idl
@@ -71,44 +149,91 @@ function loadImage() {
   };
 
 
-  function whiteBoxArrayUint16 (height, width) {
+  function colorFillBoxArrayUint16 (height, width, color) {
     const box = new Uint16Array(height * width * 4);
-    for (let w = 0; w < width; w++) {
-      for (let h = 0; h < height; h++) {
-        box[w * h] = 2**16 - 1;
-        box[w * h + 1] = 2**16 - 1;
-        box[w * h + 2] = 2**16 - 1;
-        box[w * h + 3] = 2**16 - 1;
-        //console.log(`Written w${w}, h${h}`)
-      }
+    for (var i = 0; i < box.length; i += 4) {
+      box[i] = color[0];
+      box[i + 1] = color[1];
+      box[i + 2] = color[2];
+      box[i + 3] = color[3];
     }
     return new ImageData(box, width, height, {colorSpace: colorSpace});
   }
 
+
+  function whiteBoxArrayUint16 (height, width) {
+    const box = new Uint16Array(height * width * 4);
+    box.fill(2**16 - 1);
+    return new ImageData(box, width, height, {colorSpace: colorSpace});
+  }
 
   function whiteBoxArrayUint8Clamped (height, width) {
     const box = new Uint8ClampedArray(height * width * 4);
-    for (let w = 0; w < width; w++) {
-      for (let h = 0; h < height; h++) {
-        box[w * h] = 255;
-        box[w * h + 1] = 255;
-        box[w * h + 2] = 255;
-        box[w * h + 3] = 255;
-
-      }
-    }
-    return new ImageData(box, width, height, {colorSpace: colorSpace});
+    box.fill(2**8 - 1);
+    return new ImageData(box, width, height);
   }
 
+  // Green box with pixels
+  var imageObj = new Uint16Image(32, 32);
+  imageObj.fill([0, 2**16 - 1, 0, 2**16 - 1]);
+  imageObj.setPixel(0, 0, [2**16 - 1, 0, 0, 2**16 - 1]);
+  imageObj.setPixel(1, 1, [2**16 - 1, 0, 0, 2**16 - 1]);
+  //console.log(imageObj.getPixel(1, 1));
+  var ioBox = imageObj.getImageData();
+  console.log('Green', ioBox, imageObj);
+
+  ctx.putImageData(ioBox, 130, 0);
+
+  var whiteObj = Uint16Image.fromImageData(whiteBoxArrayUint8Clamped(32, 32));
+  ctx.putImageData(whiteObj.getImageData(), 200, 0);
+  console.log('White', whiteObj)
+
   var box = whiteBoxArrayUint16(32, 32);
-  ctx.putImageData(box, 33, 0);
+  console.log('HDR white', box);
+
+
+  ctx.fillStyle = "color(display-p3 1 0 1)";
+  ctx.fillRect(10,10,10,10)
+
+
+  function uint8rgbaToUint16(val) {
+    const cssColor = `rgba(${val[0]}, ${val[1]}, ${val[2]}, ${val[3]})`;
+    var color = new Color(cssColor);
+    console.log( cssColor, color.p3);
+  }
+
+  uint8rgbaToUint16([255, 255, 255, 255]);
+
+  function uint8ToUint16(val) {
+    //A bit better, based on whitepoint of .75, still not accurate
+    return (val + 1 * .75) << 8;
+
 /*
-  ctx.beginPath();
-  ctx.rect(30, 30, 64, 64);
-  ctx.fill();
-*/
+    int8_t hi = ((i >> 8) & 0xff);
+    int8_t lo = ((i >> 0) & 0xff);
+  */
+    //This transfers linear, not really usable
+    //return ((val << 8) | val);
+    // This only works for white, use to figure out transfer fuction
+    //return val * 0xC2;
+  }
 
+  console.log(`Base 255 ${255 * 0xC2} -> ${255 << 0xFFC2}`);
 
+  //console.log(new Color('srgb', [0, 255, 0]).to('rec2100'))
+  //console.log(new Color('RGB', [255,0,0]).to('rec2100-hlg'));
+  //var cBox = new Uint16Image(32, 32).fill([uint8ToUint16(0), 40000, 0, 2**16 - 1]).getImageData();
+  var cBox = colorFillBoxArrayUint16(32, 32, [uint8ToUint16(0), uint8ToUint16(0), uint8ToUint16(128), 2**16 - 1]);
+
+  //127 -> 30000
+  //181 -> 40000
+
+  console.log('shifted', cBox);
+  ctx.putImageData(box, 33, 0);
+  ctx.putImageData(cBox, 64, 0);
+
+  var wBox = whiteBoxArrayUint8Clamped(32, 32)
+  ctx.putImageData(wBox, 96, 0);
 
 
 }

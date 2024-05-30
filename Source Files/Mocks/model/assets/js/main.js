@@ -4,6 +4,7 @@ const modelUrl = '/gtlf/model-uncompressed.glb';
 
 const canvas = document.querySelector('#renderer');
 const dial = document.querySelector('#dial-container');
+const touchIndicator = document.querySelector('#touch-indicator');
 
 createSwitchGrid(dial);
 initModel(canvas, modelUrl);
@@ -48,11 +49,17 @@ if (isTouchDevice()) {
     const current = e.changedTouches[0];
     startTouch = [parseInt(current.pageX), parseInt(current.pageY)];
     lastTouch = [parseInt(current.pageX), parseInt(current.pageY)];
+    if (touchIndicator != null) {
+      touchIndicator.style.opacity = '0';
+    }
   });
 
   canvas.addEventListener("touchcancel", function(e){
     e.preventDefault();
     startTouch = [];
+    if (touchIndicator != null) {
+      touchIndicator.style.opacity = '0';
+    }
   });
 
   canvas.addEventListener("touchmove", function(e){
