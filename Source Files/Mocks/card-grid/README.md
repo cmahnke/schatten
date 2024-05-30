@@ -4,7 +4,6 @@
   * Check scroll out of frame on Chrome
   * Scroll issues with overflowing text on Firefox - check custom scroll-snap-align: start;
 * Add a method to handle screen updates
-* Fix sizing of model canvas
 * Cleanup (Comments, console, etc)
 
 ## Low priority

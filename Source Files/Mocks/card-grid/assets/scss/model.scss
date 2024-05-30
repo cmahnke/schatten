@@ -1,7 +1,9 @@
+
 .post-body:has(.renderer-container) {
   flex-basis: 100%;
-  max-height: 100%;
+  /*max-height: 100%; */
 }
+
 
 .renderer-container {
   width: 100%;
@@ -9,15 +11,6 @@
 
 
   #renderer {
-    /*
-    height: inherit;
-    width: inherit;
-    */
-
-
-    height: 100%;
-    width: 100%;
-
     mix-blend-mode: difference;
   }
 }
