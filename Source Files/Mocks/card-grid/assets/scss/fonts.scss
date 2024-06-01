@@ -3,7 +3,7 @@ $title-font: 'Handjet Variable';
 $heading-font: '';
 $sub-heading-font: '';
 $menu-heading-font: 'Special Elite';
-$menu-text-font: 'Handjet Variable', 'Courier New', Courier, monospace;
+$menu-text-font: 'Handjet Variable', 'Courier New', courier, monospace;
 
 @mixin handjet-pixelated($weight: 550) {
   font-family: var(--title-font);

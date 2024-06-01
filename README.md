@@ -55,6 +55,9 @@ Nächtliche Schatten
 * [Moving underline text](https://codepen.io/RickyMarou/pen/dyoMXYR)
 * [CSS Isometric grid](https://codepen.io/avixsoft/pen/mdyOLKR)
 
+# Possible Effects
+* https://animista.net/play/text/focus-in/text-focus-in
+
 # CSS Tricks
 * [CSS non aninimateable properties](https://developer.chrome.com/blog/entry-exit-animations)
 * [Fitting text](https://css-tricks.com/fitting-text-to-a-container/)

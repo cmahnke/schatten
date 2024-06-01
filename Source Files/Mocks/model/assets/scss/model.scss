@@ -1,0 +1,65 @@
+$touch-icon: url('/images/Finger.svg');
+
+.renderer-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  #renderer {
+    mix-blend-mode: difference;
+
+    &:hover + #touch-indicator {
+      animation: unset;;
+    }
+  }
+
+  #touch-indicator {
+    transition: opacity 200ms linear;
+  }
+
+  @keyframes touch {
+    0% {
+      opacity: 0;
+      transform: scale(1) rotateY(0deg) rotateX(0deg) translateX(-50%);
+    }
+    15% {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg) rotateX(0deg) translateX(-50%);
+    }
+    25% {
+      transform: scale(.9) rotateY(0deg) rotateX(15deg) translateX(-50%) translateY(10%);
+    }
+    75% {
+      transform: scale(.9) rotateZ(30deg) rotateX(15deg) translateX(50%) translateY(10%);
+    }
+    85% {
+      opacity: 1;
+      transform: scale(1) rotateZ(30deg) rotateX(15deg) translateX(50%);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1) rotateZ(30deg) rotateX(15deg) translateX(50%);
+    }
+  }
+
+  .touch-icon {
+    pointer-events: none;
+    position: absolute;
+    color: var(--text-color);
+    background : $touch-icon;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+    animation: touch 4s ease-in-out 1s infinite alternate;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    aspect-ratio: 1/1;
+    width: 4rem;
+    opacity: 0;
+
+    @media all and (orientation:landscape) {
+      top: 50%;
+      left: 66%;
+    }
+  }
+}

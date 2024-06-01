@@ -87,6 +87,11 @@ class Uint16Image {
     this.data[pos + 3] = px[3];
   }
 
+  // Only use this for aplha, since it doesn't to color space conversions
+  static scaleUint8ToUint16(val) {
+    return ((val << 8) | val);
+  }
+
   getImageData() {
     if (this.data === undefined || this.data === null) {
       return null
@@ -212,7 +217,7 @@ function loadImage() {
     int8_t hi = ((i >> 8) & 0xff);
     int8_t lo = ((i >> 0) & 0xff);
   */
-    //This transfers linear, not really usable
+    //This transfers linear, not really usable, except alpha
     //return ((val << 8) | val);
     // This only works for white, use to figure out transfer fuction
     //return val * 0xC2;
@@ -271,3 +276,41 @@ document.addEventListener("DOMContentLoaded", function() {
   addStatus();
 
 });
+
+/*
+function
+for (var i = 0; i < this.data.length; i += 4) {
+  this.data[i] = color[0];
+  this.data[i + 1] = color[1];
+  this.data[i + 2] = color[2];
+  this.data[i + 3] = color[3];
+}
+*/
+
+
+// See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
+function convertSRGBtoREC2100HLG(r, g, b) {
+
+  /* Linearize using the sRGB EOTF */
+  const r1 = srgb_eotf(r);
+  const g1 = srgb_eotf(g);
+  const b1 = srgb_eotf(b);
+
+  /* convert color coordinates from sRGB to BT.2020 color space */
+  const [r2, g2, b2] = matrixXYZtoBT2020(matrixSRGBtoXYZ(r1, g1, b1));
+
+  /* Scale pixel values to match the HLG nominal peak luminance */
+  const linearLightScaler = 80/302.2;
+  const r3 = linearLightScaler * r2;
+  const g3 = linearLightScaler * g2;
+  const b3 = linearLightScaler * b2;
+
+  /* apply HLG Inverse OOTF to obtain scene light values */
+  const systemGamma = 1.001;
+  const [r4, g4, b4] = hlg_inverse_ootf(r3, g3, b3, systemGamma);
+
+  /* apply HLG OETF to obtain the non-linear HLG signal (see NOTE 1) */
+  const [r5, g5, b5] = hlg_oetf(r4, g4, b4);
+
+  return [r5, g5, b5]
+}

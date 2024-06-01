@@ -4,7 +4,12 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 export const ARRAY_SIZE = 9;
 export const TOGGLE_EVENT_NAME = 'toggleLight';
 export const SWITCH_EVENT_NAME = 'switchLights';
-export const DEFAULT_SEPARATOR = '';
+export const DEFAULT_SEPARATORS = {"landscape": [{
+
+        }
+      ], "portrait": [
+        {
+      }]};
 export const DEFAULT_LAYOUTS = {"landscape": [{
         left: 0,
         bottom: 0,
@@ -34,13 +39,17 @@ export const DEFAULT_LAYOUTS = {"landscape": [{
     }]};
 
 //TODO: Try to remove more global variables
-let camera, scene, renderer, views;
+let scene, renderer, views, dividers, cameraOrtho, sceneOrtho;
 
 export function render() {
   var orientation = 'portrait';
   if (renderer.domElement.parentNode.clientWidth > renderer.domElement.parentNode.clientHeight) {
     orientation = 'landscape';
   }
+
+  const ratio = window.devicePixelRatio || 1;
+  const parentWidth = renderer.domElement.parentNode.clientWidth;
+  const parentHeight = renderer.domElement.parentNode.clientHeight;
 
   for (let i = 0; i < views[orientation].length; ++ i) {
     if (views[orientation][i].camera === undefined) {
@@ -49,10 +58,6 @@ export function render() {
 
     const view = views[orientation][i];
     const camera = view.camera;
-
-    const ratio = window.devicePixelRatio || 1;
-    const parentWidth = renderer.domElement.parentNode.clientWidth;
-    const parentHeight = renderer.domElement.parentNode.clientHeight;
 
     const left = Math.floor(parentWidth * view.left);
     const bottom = Math.floor(parentHeight * view.bottom);
@@ -66,11 +71,32 @@ export function render() {
 
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    renderer.clear();
     renderer.render(scene, camera);
+
+    if (dividers !== undefined && dividers !== null) {
+      if (dividers[orientation] !== undefined && dividers[orientation] !== null) {
+        if (i + 1 < views[orientation].length) {
+
+        }
+      }
+    }
   }
+
+
+
+  //renderer.clear();
+  cameraOrtho.left = - parentWidth / 2;
+	cameraOrtho.right = parentWidth / 2;
+	cameraOrtho.top = parentHeight / 2;
+	cameraOrtho.bottom = - parentHeight / 2;
+	cameraOrtho.updateProjectionMatrix();
+
+  renderer.clearDepth();
+  renderer.render(sceneOrtho, cameraOrtho);
 }
 
-export function initModel(canvas, modelUrl, layouts, loadCallback) {
+export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   if (canvas === null) {
     console.log('Model canvas is null!');
   }
@@ -79,6 +105,12 @@ export function initModel(canvas, modelUrl, layouts, loadCallback) {
     views = DEFAULT_LAYOUTS;
   } else {
     views = layouts
+  }
+
+  if (seperators === undefined || seperators === null) {
+    dividers = DEFAULT_SEPARATORS;
+  } else {
+    dividers = seperators;
   }
 
   const loader = new GLTFLoader();
@@ -119,10 +151,10 @@ export function initModel(canvas, modelUrl, layouts, loadCallback) {
         loadCallback();
       }
   	},
-  	function ( xhr ) {
+  	function (xhr) {
   		//console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
   	},
-  	function ( error ) {
+  	function (error) {
   		console.log('An error happened', error);
   	}
   );
@@ -138,8 +170,15 @@ export function initModel(canvas, modelUrl, layouts, loadCallback) {
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.toneMappingExposure = 1; //1; Math.pow(2, exposure)
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.VSMShadowMap; //PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.VSMShadowMap;
+  renderer.autoClear = false;
   //renderer.setClearColor(0x000000, 0);
+
+  // Used to render the seperator
+  cameraOrtho = new THREE.OrthographicCamera( - parentWidth / 2, parentWidth / 2, parentHeight / 2, - parentHeight / 2, 1, 10);
+	cameraOrtho.position.z = 10;
+  sceneOrtho = new THREE.Scene();
+  //sceneOrtho.background = null;
 
   window.addEventListener("resize", (event) => {
     renderer.setSize(canvas.parentNode.clientWidth, canvas.parentNode.clientHeight);
@@ -178,5 +217,13 @@ export function initModel(canvas, modelUrl, layouts, loadCallback) {
     }
     render();
   });
-
 };
+
+export function dispatchSwitch(canvas, num) {
+  num = Math.round(num);
+  var lightsSwitches = new Array(ARRAY_SIZE).fill(false);
+  for (let i = 0; i < num; i++) {
+    lightsSwitches[i] = true;
+  }
+  canvas.dispatchEvent(new CustomEvent(SWITCH_EVENT_NAME, {detail: lightsSwitches}));
+}

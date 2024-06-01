@@ -12,11 +12,11 @@ $button-background: gray;
   text-align: center;
   position: fixed;
   height: fit-content;
-  background: rgba(255, 255, 255, .95);
+  background: rgb(255 255 255 / 95%);
   color: #000;
   z-index: 1000;
   max-width: 70vw;
-  box-shadow: rgba(0, 0, 0, 0.5) .45em .45em, rgba(0, 0, 0, 0.4) .9em .9em, rgba(0, 0, 0, 0.3) 1.35em 1.35em;
+  box-shadow: rgb(0 0 0 / 50%) .45em .45em, rgb(0 0 0 / 40%) .9em .9em, rgb(0 0 0 / 30%) 1.35em 1.35em;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -35,7 +35,6 @@ $button-background: gray;
   }
 
   .button {
-    border: none;
     padding: 1em;
     text-align: center;
     line-height: 1;
