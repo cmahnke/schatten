@@ -1,3 +1,1 @@
 # TODO
-
-* Use `stylelint`

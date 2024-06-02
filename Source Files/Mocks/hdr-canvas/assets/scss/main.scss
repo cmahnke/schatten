@@ -26,7 +26,7 @@ h2 {
   margin-bottom: 2rem;
 }
 
-.titleImg {
+.title-img {
   max-height: 60vh;
   max-width: 70vw;
   align-self: center;
@@ -35,7 +35,7 @@ h2 {
 .content {
   color: #ffffffd0;
   /*mix-blend-mode: difference;*/
-  font-family: 'League Spartan';
+  font-family: 'League Spartan', sans-serif;
   font-weight: 600;
   text-shadow: 2px 2px #3e3d3d;
   align-items: center

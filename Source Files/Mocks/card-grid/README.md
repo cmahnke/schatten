@@ -4,7 +4,11 @@
   * Check scroll out of frame on Chrome
   * Scroll issues with overflowing text on Firefox - check custom scroll-snap-align: start;
 * Finish method to handle screen updates
+* Add Text effects
 * Cleanup (Comments, console, etc)
+  * Fix `stylelint` and `eslint` errors
+* Model
+  * Check portrait size, the container has wrong dimensions
 
 ## Low priority
 

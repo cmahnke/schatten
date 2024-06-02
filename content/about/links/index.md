@@ -1,6 +1,6 @@
 ---
-title: "Licht"
-weight: 3
+title: "Links"
+weight: 4
 ---
 
 # HDR

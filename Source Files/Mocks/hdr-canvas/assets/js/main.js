@@ -42,7 +42,7 @@ class Uint16Image {
   colorSpace;
 
   constructor(width, height, colorspace) {
-    if (colorspace === undefined || colorSpace === null) {
+    if (colorspace === undefined || colorSpace === null) {
       this.colorSpace = Uint16Image.DEFAULT_COLORSPACE;
     } else {
       this.colorSpace = colorspace
@@ -93,7 +93,7 @@ class Uint16Image {
   }
 
   getImageData() {
-    if (this.data === undefined || this.data === null) {
+    if (this.data === undefined || this.data === null) {
       return null
     }
     return new ImageData(this.data, this.width, this.height, {colorSpace: this.colorSpace});

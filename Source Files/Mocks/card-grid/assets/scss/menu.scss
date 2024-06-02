@@ -1,3 +1,85 @@
+@use 'sass:color';
+
+menu {
+  list-style-type: none;
+  margin-block-start: unset;
+  margin-block-end: unset;
+  padding-inline-start: unset;
+  display: flex;
+
+  ul {
+    list-style-type: none;
+    margin-block-start: unset;
+    margin-block-end: unset;
+    padding-inline-start: unset;
+  }
+}
+
+menu.lang-switch {
+  position: absolute;
+  top: 1.8rem;
+  left: 2rem;
+  color: var(--text-color);
+  background: transparent;
+  font-size: 2.6rem;
+  z-index: 5;
+  align-items: center;
+  gap: .6rem;
+  font-weight: 200;
+  display: flex;
+  font-family: var(--menu-text-font);
+  transition: opacity 100ms ease-in-out;
+  opacity: 0;
+  cursor: pointer;
+
+  @supports (font-variation-settings: normal) {
+    font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  &.show {
+    li.inactive {
+      transform: unset;
+
+      &:hover {
+        transform: scale(1.2, 1.2) !important;
+        @supports (font-variation-settings: normal) {
+          font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
+        }
+      }
+    }
+  }
+
+  li {
+    display: inline-block;
+    transition: all 200ms linear;
+
+    &.active {
+      transition: all 200ms linear;
+    }
+
+    &.inactive {
+      transition: all 200ms linear;
+      transform: scale(0, 1);
+      transform-origin: left;
+
+    }
+
+    &:hover {
+      transform: scale(1.2);
+      transition: all 200ms linear;
+      @supports (font-variation-settings: normal) {
+        font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
+      }
+    }
+
+  }
+
+}
 
 .menu {
   display: flex;
@@ -193,13 +275,13 @@
               width: $edge-length;
               display: inline-block;
 
-              background-color: darken($text-color, 50%);
-              border: .1rem solid darken($text-color, 75%);
+              background-color: color.adjust($text-color, $lightness: -50%);
+              border: .1rem solid color.adjust($text-color, $lightness: -75%);
               transition: all 300ms ease-in-out;
 
               &.home {
                 background-color: var(--text-color);
-                border: .1rem solid darken($text-color, 50%);
+                border: .1rem solid color.adjust($text-color, $lightness: -50%);
                 position: absolute;
                 top: 0;
                 left: calc(50% - $edge-length - $gap * 1.5);
@@ -288,87 +370,4 @@
       }
     }
   }
-}
-
-menu {
-  list-style-type: none;
-  margin-block-start: unset;
-  margin-block-end: unset;
-  padding-inline-start: unset;
-  display: flex;
-
-  ul {
-    list-style-type: none;
-    margin-block-start: unset;
-    margin-block-end: unset;
-    padding-inline-start: unset;
-  }
-}
-
-menu.lang-switch {
-  position: absolute;
-  top: 1.8rem;
-  left: 2rem;
-
-  color: var(--text-color);
-  background: transparent;
-  font-size: 2.6rem;
-  z-index: 5;
-  align-items: center;
-  gap: .6rem;
-  font-weight: 200;
-  display: flex;
-  font-family: var(--menu-text-font);
-  transition: opacity 100ms ease-in-out;
-  opacity: 0;
-  cursor: pointer;
-
-
-  @supports (font-variation-settings: normal) {
-    font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
-  }
-
-  a {
-    text-decoration: none;
-    color: var(--text-color);
-  }
-
-  &.show {
-    li.inactive {
-      transform: unset;
-
-      &:hover {
-        transform: scale(1.2, 1.2) !important;
-        @supports (font-variation-settings: normal) {
-          font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
-        }
-      }
-    }
-  }
-
-  li {
-    display: inline-block;
-    transition: all 200ms linear;
-
-    &.active {
-      transition: all 200ms linear;
-    }
-
-    &.inactive {
-      transition: all 200ms linear;
-      transform: scale(0, 1);
-      transform-origin: left;
-
-    }
-
-    &:hover {
-      transform: scale(1.2);
-      transition: all 200ms linear;
-      @supports (font-variation-settings: normal) {
-        font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
-      }
-    }
-
-  }
-
 }

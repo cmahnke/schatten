@@ -10,11 +10,6 @@ weight: 2
 
 # More about this blog
 
-## Tags
-
-Tags with less then three occurrences aren't shown.
-
-{{< tagcloud >}}
 
 ## Colophon
 

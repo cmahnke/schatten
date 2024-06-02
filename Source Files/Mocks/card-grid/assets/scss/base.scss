@@ -16,4 +16,6 @@ $arrow-icon: url('/images/Arrow.svg');
 @import "images";
 @import "footer";
 @import "hdr-warning";
-@import "model";
+@import "../../../common-assets/scss/model";
+@import "../../../common-assets/scss/model-switch-board";
+@import "text-effects";

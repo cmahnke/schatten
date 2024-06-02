@@ -5,7 +5,6 @@ export const ARRAY_SIZE = 9;
 export const TOGGLE_EVENT_NAME = 'toggleLight';
 export const SWITCH_EVENT_NAME = 'switchLights';
 export const DEFAULT_SEPARATORS = {"landscape": [{
-
         }
       ], "portrait": [
         {
@@ -47,9 +46,15 @@ export function render() {
     orientation = 'landscape';
   }
 
-  const ratio = window.devicePixelRatio || 1;
+  //const ratio = window.devicePixelRatio || 1;
   const parentWidth = renderer.domElement.parentNode.clientWidth;
   const parentHeight = renderer.domElement.parentNode.clientHeight;
+
+  cameraOrtho.left = - parentWidth / 2;
+	cameraOrtho.right = parentWidth / 2;
+	cameraOrtho.top = parentHeight / 2;
+	cameraOrtho.bottom = - parentHeight / 2;
+	cameraOrtho.updateProjectionMatrix();
 
   for (let i = 0; i < views[orientation].length; ++ i) {
     if (views[orientation][i].camera === undefined) {
@@ -74,26 +79,54 @@ export function render() {
     renderer.clear();
     renderer.render(scene, camera);
 
-    if (dividers !== undefined && dividers !== null) {
-      if (dividers[orientation] !== undefined && dividers[orientation] !== null) {
-        if (i + 1 < views[orientation].length) {
-
-        }
+    if (dividers !== null && orientation in dividers) {
+      if (i + 1 < views[orientation].length) {
+        const divider = dividers[orientation];
+        setupDivider(divider, sceneOrtho);
       }
     }
   }
 
-
-
   //renderer.clear();
-  cameraOrtho.left = - parentWidth / 2;
-	cameraOrtho.right = parentWidth / 2;
-	cameraOrtho.top = parentHeight / 2;
-	cameraOrtho.bottom = - parentHeight / 2;
-	cameraOrtho.updateProjectionMatrix();
+
 
   renderer.clearDepth();
-  renderer.render(sceneOrtho, cameraOrtho);
+
+  //TODO: Remove this
+  const helper = new THREE.CameraHelper(cameraOrtho);
+  sceneOrtho.add(helper);
+
+
+  const left = 0;
+  const bottom = 0;
+  const width = parentWidth;
+  const height = parentHeight;
+  renderer.setViewport(left, bottom, width, height);
+
+  //TODO: This creates a artifact
+  //renderer.render(sceneOrtho, cameraOrtho);
+}
+
+function setupDivider(divider, scene, width, height) {
+  let sprites;
+  if (divider.callback !== undefined || divider.callback !== null) {
+    let args = [];
+    if (divider.args !== undefined || divider.args !== null) {
+      args = divider.args;
+    }
+    sprites = divider.callback(width, height, ...args);
+  } else {
+    sprites = dividers.sprite
+  }
+
+  if (Array.isArray(sprites)) {
+    sprites.forEach((sprite) => {
+      sceneOrtho.add(sprite);
+  console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
+    });
+  } else {
+    scene.add(sprites);
+  }
 }
 
 export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
@@ -108,7 +141,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   }
 
   if (seperators === undefined || seperators === null) {
-    dividers = DEFAULT_SEPARATORS;
+    dividers = null;
   } else {
     dividers = seperators;
   }
@@ -151,15 +184,14 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
         loadCallback();
       }
   	},
-  	function (xhr) {
-  		//console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-  	},
+    function (xhr) {
+      //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
   	function (error) {
   		console.log('An error happened', error);
   	}
   );
 
-  const exposure = -1;
   // Add alpha: true for transparency
   renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
   const ratio = window.devicePixelRatio || 1;
@@ -168,7 +200,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   const parentHeight = renderer.domElement.parentNode.clientHeight;
   renderer.setSize(parentWidth, parentHeight);
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
-	renderer.toneMappingExposure = 1; //1; Math.pow(2, exposure)
+	renderer.toneMappingExposure = 1;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.VSMShadowMap;
   renderer.autoClear = false;
@@ -178,16 +210,16 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   cameraOrtho = new THREE.OrthographicCamera( - parentWidth / 2, parentWidth / 2, parentHeight / 2, - parentHeight / 2, 1, 10);
 	cameraOrtho.position.z = 10;
   sceneOrtho = new THREE.Scene();
-  //sceneOrtho.background = null;
+  sceneOrtho.background = null;
 
-  window.addEventListener("resize", (event) => {
+  window.addEventListener("resize", () => {
     renderer.setSize(canvas.parentNode.clientWidth, canvas.parentNode.clientHeight);
     render();
   });
 
   renderer.domElement.addEventListener(TOGGLE_EVENT_NAME, (e) => {
     const light = e.detail;
-    if (light > ARRAY_SIZE || light < 1) {
+    if (light > ARRAY_SIZE || light < 1) {
       return;
     }
     ['Spot', 'Sphere'].forEach((kind) => {
@@ -204,7 +236,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
 
   renderer.domElement.addEventListener(SWITCH_EVENT_NAME, (e) => {
     const lights = e.detail;
-    if (!Array.isArray(lights) || lights.length != ARRAY_SIZE) {
+    if (!Array.isArray(lights) || lights.length != ARRAY_SIZE) {
       return
     }
     for (let i = 1; i < ARRAY_SIZE + 1; i++) {

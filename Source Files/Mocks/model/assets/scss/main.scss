@@ -10,26 +10,10 @@ body {
   position: relative;
 }
 
-#dial-container {
+.content {
   display: flex;
-  place-content: center center;
-  margin-bottom: 1em;
 
-  .dial {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: repeat(3, 1fr);
-    transform: rotateX(55deg) rotateZ(135deg);
-    transform-style: preserve-3d;
-
-    button {
-      height: 2.4em;
-      width: 2.4em;
-
-      span {
-        transform: rotateZ(-135deg);
-        display: block;
-      }
-    }
+  h2 {
+    margin: unset;
   }
 }

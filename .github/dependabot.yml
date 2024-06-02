@@ -17,6 +17,14 @@ updates:
       npm:
         patterns:
         - '*'
+  - package-ecosystem: "npm"
+    directory: "Source Files/Mocks/"
+    schedule:
+      interval: "daily"
+    groups:
+      npm:
+        patterns:
+        - '*'
   - package-ecosystem: "gitsubmodule"
     directory: "/"
     schedule:

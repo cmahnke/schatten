@@ -15,7 +15,9 @@ export function checkHDR() {
 			}
 		}
 	} catch (e) {
+		/* eslint-disable no-console */
 		console.error('Bad window.screen test', e);
+		/* eslint-enable */
     return false;
 	}
 }
@@ -28,12 +30,16 @@ export function checkHDRCanvas() {
 		if (!canvas.getContext) {
 			return false;
 		}
+		/* eslint-disable no-unused-vars */
 		const ctx = canvas.getContext("2d", {colorSpace: colorSpace, pixelFormat:'float16'});
 		canvas.drawingBufferColorSpace = colorSpace;
 		canvas.unpackColorSpace = colorSpace;
+		/* eslint-enable no-unused-vars */
 		return true;
 	} catch (e) {
+		/* eslint-disable no-console */
 		console.error('Bad canvas ColorSpace test', e);
+		/* eslint-enable */
     return false;
 	}
 }

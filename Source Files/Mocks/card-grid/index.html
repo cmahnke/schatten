@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="theme-color" content="#000000">
 
 	<title>Mock with scroll snapping</title>
 	<link rel="stylesheet preload prefetch" as="style" href="./assets/scss/base.scss" crossorigin>
@@ -144,7 +145,7 @@
 				</div>
 			</section>
 
-			<section class="card" data-slug="phenomenon">
+			<section class="card phenomenon" data-slug="phenomenon">
 				<div class="post-header">
 					<h1 class="post-title">Phenomenon</h1>
 					<div class="post-meta"></div>
@@ -152,13 +153,14 @@
 				<div class="post-body">
 					<div class="post-content">
 						<div class="renderer-container">
-				      <canvas id="renderer"></canvas>
-				    </div>
+							<canvas id="renderer"></canvas>
+							<div id="touch-indicator" class="touch-icon hide"></div>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			<section class="card" data-slug="metamodernism">
+			<section class="card metamodernism" data-slug="metamodernism">
 				<div class="post-header">
 					<h1 class="post-title">Metamodernism</h1>
 					<div class="post-meta"></div>
@@ -198,7 +200,7 @@
 					</div>
 				</div>
 			</section>
-			<section class="card" data-slug="colophon">
+			<section class="card colophon" data-slug="colophon">
 				<div class="post-header">
 					<h1 class="post-title">Colophon</h1>
 					<div class="post-meta"></div>

@@ -4,12 +4,13 @@ import "@fontsource-variable/handjet/full.css";
 import "@fontsource/special-elite";
 import "@fontsource-variable/montserrat";
 
-import {animate, scroll, inView} from 'motion';
+import {animate, inView} from 'motion';
 import Color from 'color';
 import Cookies from 'js-cookie';
 
 import {checkHDR} from '@/hdr-check';
-import {initModel, ARRAY_SIZE, SWITCH_EVENT_NAME } from '@/model';
+import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
+import {initModel} from '@/model';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
@@ -67,7 +68,7 @@ function generatedCallback(elem) {
   }
 }
 
-function handleCardIntersect(entries, observer) {
+function handleCardIntersect(entries) {
   // See https://github.com/Qix-/color/issues/53#issuecomment-656590710
   function lightenBy(color, amount) {
     const lightness = color.lightness();
@@ -87,7 +88,7 @@ function handleCardIntersect(entries, observer) {
     }
 
     let ratio = 1;
-    if (entry.rootBounds.height < entry.target.offsetHeight || entry.rootBounds.width < entry.target.offsetWidth) {
+    if (entry.rootBounds.height < entry.target.offsetHeight || entry.rootBounds.width < entry.target.offsetWidth) {
       // If we are in an overflowing element, just use the given intersaction to compute the ratio, if some heuristics apply
       if (entry.intersectionRect.width < entry.target.parentNode.getBoundingClientRect().width) {
         return;
@@ -273,10 +274,10 @@ function setupGrid(root, columnSelector, cardSelector) {
 
   //Check for height differences
   if (window.getComputedStyle(startSelector).getPropertyValue("display") != 'grid') {
-    for (var i = 0; i < grid.length; i++) {
-      if (grid[i].height < maxHeight) {
-        var heightDiff = maxHeight - grid[i].height;
-        var lastOfShort = startSelector.querySelectorAll(columnSelector)[i].querySelector(`${cardSelector}:last-child`);
+    for (var k = 0; k < grid.length; k++) {
+      if (grid[k].height < maxHeight) {
+        var heightDiff = maxHeight - grid[k].height;
+        var lastOfShort = startSelector.querySelectorAll(columnSelector)[k].querySelector(`${cardSelector}:last-child`);
         var oldHeight = lastOfShort.getBoundingClientRect().height;
         var newHeight = oldHeight + heightDiff;
         lastOfShort.style.height = `${newHeight}px`;
@@ -306,7 +307,7 @@ function setupNav(selector) {
 
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 function setupLangSwitch(curLang, selector) {
-  if (curLang === undefined || curLang == null || curLang == '') {
+  if (curLang === undefined || curLang == null || curLang == '') {
     curLang = document.querySelector('html').getAttribute('lang');
   }
   if (selector === undefined) {
@@ -321,7 +322,7 @@ function setupLangSwitch(curLang, selector) {
       const url = event.target.dataset.url;
       console.log(`Switching to ${url}`);
       window.location.replace(url);
-    } else {
+    } else {
       switcher.classList.add('show');
       switcher.querySelectorAll(`li a`).forEach((link) => {
         link.style.pointerEvents = 'all';
@@ -458,7 +459,7 @@ function displayHDRWarning () {
 
 function checkWindowResize() {
   //TODO: Also check if window has been moved to another screen
-  window.addEventListener("resize", (e) => {
+  window.addEventListener("resize", () => {
     console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`)
   });
 }
@@ -479,6 +480,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const canvas = document.querySelector(modelSelector);
   if (canvas !== null) {
     initModel(canvas, modelUrl);
+    const handlers = DEFAULT_HANDLERS;
+    handlers['touch'].args = [document.querySelector('#touch-indicator')];
+    addListener(canvas, ['wheel', 'touch'], handlers);
+
   }
   textEffects();
 

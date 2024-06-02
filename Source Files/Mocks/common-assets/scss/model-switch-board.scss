@@ -1,0 +1,29 @@
+#dial-container {
+  display: flex;
+  place-content: center center;
+  justify-content: center;
+
+  .dial {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(3, 1fr);
+    transform: rotateX(55deg) rotateZ(135deg);
+    transform-style: preserve-3d;
+    background-color: black;
+    padding: 1em;
+
+    button {
+      height: 2.4em;
+      width: 2.4em;
+      border: 0;
+      background-color: white;
+      color: black;
+      border-radius: 3px;
+
+      span {
+        transform: rotateZ(-135deg);
+        display: block;
+      }
+    }
+  }
+}

@@ -18,7 +18,11 @@ export default [
       'no-irregular-whitespace': [
         'warn',
         {}
-      ]
+      ],
+      'no-console': [
+        'warn',
+        {}
+      ],
     }
   },
   {

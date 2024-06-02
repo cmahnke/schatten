@@ -67,3 +67,6 @@ Nächtliche Schatten
   * [Markdown Lorem Ipsum generator](https://github.com/jaspervdj/lorem-markdownum)
     * [Example with 5 sections and without code](https://jaspervdj.be/lorem-markdownum/markdown.txt?no-code=on&num-blocks=5)
   * [Online Markdown to HTML](https://markdowntohtml.com/)
+
+# Other
+* Browser theme colors: https://css-tricks.com/meta-theme-color-and-trickery/

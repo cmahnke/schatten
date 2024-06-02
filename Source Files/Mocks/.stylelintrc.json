@@ -1,5 +1,8 @@
 {
   "extends": "stylelint-config-standard-scss",
+  "plugins": [
+		"stylelint-order"
+	],
   "rules": {
     "block-no-empty": null,
     "declaration-empty-line-before": null,
@@ -9,7 +12,7 @@
     "comment-whitespace-inside": null,
     "property-no-unknown": [true, {
       "ignoreProperties": "font-smooth"}],
-    "property-no-vendor-prefix": null,
+    "property-no-vendor-prefix": [true, {"severity": "warning"}],
     "no-descending-specificity": [true, {"severity": "warning"}],
     "scss/dollar-variable-empty-line-before": null
   }

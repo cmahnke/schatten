@@ -5,16 +5,12 @@ $touch-icon: url('/images/Finger.svg');
   height: 100%;
   position: relative;
 
-  #renderer {
-    mix-blend-mode: difference;
-
-    &:hover + #touch-indicator {
-      animation: unset;;
-    }
-  }
-
   #touch-indicator {
     transition: opacity 200ms linear;
+
+    &.hide {
+      animation: unset;
+    }
   }
 
   @keyframes touch {
@@ -56,10 +52,20 @@ $touch-icon: url('/images/Finger.svg');
     aspect-ratio: 1/1;
     width: 4rem;
     opacity: 0;
+    top: 33%;
+    left: 50%;
 
     @media all and (orientation:landscape) {
       top: 50%;
       left: 66%;
+    }
+  }
+
+  #renderer {
+    mix-blend-mode: difference;
+
+    &:hover + #touch-indicator {
+      animation: unset;
     }
   }
 }

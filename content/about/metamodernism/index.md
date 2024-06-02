@@ -1,6 +1,6 @@
 ---
 title: "Metamoderne"
-weight: 2
+weight: 3
 ---
 
 
