@@ -9,16 +9,18 @@ const tileUrl = '/images/Tile.svg';
 const canvas = document.querySelector('#renderer');
 const dial = document.querySelector('#dial-container');
 
+const handlers = DEFAULT_HANDLERS;
+handlers['touch'].args = [document.querySelector('#touch-indicator')];
+
 const tile = { material: loadTile(tileUrl),
                height: 24,
                width: 24};
 
-const handlers = DEFAULT_HANDLERS;
-handlers['touch'].args = [document.querySelector('#touch-indicator')];
-
 const separators = DEFAULT_SEPARATORS;
 separators['landscape'] = {callback: separatorVertical, args: [tile, {width: 0, height: .9, left: 2/3, bottom: 0, distance: 0}]};
 separators['portrait'] = {callback: separatorHorizontal, args: [tile, {width: 0.9, height: 0, left: 0, bottom: 2/3, distance: 0}]};
+
+console.log(separators)
 
 createSwitchGrid(dial, canvas);
 initModel(canvas, modelUrl, DEFAULT_LAYOUTS, separators);
@@ -43,7 +45,6 @@ function separatorVertical(width, height, tile, size) {
     sprite.center.set(0.0, 1.0);
     sprite.scale.set(tile.width, tile.height, 1);
     sprite.position.set(...translateOrtho(width, height, posX, posY), 1 );
-console.log(sprite);
     tiles.push(sprite);
   }
   return tiles;

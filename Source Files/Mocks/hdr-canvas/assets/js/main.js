@@ -287,7 +287,7 @@ for (var i = 0; i < this.data.length; i += 4) {
 }
 */
 
-
+/* eslint-disable no-undef */
 // See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 function convertSRGBtoREC2100HLG(r, g, b) {
 
@@ -314,3 +314,4 @@ function convertSRGBtoREC2100HLG(r, g, b) {
 
   return [r5, g5, b5]
 }
+/* eslint-enable no-undef */

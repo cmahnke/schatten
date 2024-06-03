@@ -1,4 +1,4 @@
-$text-font: 'montserrat',roboto;
+$text-font: 'Figtree', roboto, helvetica, sans-serif;
 $title-font: 'Handjet Variable';
 $heading-font: '';
 $sub-heading-font: '';
@@ -12,6 +12,11 @@ $menu-text-font: 'Handjet Variable', 'Courier New', courier, monospace;
   }
 }
 
+@mixin text-font($weight: 300) {
+  font-family: var(--text-font);
+  font-weight: $weight;
+}
+
 .handjet-loaded  {
   .home .home-title,
   div.title-font,
@@ -19,14 +24,3 @@ $menu-text-font: 'Handjet Variable', 'Courier New', courier, monospace;
     opacity: 1 !important;
   }
 }
-
-
-/*
-@supports (font-variation-settings: normal) {
-    body {
-        font-family: "Roboto Flex Variable", sans-serif;
-        font-weight: 500;
-        font-variation-settings: "wdth" 75, "wght" 500;
-    }
-}
-*/

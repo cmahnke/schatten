@@ -15,6 +15,7 @@
     transform-origin: center;
     cursor: pointer;
     z-index: 5;
+    filter: drop-shadow(0 0 .2rem black) drop-shadow(0 0 .4rem black) drop-shadow(0 0 .6rem black);
   }
 
   .left,
@@ -77,10 +78,13 @@
       left: 50%;
     }
 
-
     &:has(.up) {
-      top: 1em;
+      top: .6em;
       transform: translate(-50%, 0%);
+
+      @media all and (orientation:landscape) {
+        top: 1em;
+      }
     }
 
     &:has(.down) {
@@ -121,13 +125,4 @@
       }
     }
   }
-
-
-
-  /* Down is in the right direction
-  .down {
-
-  }
-  */
-
 }

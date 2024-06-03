@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 export const ARRAY_SIZE = 9;
 export const TOGGLE_EVENT_NAME = 'toggleLight';
 export const SWITCH_EVENT_NAME = 'switchLights';
+export const REDRAW_EVENT_NAME = 'redrawLights';
 export const DEFAULT_SEPARATORS = {"landscape": [{
         }
       ], "portrait": [
@@ -37,7 +38,6 @@ export const DEFAULT_LAYOUTS = {"landscape": [{
         name: 'AllView'
     }]};
 
-//TODO: Try to remove more global variables
 let scene, renderer, views, dividers, cameraOrtho, sceneOrtho;
 
 export function render() {
@@ -82,7 +82,7 @@ export function render() {
     if (dividers !== null && orientation in dividers) {
       if (i + 1 < views[orientation].length) {
         const divider = dividers[orientation];
-        setupDivider(divider, sceneOrtho);
+        setupDivider(divider, sceneOrtho, parentWidth, parentHeight);
       }
     }
   }
@@ -118,7 +118,6 @@ function setupDivider(divider, scene, width, height) {
   } else {
     sprites = dividers.sprite
   }
-
   if (Array.isArray(sprites)) {
     sprites.forEach((sprite) => {
       sceneOrtho.add(sprite);
@@ -249,6 +248,11 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
     }
     render();
   });
+
+  renderer.domElement.addEventListener(REDRAW_EVENT_NAME, () => {
+    render();
+  });
+
 };
 
 export function dispatchSwitch(canvas, num) {

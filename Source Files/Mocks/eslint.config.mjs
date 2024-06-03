@@ -26,6 +26,6 @@ export default [
     }
   },
   {
-    ignores: ["dist/", ".eslintrc.mjs", 'vite.config.js'],
+    ignores: ["dist/", ".eslintrc.mjs", 'vite.config.js', 'postcss.config.js'],
   }
 ];

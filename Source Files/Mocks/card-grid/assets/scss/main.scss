@@ -12,7 +12,7 @@
 ::selection {
   color: var(--background-color);
   background: var(--text-color);
-  text-shadow: 0 0 15px rgba(0, 0, 0,.5), 0 0 10px rgba(0 ,0 ,0 ,.5);
+  text-shadow: 0 0 15px rgb(0 0 0 / 50%), 0 0 10px rgb(0 0 0 / 50%);
 }
 
 
@@ -29,6 +29,10 @@ h1, h2, h3, h4, h5, p {
 img, picture {
   max-width: 100%;
   display: block;
+}
+
+input[type='text'] {
+  caret-color: white;
 }
 
 a {
@@ -84,14 +88,12 @@ body {
       overflow: hidden;
     }
   }
-
 }
 
 section {
   background-color: var(--background-color);
   color: var(--text-color);
 }
-
 
 .cards {
   position: relative;
@@ -103,6 +105,16 @@ section {
 
   .stack {
 
+  }
+}
 
+
+#dial-container .dial .button {
+  border-radius: 0;
+  height: 2rem;
+  width: 2rem;
+
+  span  {
+    content: '';
   }
 }

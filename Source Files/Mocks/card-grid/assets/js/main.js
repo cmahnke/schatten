@@ -1,16 +1,15 @@
 //Fonts
-import "@fontsource-variable/pixelify-sans";
 import "@fontsource-variable/handjet/full.css";
 import "@fontsource/special-elite";
-import "@fontsource-variable/montserrat";
+import "@fontsource-variable/figtree";
 
-import {animate, inView} from 'motion';
+import {inView} from 'motion';
 import Color from 'color';
 import Cookies from 'js-cookie';
 
 import {checkHDR} from '@/hdr-check';
 import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
-import {initModel} from '@/model';
+import {initModel, REDRAW_EVENT_NAME} from '@/model';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
@@ -19,6 +18,7 @@ const directions = ['left', 'right', 'up', 'down'];
 const fonts = {'handjet': '1em Handjet', 'special-elite': '1em Special Elite'}
 const modelUrl = '/gtlf/model-uncompressed.glb';
 const modelSelector = '#renderer';
+let canvas;
 
 function generateURLFragment(col, row, fragment) {
   var id;
@@ -48,7 +48,6 @@ function toggleNav(elem) {
       document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
         arrow.classList.remove('hidden');
         arrow.onclick = clickHandler;
-        //console.log(`Activated ${direction}`);
       });
     } else {
       document.querySelectorAll(`nav.stack-switcher a:has(.${direction})`).forEach((arrow) => {
@@ -347,32 +346,24 @@ function setupLangSwitch(curLang, selector) {
 }
 
 function textEffects () {
+  const inViewEffects = {'.card .post-body': {class: 'text-focus-in', duration: 1000}}
 
-  document.querySelectorAll('.card .post-header').forEach((fragment) => {
-    inView(fragment, () => {
-
+  Object.keys(inViewEffects).forEach((sel) => {
+    document.querySelectorAll(sel).forEach((fragment) => {
+      inView(fragment, () => {
+        fragment.classList.add(inViewEffects[sel].class);
+        setTimeout(() => {
+          fragment.classList.remove(inViewEffects[sel].class);
+        }, inViewEffects[sel].duration);
+      });
     });
   });
-
-  document.querySelectorAll('.card .post-body').forEach((fragment) => {
-    inView(fragment, () => {
-
-    });
-  });
-
 }
 
 function setupMenu() {
   document.querySelectorAll('#menu a').forEach((link) => {
     link.addEventListener('click', menuLinkHandler);
   });
-
-  /*
-  document.querySelector("#menu home-icon").addEventListener('mouseleave', (e) => {
-    e.target.classList.add('hover-out');
-
-  }
-  */
 
   document.querySelector("input.burger-menu-button").addEventListener('click', (e) => {
     if (e.target.checked) {
@@ -418,10 +409,12 @@ function fontsLoaded() {
   interval = setInterval(fontCheck, 200)
 }
 
+/*
 function scrollbarSizes () {
   const rootElement = document.documentElement;
   return [rootElement.offsetWidth - rootElement.clientWidth, rootElement.offsetHeight - rootElement.clientHeight];
 }
+*/
 
 function checkColumns(root, columnSelector) {
   const startSelector = document.querySelector(root);
@@ -461,6 +454,9 @@ function checkWindowResize() {
   //TODO: Also check if window has been moved to another screen
   window.addEventListener("resize", () => {
     console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`)
+    if (canvas !== null) {
+      canvas.dispatchEvent(new Event(REDRAW_EVENT_NAME));
+    }
   });
 }
 
@@ -477,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function() {
   checkColumns('.cards', '.stack');
   checkWindowResize();
   displayHDRWarning();
-  const canvas = document.querySelector(modelSelector);
+  canvas = document.querySelector(modelSelector);
   if (canvas !== null) {
     initModel(canvas, modelUrl);
     const handlers = DEFAULT_HANDLERS;
