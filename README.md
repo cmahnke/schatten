@@ -17,4 +17,6 @@ Nächtliche Schatten
   * Acknowledgements / Colophon
     * Variable fonts
     * https://valhead.com/2020/11/15/animating-variable-fonts-with-css/
+  * Finish SCSS for images
 * Use UltraHDR converter from Docker image
+* Check other browsers: Safari, Firefox

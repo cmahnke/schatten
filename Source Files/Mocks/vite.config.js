@@ -1,10 +1,11 @@
 import { resolve, join } from 'path';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
-import { viteSingleFile } from "vite-plugin-singlefile"
+import { viteSingleFile } from 'vite-plugin-singlefile';
 import stylelint from 'vite-plugin-stylelint';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
-import DynamicPublicDirectory from "vite-multiple-assets";
+import {nodePolyfills } from 'vite-plugin-node-polyfills';
+import DynamicPublicDirectory from 'vite-multiple-assets';
+import {checker} from 'vite-plugin-checker';
 
 const mimeTypes = {'.glb': 'model/gltf-binary'};
 
@@ -21,6 +22,7 @@ export default defineConfig({
         ssr: false,
         mimeTypes
     }),
+    checker({ typescript: true})
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },

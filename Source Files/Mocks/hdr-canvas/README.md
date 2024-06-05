@@ -44,8 +44,12 @@ Might need to be enabled:
 
 # Sample images
 
+## HDR
 * http://www.anyhere.com/gward/hdrenc/pages/originals.html
 * https://github.com/AOMediaCodec/av1-avif/tree/master/testFiles/Netflix/avif
+
+## SDR
+* https://sipi.usc.edu/database/database.php?volume=misc&image=10#top
 
 # Other
 
@@ -53,6 +57,10 @@ Might need to be enabled:
 
 # CSS HDR
 * https://kidi.ng/wanna-see-a-whiter-white/
+
+# Colorspace conversions
+
+* https://russellcottrell.com/photo/matrixCalculator.htm
 
 # TODO
 

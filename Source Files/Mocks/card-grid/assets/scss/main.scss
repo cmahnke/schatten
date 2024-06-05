@@ -35,6 +35,12 @@ input[type='text'] {
   caret-color: white;
 }
 
+@media (print) {
+  a[href]::after {
+    content: " <" attr(href) "> ";
+  }
+}
+
 a {
   text-decoration: none;
   color: unset;

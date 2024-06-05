@@ -9,12 +9,21 @@ body {
   flex-direction: column;
   position: relative;
   min-height: 100vh;
+
+
+  .renderer-container {
+    flex: 1;
+    max-height: 100%;
+    overflow: hidden;
+    /* position: absolute !important; */
+  }
+
 }
 
 .dail-background {
   background-color: black;
   width: 20rem;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .content {

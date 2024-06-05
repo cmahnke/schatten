@@ -1,7 +1,8 @@
 import {checkHDR , checkHDRCanvas} from '@/hdr-check';
 import encodeHDR from './hdr-encode';
 import {marked} from 'marked';
-import Color from 'color';
+import Color from 'colorjs.io';
+import Uint16Image from './Uint16Image';
 
 //See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 /*
@@ -16,12 +17,49 @@ See also Chrome source https://chromium.googlesource.com/chromium/src/+/refs/hea
 const colorSpace = 'rec2100-hlg'; //'rec2100-pq'
 
 
+function initHDRCanvas(canvas) {
+  const ctx = canvas.getContext("2d", {colorSpace: colorSpace, pixelFormat:'float16'});
+  return ctx;
+}
+
 function parseMarkdown() {
   document.querySelectorAll('*[data-markdown]').forEach((text) => {
     var content = text.textContent;
     var parsed = marked.parse(content);
     text.innerHTML = parsed;
   });
+}
+
+function hdrCanvasImage (parent, image) {
+  //image.onload = () => {
+    console.log('Image loaded');
+    const offscreen = new OffscreenCanvas(image.width, image.height);
+    const loadCtx = offscreen.getContext("2d");
+    loadCtx.drawImage(image, 0, 0);
+    const imData = loadCtx.getImageData(0, 0, image.width, image.height);
+    console.log(imData);
+
+    var hdrCanvas = document.createElement('canvas')
+    hdrCanvas.configureHighDynamicRange({mode:'extended'});
+    hdrCanvas.width = image.width;
+    hdrCanvas.height = image.height;
+
+    const rec210hglImage = Uint16Image.fromImageData(imData);
+
+    console.log(rec210hglImage)
+
+/*
+    rec210hglImage.pixelCallback((r, g, b, a) => {
+      return Uint16Array.from([r -1000, g+2000, b+1000, a]);
+    });
+*/
+
+    const ctx = initHDRCanvas(hdrCanvas);
+    ctx.putImageData(rec210hglImage.getImageData(), 0, 0);
+
+    parent.appendChild(hdrCanvas);
+
+  //}
 }
 
 
@@ -34,86 +72,6 @@ window.matchMedia('(color-gamut: rec2020)').matches
 */
 
 
-class Uint16Image {
-  height;
-  width;
-  data;
-  static DEFAULT_COLORSPACE = 'rec2100-hlg';
-  colorSpace;
-
-  constructor(width, height, colorspace) {
-    if (colorspace === undefined || colorSpace === null) {
-      this.colorSpace = Uint16Image.DEFAULT_COLORSPACE;
-    } else {
-      this.colorSpace = colorspace
-    }
-
-    this.height = height;
-    this.width = width;
-    this.data = new Uint16Array(height * width * 4);
-  }
-
-  fill(color) {
-    if (color.length != 4) {
-      return
-    }
-    for (var i = 0; i < this.data.length; i += 4) {
-      this.data[i] = color[0];
-      this.data[i + 1] = color[1];
-      this.data[i + 2] = color[2];
-      this.data[i + 3] = color[3];
-    }
-    return this;
-  }
-
-  getPixel(w, h) {
-    const pos = (h * this.width + w) * 4;
-
-    return this.data.slice(pos, pos + 4)
-    /* Keep this for illustration
-    const red = this.data[pos + 0];
-    const green = this.data[pos + 1];
-    const blue = this.data[pos + 2];
-    const alpha = this.data[pos + 3];
-    return [red, green, blue, alpha];
-    */
-  }
-
-  setPixel(w, h, px) {
-    const pos = (h * this.width + w) * 4;
-    this.data[pos + 0] = px[0];
-    this.data[pos + 1] = px[1];
-    this.data[pos + 2] = px[2];
-    this.data[pos + 3] = px[3];
-  }
-
-  // Only use this for aplha, since it doesn't to color space conversions
-  static scaleUint8ToUint16(val) {
-    return ((val << 8) | val);
-  }
-
-  getImageData() {
-    if (this.data === undefined || this.data === null) {
-      return null
-    }
-    return new ImageData(this.data, this.width, this.height, {colorSpace: this.colorSpace});
-  }
-
-  static fromImageData(imageData) {
-    const i = new Uint16Image(0, 0);
-    i.setImageData(imageData);
-    return i;
-  }
-
-  setImageData(imageData) {
-    this.colorSpace = imageData.colorSpace;
-    this.width = imageData.width;
-    this.height = imageData.height;
-    //TODO: We need to convert colors here!
-    this.data = new Uint16Array(imageData.data);
-  }
-
-}
 
 function loadImage() {
   // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/blink/renderer/core/html/canvas/high_dynamic_range_options.idl
@@ -189,9 +147,9 @@ function loadImage() {
 
   ctx.putImageData(ioBox, 130, 0);
 
-  var whiteObj = Uint16Image.fromImageData(whiteBoxArrayUint8Clamped(32, 32));
-  ctx.putImageData(whiteObj.getImageData(), 200, 0);
-  console.log('White', whiteObj)
+  //var whiteObj = Uint16Image.fromImageData(whiteBoxArrayUint8Clamped(32, 32));
+  //ctx.putImageData(whiteObj.getImageData(), 200, 0);
+  //console.log('White', whiteObj)
 
   var box = whiteBoxArrayUint16(32, 32);
   console.log('HDR white', box);
@@ -240,6 +198,9 @@ function loadImage() {
   var wBox = whiteBoxArrayUint8Clamped(32, 32)
   ctx.putImageData(wBox, 96, 0);
 
+  const parent = document.querySelector('.test-image');
+  const image = document.querySelector('.test-image .sdr');
+  hdrCanvasImage(parent, image)
 
 }
 
