@@ -1,5 +1,5 @@
 import Color from 'colorjs.io';
-import type { Coords } from 'colorjs.io';
+import type { Coords, ColorTypes } from 'colorjs.io';
 
 type Uint16ImagePixelCallback = (
   red: number,
@@ -8,11 +8,24 @@ type Uint16ImagePixelCallback = (
   alpha: number
 ) => Uint16Array;
 
+/*
+interface ColorSpaceMapping {
+  [key: HDRPredefinedColorSpace]: string
+}
+*/
+
 export default class Uint16Image {
   height: number;
   width: number;
   data: Uint16Array;
   static DEFAULT_COLORSPACE: HDRPredefinedColorSpace = 'rec2100-hlg';
+  static SDR_MULTIPLIER = 2**16 - 1; //(2**16 - 1)
+  static COLORSPACES: Record<HDRPredefinedColorSpace, ColorTypes> = {
+    'rec2100-hlg': 'rec2100hlg',
+    'display-p3': 'p3',
+    'srgb': 'sRGB',
+    'rec2100-pq' :'rec2100pq'
+  };
   colorSpace: HDRPredefinedColorSpace;
 
   constructor(width: number, height: number, colorspace?: string) {
@@ -44,13 +57,6 @@ export default class Uint16Image {
     const pos = (h * this.width + w) * 4;
 
     return this.data.slice(pos, pos + 4);
-    /* Keep this for illustration
-    const red = this.data[pos + 0];
-    const green = this.data[pos + 1];
-    const blue = this.data[pos + 2];
-    const alpha = this.data[pos + 3];
-    return [red, green, blue, alpha];
-    */
   }
 
   setPixel(w: number, h: number, px: number[]): void {
@@ -74,20 +80,19 @@ export default class Uint16Image {
   }
 
   static convertPixelToRec2100_hlg (pixel: Uint8ClampedArray): Uint16Array {
-    const colorJScolorSpace = 'rec2100hlg';
+    const colorJScolorSpace = <string> Uint16Image.COLORSPACES['rec2100-hlg' as HDRPredefinedColorSpace];
 
     const srgbColor = new Color('srgb', Array.from(pixel.slice(0, 3)).map((band: number) => {return band / 255}) as Coords, pixel[3] / 255);
     const rec2100hlgColor = srgbColor.to(colorJScolorSpace);
-    const hlg: Array<number> = rec2100hlgColor.coords.map((band: number) => {return Math.round(band * (2**16 - 1))});
+    const hlg: Array<number> = rec2100hlgColor.coords.map((band: number) => {return Math.round(band * Uint16Image.SDR_MULTIPLIER)});
     // Readd alpha
-    hlg.push(rec2100hlgColor.alpha * (2**16 - 1));
-    let uint16Data: Uint16Array = Uint16Array.from(hlg);
-    return uint16Data;
+    hlg.push(rec2100hlgColor.alpha * Uint16Image.SDR_MULTIPLIER);
+
+    return Uint16Array.from(hlg);
   }
 
   static convertArrayToRec2100_hlg (data: Uint8ClampedArray): Uint16Array {
-    let uint16Data = new Uint16Array(data.length);
-    console.log('Image length ', data.length, data);
+    const uint16Data = new Uint16Array(data.length);
     for (let i = 0; i < data.length; i += 4) {
       const rgbPixel: Uint8ClampedArray = data.slice(i, i + 4);
       const pixel = Uint16Image.convertPixelToRec2100_hlg(rgbPixel);

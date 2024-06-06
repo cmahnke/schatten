@@ -3,7 +3,7 @@
 * Scroll issues
   * Check scroll out of frame on Chrome
   * Scroll issues with overflowing text on Firefox - check custom scroll-snap-align: start;
-* Finish method to handle screen updates
+* Finish method to handle screen updates, done
 * Cleanup (Comments, console, etc)
 
 

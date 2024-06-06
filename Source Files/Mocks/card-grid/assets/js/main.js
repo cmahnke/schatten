@@ -7,7 +7,7 @@ import {inView} from 'motion';
 import Color from 'color';
 import Cookies from 'js-cookie';
 
-import {checkHDR} from '@/hdr-check';
+import {checkHDR} from '@/hdr-check.ts';
 import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
 import {initModel, REDRAW_EVENT_NAME} from '@/model';
 
@@ -454,9 +454,11 @@ function checkWindowResize() {
   //TODO: Also check if window has been moved to another screen
   window.addEventListener("resize", () => {
     console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`)
+    /*
     if (canvas !== null) {
       canvas.dispatchEvent(new Event(REDRAW_EVENT_NAME));
     }
+    */
   });
 }
 

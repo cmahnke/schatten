@@ -45,6 +45,15 @@ export default defineConfig({
         replacement: join(process.cwd(), 'node_modules/$1')
       },
       {
+        find: /@\/(.+.ts)/,
+        replacement: join(process.cwd(), 'common-assets/ts/$1')
+      },
+      {
+        find: /@\/(.+.js)/,
+        replacement: join(process.cwd(), 'common-assets/js/$1')
+      },
+      // Default: No suffix = JavaScript
+      {
         find: /@\/(.+)/,
         replacement: join(process.cwd(), 'common-assets/js/$1')
       }

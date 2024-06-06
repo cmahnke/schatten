@@ -256,15 +256,13 @@ $card-padding: .4rem;
       height: 100%;
       width: 100%;
 
-      @media all and (orientation:landscape) {
-        height: unset;
-      }
-
       .post-content {
         height: 90%;
+        display: flex;
+        flex-direction: column;
 
-        @media all and (orientation:landscape) {
-          height: unset;
+        .renderer-container {
+          flex: 1;
         }
       }
     }

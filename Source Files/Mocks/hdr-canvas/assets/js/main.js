@@ -1,8 +1,8 @@
-import {checkHDR , checkHDRCanvas} from '@/hdr-check';
+import {checkHDR , checkHDRCanvas} from '@/hdr-check.ts';
 import encodeHDR from './hdr-encode';
 import {marked} from 'marked';
 import Color from 'colorjs.io';
-import Uint16Image from './Uint16Image';
+import Uint16Image from '@/Uint16Image.ts';
 
 //See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 /*
@@ -61,17 +61,6 @@ function hdrCanvasImage (parent, image) {
 
   //}
 }
-
-
-/*
-// TODO: Add this to check / detection
-window.matchMedia("(dynamic-range: high)").matches
-window.matchMedia('(color-gamut: p3)').matches
-window.matchMedia('(color-gamut: rec2020)').matches
-
-*/
-
-
 
 function loadImage() {
   // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/blink/renderer/core/html/canvas/high_dynamic_range_options.idl

@@ -10,6 +10,8 @@ This page was generated with [Hugo](https://gohugo.io/).
 
 The fonts used are [Handjet](https://rosettatype.com/Handjet) and
 
+This site uses modern web technologies (if supported by your browsers) such as [WebGL](https://www.khronos.org/webgl/), [Variable Fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) and [HDR Images](https://gregbenzphotography.com/hdr/).
+
 The following Javascript and CSS frameworks and libraries have been used:
 
 <ul class="inline-list">
@@ -43,7 +45,13 @@ The [3D visualisation](#phenomenon) has been created with [Blender](https://www.
   <li><a href="https://animista.net/play/text/focus-in/text-focus-in">Fade in effect for text</a></li>
 </ul>
 
+## Hosting
+
 The site is hosted by [GitHub](https://github.com/).
+
+## Privacy policy
+
+The [privacy policy](/about/privacy) was taken from [opr.vc](https://opr.vc/).
 
 ## Contact
 

@@ -10,6 +10,8 @@ Diese Seite wurde mit [Hugo](https://gohugo.io/) generiert.
 
 Als Schriftarten werden [Handjet](https://rosettatype.com/Handjet) und
 
+Diese Seite verwendet modernere Web Technologien (bei Browsern, die das unterstützen) wie [WebGL](https://www.khronos.org/webgl/), [Variable Schriftarten](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) und [HDR Bilder](https://gregbenzphotography.com/hdr/).
+
 Folgende Javascript und CSS Frameworks und Bibliotheken kommen zum Einsatz:
 
 <ul class="inline-list">
@@ -35,6 +37,7 @@ Zur Entwicklung wurden zusätzlich die folgenden Werkzeuge eingesetzt:
 
 Das [3D Modell zur Illustration](#phenomenon) wurde mit [Blender](https://www.blender.org/) erstellt.
 
+
 ## Inspirationen für Effekte
 
 <ul class="inline-list">
@@ -43,7 +46,13 @@ Das [3D Modell zur Illustration](#phenomenon) wurde mit [Blender](https://www.bl
   <li><a href="https://animista.net/play/text/focus-in/text-focus-in">Einblendeffekt für Text</a></li>
 </ul>
 
+## Hosting
+
 Die Seite wird von [GitHub](https://github.com/) gehosted.
+
+## Datenschutz
+
+Die [Datenschutzerklärung](/about/privacy) wurde von [opr.vc](https://opr.vc/) übernommen.
 
 ## Kontakt
 

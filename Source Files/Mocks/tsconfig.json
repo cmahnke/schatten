@@ -19,6 +19,6 @@
       "es2017"
     ]
   },
-  "include": ["hdr-canvas/assets/**/*"],
+  "include": ["hdr-canvas/assets/**/*", "common-assets/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
