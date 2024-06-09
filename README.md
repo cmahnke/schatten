@@ -12,6 +12,7 @@ Nächtliche Schatten
   * Bundle as library
 * Finish mocks in Source Files/Mocks/card-grid and Source Files/Mocks/model
 * Transplant mock code to assets
+* Create template for single pages
 * Contents
   * Write texts
     * Light
