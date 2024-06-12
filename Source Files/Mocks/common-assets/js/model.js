@@ -38,10 +38,10 @@ export const DEFAULT_LAYOUTS = {"landscape": [{
         name: 'AllView'
     }]};
 
-let scene, renderer, views, dividers, cameraOrtho, sceneOrtho;
+let scene, renderer, views, dividers, cameraOrtho, sceneOrtho, sceneClickHandler, orientation, arrow;
 
 export function render() {
-  var orientation = 'portrait';
+  orientation = 'portrait';
   if (renderer.domElement.parentNode.clientWidth > renderer.domElement.parentNode.clientHeight) {
     orientation = 'landscape';
   }
@@ -62,22 +62,26 @@ export function render() {
     }
 
     const view = views[orientation][i];
-    const camera = view.camera;
 
     const left = Math.floor(parentWidth * view.left);
     const bottom = Math.floor(parentHeight * view.bottom);
     const width = Math.floor(parentWidth * view.width);
     const height = Math.floor(parentHeight * view.height);
 
+    view.pxLeft = left;
+    view.pxBottom = bottom;
+    view.pxWidth = width;
+    view.pxHeight = height;
+
     renderer.setViewport(left, bottom, width, height);
     renderer.setScissor(left, bottom, width, height);
     renderer.setScissorTest(true);
     //renderer.setClearColor(view.background);
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    view.camera.aspect = width / height;
+    view.camera.updateProjectionMatrix();
     renderer.clear();
-    renderer.render(scene, camera);
+    renderer.render(scene, view.camera);
 
     if (dividers !== null && orientation in dividers) {
       if (i + 1 < views[orientation].length) {
@@ -107,6 +111,7 @@ export function render() {
   //renderer.render(sceneOrtho, cameraOrtho);
 }
 
+//TODO: Finish setup of provisers
 function setupDivider(divider, scene, width, height) {
   let sprites;
   if (divider.callback !== undefined || divider.callback !== null) {
@@ -121,7 +126,7 @@ function setupDivider(divider, scene, width, height) {
   if (Array.isArray(sprites)) {
     sprites.forEach((sprite) => {
       sceneOrtho.add(sprite);
-  console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
+//console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
     });
   } else {
     scene.add(sprites);
@@ -166,12 +171,14 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
         }
       });
 
-      ['portrait', 'landscape'].forEach((orientation) => {
-        for (let i = 0; i < views['landscape'].length; i++) {
+      ['portrait', 'landscape'].forEach((direction) => {
+        for (let i = 0; i < views[direction].length; i++) {
           gltf.cameras.forEach((cam) => {
-            if (cam.name == views.landscape[i].name) {
+            if (cam.name == views[direction][i].name) {
               renderer.compile(model, cam, scene);
-              views[orientation][i].camera = cam;
+              views[direction][i].camera = cam;
+              views[direction][i].raycaster = new THREE.Raycaster();
+              views[direction][i].mouse = new THREE.Vector2( 1, 1 );
             }
           });
         }
@@ -216,20 +223,69 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
     render();
   });
 
+  function mouseHandler(e) {
+    e.preventDefault();
+
+    for (let i = 0; i < views[orientation].length; i++) {
+
+      const view = views[orientation][i];
+      const mouse = view.mouse;
+      const canvasRect = e.target.getBoundingClientRect();
+
+      const canvasMouse = {
+        x: e.clientX - canvasRect.left,
+        y: e.clientY - canvasRect.top
+      };
+
+      // Check if we are in the correct camera
+      if (canvasMouse.x < view.pxLeft || canvasMouse.x > view.pxWidth + view.pxLeft || canvasMouse.y > (canvasRect.height - view.pxBottom) || canvasMouse.y < canvasRect.height - (view.pxBottom + view.pxHeight)) {
+        //console.log(`Currently not in camera ${view.name}`);
+        continue;
+      }
+
+      const camaraMouse = {
+        x: canvasMouse.x - view.pxLeft,
+        y: canvasMouse.y - (canvasRect.height - (view.pxBottom + view.pxHeight))
+      };
+
+      mouse.x = (camaraMouse.x / view.pxWidth) * 2 - 1;
+      mouse.y = - (camaraMouse.y / view.pxHeight) * 2 + 1;
+
+      const raycaster = views[orientation][i].raycaster;
+      raycaster.setFromCamera(mouse, views[orientation][i].camera);
+
+      if ('debug' in view && view.debug) {
+        if (arrow !== null) {
+          scene.remove(arrow);
+        }
+        arrow = new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 2, 0xffff00 );
+        scene.add(arrow);
+        render();
+      }
+
+      for (let i = 1; i < ARRAY_SIZE + 1; i++) {
+        const name = 'Sphere' + String(i).padStart(3, '0');
+        const obj = scene.getObjectByName(name);
+
+        let intersects = raycaster.intersectObject(obj, true);
+
+        if (intersects.length > 0) {
+          console.log(`Get intersection for ${name}`);
+          toggleNo(i);
+          render();
+        }
+      }
+    }
+  }
+
+  renderer.domElement.addEventListener('click', mouseHandler, false);
+
   renderer.domElement.addEventListener(TOGGLE_EVENT_NAME, (e) => {
     const light = e.detail;
     if (light > ARRAY_SIZE || light < 1) {
       return;
     }
-    ['Spot', 'Sphere'].forEach((kind) => {
-      const name = kind + String(light).padStart(3, '0');
-      const obj = scene.getObjectByName(name);
-      if (obj.visible == false) {
-        obj.visible = true;
-      } else {
-        obj.visible = false;
-      }
-    });
+    toggleNo(light);
     render();
   });
 
@@ -252,8 +308,20 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   renderer.domElement.addEventListener(REDRAW_EVENT_NAME, () => {
     render();
   });
-
+  canvas.scene = scene;
 };
+
+function toggleNo(light) {
+  ['Spot', 'Sphere'].forEach((kind) => {
+    const name = kind + String(light).padStart(3, '0');
+    const obj = scene.getObjectByName(name);
+    if (obj.visible == false) {
+      obj.visible = true;
+    } else {
+      obj.visible = false;
+    }
+  });
+}
 
 export function dispatchSwitch(canvas, num) {
   num = Math.round(num);
