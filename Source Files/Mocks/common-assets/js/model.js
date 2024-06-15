@@ -5,11 +5,18 @@ export const ARRAY_SIZE = 9;
 export const TOGGLE_EVENT_NAME = 'toggleLight';
 export const SWITCH_EVENT_NAME = 'switchLights';
 export const REDRAW_EVENT_NAME = 'redrawLights';
-export const DEFAULT_SEPARATORS = {"landscape": [{
-        }
-      ], "portrait": [
-        {
-      }]};
+
+const tile = { material: loadTile('/images/Tile.svg'),
+               height: 24,
+               width: 24};
+
+export const DEFAULT_SEPARATORS = {"landscape": {
+        callback: function(width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
+        args: [tile, {width: 0, height: .9, left: 2/3, bottom: 0, distance: 0}]
+      }, "portrait": {
+        callback: function (width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
+        args: [tile, {width: 0.9, height: 0, left: 0, bottom: 2/3, distance: 0}]}
+      };
 export const DEFAULT_LAYOUTS = {"landscape": [{
         left: 0,
         bottom: 0,
@@ -38,7 +45,7 @@ export const DEFAULT_LAYOUTS = {"landscape": [{
         name: 'AllView'
     }]};
 
-let scene, renderer, views, dividers, cameraOrtho, sceneOrtho, sceneClickHandler, orientation, arrow;
+let scene, renderer, views, dividers, sprites, cameraOrtho, sceneOrtho, orientation, arrow;
 
 export function render() {
   orientation = 'portrait';
@@ -51,10 +58,10 @@ export function render() {
   const parentHeight = renderer.domElement.parentNode.clientHeight;
 
   cameraOrtho.left = - parentWidth / 2;
-	cameraOrtho.right = parentWidth / 2;
-	cameraOrtho.top = parentHeight / 2;
-	cameraOrtho.bottom = - parentHeight / 2;
-	cameraOrtho.updateProjectionMatrix();
+  cameraOrtho.right = parentWidth / 2;
+  cameraOrtho.top = parentHeight / 2;
+  cameraOrtho.bottom = - parentHeight / 2;
+  cameraOrtho.updateProjectionMatrix();
 
   for (let i = 0; i < views[orientation].length; ++ i) {
     if (views[orientation][i].camera === undefined) {
@@ -93,13 +100,11 @@ export function render() {
 
   //renderer.clear();
 
-
   renderer.clearDepth();
 
   //TODO: Remove this
   const helper = new THREE.CameraHelper(cameraOrtho);
   sceneOrtho.add(helper);
-
 
   const left = 0;
   const bottom = 0;
@@ -107,13 +112,12 @@ export function render() {
   const height = parentHeight;
   renderer.setViewport(left, bottom, width, height);
 
-  //TODO: This creates a artifact
+  //TODO: This creates an artifact
   //renderer.render(sceneOrtho, cameraOrtho);
 }
 
-//TODO: Finish setup of provisers
+//TODO: Finish setup of dividers
 function setupDivider(divider, scene, width, height) {
-  let sprites;
   if (divider.callback !== undefined || divider.callback !== null) {
     let args = [];
     if (divider.args !== undefined || divider.args !== null) {
@@ -125,11 +129,17 @@ function setupDivider(divider, scene, width, height) {
   }
   if (Array.isArray(sprites)) {
     sprites.forEach((sprite) => {
-      sceneOrtho.add(sprite);
-//console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
+      if (sprite !== undefined && sprite !== null) {
+        sceneOrtho.add(sprite);
+console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
+      } else {
+        console.log('Sprite is undefined or null!');
+      }
     });
-  } else {
+  } else if (sprites !== undefined && sprites !== null) {
     scene.add(sprites);
+  } else {
+    console.log('Sprites is undefined or null!');
   }
 }
 
@@ -270,7 +280,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
         let intersects = raycaster.intersectObject(obj, true);
 
         if (intersects.length > 0) {
-          console.log(`Get intersection for ${name}`);
+          //console.log(`Get intersection for ${name}`);
           toggleNo(i);
           render();
         }
@@ -330,4 +340,11 @@ export function dispatchSwitch(canvas, num) {
     lightsSwitches[i] = true;
   }
   canvas.dispatchEvent(new CustomEvent(SWITCH_EVENT_NAME, {detail: lightsSwitches}));
+}
+
+function loadTile(tileUrl) {
+  var map = new THREE.TextureLoader().load(tileUrl);
+  map.colorSpace = THREE.SRGBColorSpace;
+  var material = new THREE.SpriteMaterial({ map: map, color: 0xffffff, fog: true });
+  return material;
 }

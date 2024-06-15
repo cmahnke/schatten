@@ -20,7 +20,7 @@ const separators = DEFAULT_SEPARATORS;
 separators['landscape'] = {callback: separatorVertical, args: [tile, {width: 0, height: .9, left: 2/3, bottom: 0, distance: 0}]};
 separators['portrait'] = {callback: separatorHorizontal, args: [tile, {width: 0.9, height: 0, left: 0, bottom: 2/3, distance: 0}]};
 
-console.log(separators)
+//console.log(separators)
 
 createSwitchGrid(dial, canvas);
 initModel(canvas, modelUrl, DEFAULT_LAYOUTS, separators);

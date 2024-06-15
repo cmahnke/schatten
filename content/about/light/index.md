@@ -14,6 +14,6 @@ Die Beleuchtung der Nacht schreitet voran. auch wenn potentielle Probleme wie di
 
 # Schatten
 
-Die "neuen" bzw. digitalen Schattenwürfe sind eine relativ neue Erscheinung: Auch wenn 2009 schon die Glühbirne von der EU vermeintlich "verboten" wurde, hat der Technologiewandel zu LEDs bei Straßenlaternen ein wenig länger gedauert und auch heute ist der Prozess nicht überall abgeschlossen.
+Die "neuen" bzw. "digitalen" Schattenwürfe sind eine relativ neue Erscheinung: Auch wenn 2009 schon die Glühbirne von der EU vermeintlich "verboten" wurde, hat der Technologiewandel zu LEDs bei Straßenlaternen ein wenig länger gedauert und auch heute ist der Prozess nicht überall abgeschlossen.
 
 Die [nächste Seite](#phenomenon) illustriert wie die Schatten zu Stande kommen.

@@ -50,6 +50,7 @@
     {{ $class = printf "%s %s" $class "meta" }}
   {{ end }}
   <body class="{{ $class }} {{ if .IsHome }}home{{ end }}">
+    {{- partial "piwik.html" . -}}
     {{- partial "header.html" . -}}
     {{ block "content" . }}{{ end }}
     {{- partialCached "services/cookie-consent.html" . -}}
