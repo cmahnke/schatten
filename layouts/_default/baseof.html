@@ -18,9 +18,6 @@
 
     {{- template "_internal/opengraph.html" . -}}
     {{- partial "html/head/dnt-cookie.html" . -}}
-    {{- if not hugo.IsServer -}}
-      {{- template "_internal/google_analytics.html" . -}}
-    {{- end -}}
 
     {{- partial "html/head/style.html" (dict "context" . "css" "css/style.css") -}}
     {{- partial "html/head/script.html" (dict "js" (partial "html/head/iiif-js.html" .)) -}}
@@ -50,7 +47,9 @@
     {{ $class = printf "%s %s" $class "meta" }}
   {{ end }}
   <body class="{{ $class }} {{ if .IsHome }}home{{ end }}">
-    {{- partial "piwik.html" . -}}
+    {{- if not hugo.IsServer -}}
+        {{- partial "piwik.html" . -}}
+    {{- end -}}
     {{- partial "header.html" . -}}
     {{ block "content" . }}{{ end }}
     {{- partialCached "services/cookie-consent.html" . -}}
