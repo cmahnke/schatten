@@ -1,4 +1,4 @@
-import {dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME} from '@/model';
+import {dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME} from './model';
 
 export const DEFAULT_HANDLERS = {'wheel': {function: handleWheel, args: []},
                           'touch': {function: handleTouch, args: []}};

@@ -8,10 +8,11 @@
   {{- else if and (ne .Path nil) (hasPrefix .Path "/tags") -}}
     {{- $class = "tags" -}}
   {{- end -}}
+  {{- partial "lang-switcher.html" . -}}
   {{- partial "hdr-warning.html" . -}}
-  <main role="main" class="list {{ $class }}">
-    {{- partial "lang-switcher.html" . -}}
-    {{- partial "menu.html" . -}}
+  {{- partial "menu.html" . -}}
+  <main role="main" class="cards list {{ $class }}">
+
     {{- if .IsHome -}}
       {{- partial "page-sections.html" . -}}
     {{- else  if and (ne .Path nil) (hasPrefix .Path "/tags") -}}
@@ -30,4 +31,10 @@
       {{- end -}}
     {{- end -}}
   </main>
+  <nav class="stack-switcher">
+    <a href="#up"><div class="up"></div></a>
+    <a href="#left"><div class="left"></div></a>
+    <a href="#right"><div class="right"></div></a>
+    <a href="#down"><div class="down"></div></a>
+  </nav>
 {{ end }}

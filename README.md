@@ -10,8 +10,7 @@ Nächtliche Schatten
   * HDR Canvas detection  - done
   * Try to detect change of screen
   * Bundle as library
-* Finish mocks in Source Files/Mocks/card-grid and Source Files/Mocks/model
-* Transplant mock code to assets
+* Transplant mock code to assets -almost done
 * Create template for single pages
 * Contents
   * Write texts

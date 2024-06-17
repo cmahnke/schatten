@@ -1,0 +1,23 @@
+/* Colors */
+$background-color: #000;
+$text-color: #fff;
+$hdr-bg: url('/images/white-hdr.jpeg');
+$arrow-icon: url('/images/svgs/arrow.svg');
+/* Fonts */
+@import "fonts";
+@import "hugo-fonts";
+@import "main";
+@import "icons";
+@import "structure-grid";
+@import "nav";
+@import "menu";
+@import "card";
+@import "a";
+@import "about";
+@import "images";
+@import "footer";
+@import "hdr-warning";
+@import "model";
+@import "model-switch-board";
+@import "text-effects";
+@import "404";

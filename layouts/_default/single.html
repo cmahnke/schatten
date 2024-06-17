@@ -15,12 +15,12 @@
   {{ $title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
-    <main role="main" class="single">
-      {{- partial "lang-switcher.html" . -}}
-      {{/*
-        TODO: Make sure that the links are correct
-      */}}
-      {{- partial "menu.html" . -}}
-      {{ partial "item.html" . }}
-    </main>
+  <main role="main" class="single">
+    {{- partial "lang-switcher.html" . -}}
+    {{/*
+      TODO: Make sure that the links are correct
+    */}}
+    {{- partial "menu.html" . -}}
+    {{ partial "item.html" . }}
+  </main>
 {{ end }}

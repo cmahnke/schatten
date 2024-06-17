@@ -50,7 +50,6 @@
     {{- if not hugo.IsServer -}}
         {{- partial "piwik.html" . -}}
     {{- end -}}
-    {{- partial "header.html" . -}}
     {{ block "content" . }}{{ end }}
     {{- partialCached "services/cookie-consent.html" . -}}
     {{- partialCached "footer.html" . -}}
