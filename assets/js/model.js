@@ -10,13 +10,25 @@ const tile = { material: loadTile('/images/Tile.svg'),
                height: 24,
                width: 24};
 
-export const DEFAULT_SEPARATORS = {"landscape": {
-        callback: function(width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
-        args: [tile, {width: 0, height: .9, left: 3/4, bottom: 0, distance: 0}]
-      }, "portrait": {
-        callback: function (width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
-        args: [tile, {width: 0.9, height: 0, left: 0, bottom: 3/4, distance: 0}]}
+export const DEFAULT_SEPARATORS = {"landscape":
+                                    {callback: separatorVertical, args:
+                                      [tile,
+                                        {width: 0, height: .8, left: 3/4, bottom: 0, distance: 12, rotateX: 35}
+                                      ]
+                                    }, "portrait":
+                                    {callback: separatorHorizontal, args:
+                                      [tile,
+                                        {width: .9, height: 0, left: 0, bottom: 3/4, distance: 12, rotateX: 35}
+                                      ]}
       };
+/*
+      separators['landscape'] = {callback: separatorVertical, args: [tile,
+                                  {width: 0, height: .8, left: 3/4, bottom: 0, distance: 12, rotateX: 35}
+                                ]};
+      separators['portrait'] = {callback: separatorHorizontal, args: [tile,
+                                  {width: .9, height: 0, left: 0, bottom: 3/4, distance: 12, rotateX: 35}
+                                ]};
+*/
 export const DEFAULT_LAYOUTS = {"landscape": [{
         left: 0,
         bottom: 0,
@@ -393,7 +405,7 @@ function translateOrtho(width, height, x, y) {
   return [ - (width / 2) + x, - (height / 2) + y];
 }
 
-function loadTile(tileUrl) {
+export function loadTile(tileUrl) {
   var map = new THREE.TextureLoader().load(tileUrl);
   map.colorSpace = THREE.SRGBColorSpace;
   var material = new THREE.SpriteMaterial({ map: map, color: 0xffffff, fog: true });

@@ -1,4 +1,4 @@
-import { resolve, join } from 'path';
+import { resolve, join, } from 'path';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import { viteSingleFile } from 'vite-plugin-singlefile';
@@ -18,11 +18,11 @@ export default defineConfig({
       apply: 'build'
     },
     stylelint({'build': true, 'dev': false, 'lintOnStart': true}),
-    DynamicPublicDirectory(['card-grid/public', 'hdr-canvas/public', 'model/public', 'common-public'], {
+    DynamicPublicDirectory(['card-grid/public', 'hdr-canvas/public', 'model/public', '../../static'], {
         ssr: false,
         mimeTypes
     }),
-    checker({ typescript: true})
+    checker({typescript: true})
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },
@@ -39,6 +39,7 @@ export default defineConfig({
     }
   },
   resolve: {
+    preserveSymlinks: true,
     alias: [
       {
         find: /~(.+)/,

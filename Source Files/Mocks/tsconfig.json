@@ -11,7 +11,7 @@
     "strict": true,
     "typeRoots": [
       "./node_modules/@types",
-      "./hdr-canvas/assets/ts/@types"
+      "../../assets/ts/@types"
     ],
     "target": "es2017",
     "lib": [
@@ -19,6 +19,6 @@
       "es2017"
     ]
   },
-  "include": ["hdr-canvas/assets/**/*", "common-assets/ts/**/*"],
+  "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

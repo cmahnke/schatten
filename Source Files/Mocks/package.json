@@ -20,9 +20,12 @@
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "@types/eslint__js": "^8.42.3",
+    "color": "^4.2.3",
     "eslint": "^9.4.0",
     "eslint-plugin-markdownlint": "^0.6.0",
     "globals": "^15.3.0",
+    "js-cookie": "^3.0.5",
+    "mime-types": "^2.1.35",
     "postcss-cli": "^11.0.0",
     "postcss-discard-duplicates": "^7.0.0",
     "postcss-inline-svg": "^6.0.0",

@@ -8,8 +8,8 @@ import Color from 'color';
 import Cookies from 'js-cookie';
 
 import {checkHDR} from '@/hdr-check.ts';
-import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
-import {initModel, REDRAW_EVENT_NAME} from '@/model';
+import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board.js';
+import {initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME} from '@/model.js';
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue('--background-color'));
 const maxShade = 20; // In percent
@@ -477,7 +477,8 @@ document.addEventListener("DOMContentLoaded", function() {
   displayHDRWarning();
   canvas = document.querySelector(modelSelector);
   if (canvas !== null) {
-    initModel(canvas, modelUrl);
+    //initModel(canvas, modelUrl);
+    initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
     const handlers = DEFAULT_HANDLERS;
     handlers['touch'].args = [document.querySelector('#touch-indicator')];
     addListener(canvas, ['wheel', 'touch'], handlers);

@@ -1,0 +1,158 @@
+@use 'sass:color';
+
+.home {
+  @keyframes home-title {
+
+    from {
+      font-variation-settings: "wght" 150, "ELSH" 4, "ELGR" 4;
+      /*opacity: .5;*/
+    }
+
+    to {
+      font-variation-settings: "wght" 350, "ELSH" 2, "ELGR" 1;
+      /*opacity: 1;*/
+    }
+/*
+    0% {
+      font-variation-settings: "wght" 350, "ESHP" 2, "EGRD" 1;
+    }
+
+    25% {
+      font-variation-settings: "wght" 200, "ESHP" 2, "EGRD" 1;
+    }
+
+    50% {
+      font-variation-settings: "wght" 200, "ESHP" 4, "EGRD" 1;
+    }
+
+    75% {
+      font-variation-settings: "wght" 200, "ESHP" 4, "EGRD" 2;
+    }
+*/
+  }
+
+/* @supports (font-variation-settings: normal) { */
+
+  .page-title {
+    position: relative;
+    max-width: 100vw;
+    margin-block-start: 10vh;
+
+    .home-title {
+      mix-blend-mode: unset;
+      background-image: $hdr-bg;
+      background-size: 100% 100%;
+      background-clip: text;
+      font-size: 35vh;
+      font-variation-settings: "wght" 350, "ELSH" 4, "ELGR" 2;
+      /*mix-blend-mode: difference;*/
+
+      animation: home-title 20s infinite ease-out alternate;
+      color: transparent;
+    }
+
+  }
+}
+
+/* ---------- post ----------- */
+
+.card,
+.item {
+  max-height: 100vh;
+
+
+  .post-header {
+    height: 10vh;
+    max-height: 10vh;
+    overflow: hidden;
+
+    .post-title {
+      font-size: 9vh;
+      z-index: 1;
+      position: relative;
+      mix-blend-mode: exclusion;
+      font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
+    }
+
+    .post-meta {
+      display: none;
+
+      .post-date {
+
+      }
+
+      .post-tags {
+
+      }
+
+    }
+  }
+
+  .post-body {
+    height: 90vh;
+    max-height: 90vh;
+
+    .post-content {
+      position: relative;
+
+      .post-text {
+        font-size: 1.4em;
+        color: white;
+        background-color: black;
+        box-shadow: rgba(0, 0, 0, 0.5) .45em .45em, rgba(0, 0, 0, 0.4) .9em .9em, rgba(0, 0, 0, 0.3) 1.35em 1.35em;
+        padding: .6em;
+        max-width: max-content;
+        margin: 2em;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+
+        ul {
+          padding-top: .2em;
+          padding-inline-start: 1em;
+        }
+
+      }
+
+      .images {
+        height: 90vh;
+        max-height: 90vh;
+            overflow: hidden;
+
+        .image-container {
+
+          width: 100%;
+          overflow: hidden;
+
+          .single-image {
+            height: 100%;
+            width: 100%;
+            transition: all 500ms;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: left;
+            transform-origin: center left;
+
+            .post-image {
+
+              transition: all 500ms;
+              object-fit: cover;
+              height: 90vh;
+              aspect-ratio: 4/3;
+            }
+
+            &:hover {
+              transform: scale(2);
+              transition: all 500ms;
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}

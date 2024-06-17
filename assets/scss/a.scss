@@ -5,7 +5,7 @@
     color: var(--text-color);
     text-decoration: none;
 
-    &:before {
+    &::before {
       content: "";
       position: absolute;
       left: 0;
@@ -16,7 +16,7 @@
       transition: all 0.2s ease-out;
     }
 
-    &:hover:before {
+    &:hover::before {
       height: 1.5em;
       transform: translateY(.2em);
     }

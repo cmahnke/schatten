@@ -1,39 +1,128 @@
-#head {
-  width: calc(100% - 3% * 2);
-  max-width: calc(100% - 4em);
-  padding-top: 2em;
-  left: 3%;
-  right: 3%;
+.stack-switcher {
 
-  &.header-menu {
+  .left,
+  .right,
+  .up,
+  .down {
+    pointer-events: all;
     position: fixed;
-    /*
+    color: var(--text-color);
+    background : $arrow-icon;
 
-    text-shadow: 0 0 1.2em black, 0 0 1.2em black, 0 0 .9em black, 0 0 .6em black, 0 0 .3em black;
-    */
-    text-shadow: 0 0 1.2em black, 0 0 1.2em black, 0 0 .9em black, 0 0 .6em black, 0 0 .3em black;
-    mix-blend-mode: difference;
-    z-index: 1;
-    display: flex;
-    justify-content: space-evenly;
-
-    .header-menu-list {
-
-      min-width: 16em;
-      list-style-type: none;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      font-size: 2em;
-
-      .menu-item {
-        display: inline-block;
-
-      }
-    }
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 100ms;
+    transform-origin: center;
+    cursor: pointer;
+    z-index: 5;
+    filter: drop-shadow(0 0 .2rem black) drop-shadow(0 0 .4rem black) drop-shadow(0 0 .6rem black);
   }
 
-  .menu {
-    display: none;
+  .left,
+  .right {
+    height: 1em;
+    width: 2em;
+    vertical-align: middle;
+  }
+
+  .left {
+    transform: rotate(90deg);
+  }
+
+  .right {
+    transform: rotate(270deg);
+  }
+
+  .up,
+  .down {
+    height: 1em;
+    width: 2em;
+  }
+
+  .up {
+    transform: rotate(180deg);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--background-color);
+    position: fixed;
+    z-index: 5;
+    transition: 100ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:has(.left),
+    &:has(.right) {
+      height: 4em;
+      width: 2em;
+      top: 50%;
+      vertical-align: middle;
+    }
+
+    &:has(.left) {
+      left: 1em;
+      transform: translate(0%, -50%);
+    }
+
+    &:has(.right) {
+      right: 1em;
+      transform: translate(0%, -50%);
+    }
+
+    &:has(.up),
+    &:has(.down) {
+      height: 2em;
+      width: 4em;
+      left: 50%;
+    }
+
+    &:has(.up) {
+      top: .6em;
+      transform: translate(-50%, 0%);
+
+      @media all and (orientation:landscape) {
+        top: 1em;
+      }
+    }
+
+    &:has(.down) {
+      bottom: 1em;
+      transform: translate(-50%, 0%);
+    }
+
+    &:hover {
+      .up {
+        transform: translate(0%, -20%) rotate(180deg) scale(1.2);
+      }
+
+      .left {
+        transform: translate(-20%, 0%) rotate(90deg) scale(1.2);
+      }
+
+      .right {
+        transform: translate(20%, 0%) rotate(270deg) scale(1.2);
+      }
+
+      .down {
+        transform: translate(0%, 20%) scale(1.2);
+      }
+
+    }
+
+    &.hidden {
+      transition: 100ms;
+      opacity: 0;
+      pointer-events: none;
+
+      .left,
+      .right,
+      .up,
+      .down {
+        pointer-events: none;
+        cursor: unset;
+      }
+    }
   }
 }
