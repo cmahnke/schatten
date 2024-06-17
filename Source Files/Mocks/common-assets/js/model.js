@@ -12,10 +12,10 @@ const tile = { material: loadTile('/images/Tile.svg'),
 
 export const DEFAULT_SEPARATORS = {"landscape": {
         callback: function(width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
-        args: [tile, {width: 0, height: .9, left: 2/3, bottom: 0, distance: 0}]
+        args: [tile, {width: 0, height: .9, left: 3/4, bottom: 0, distance: 0}]
       }, "portrait": {
         callback: function (width, height, ...args) {console.log('Devider generator function not implemnted for: ', width, height, args)},
-        args: [tile, {width: 0.9, height: 0, left: 0, bottom: 2/3, distance: 0}]}
+        args: [tile, {width: 0.9, height: 0, left: 0, bottom: 3/4, distance: 0}]}
       };
 export const DEFAULT_LAYOUTS = {"landscape": [{
         left: 0,
@@ -48,6 +48,7 @@ export const DEFAULT_LAYOUTS = {"landscape": [{
 let scene, renderer, views, dividers, sprites, cameraOrtho, sceneOrtho, orientation, arrow;
 
 export function render() {
+  renderer.clear();
   orientation = 'portrait';
   if (renderer.domElement.parentNode.clientWidth > renderer.domElement.parentNode.clientHeight) {
     orientation = 'landscape';
@@ -98,49 +99,48 @@ export function render() {
     }
   }
 
-  //renderer.clear();
-
   renderer.clearDepth();
 
   //TODO: Remove this
-  const helper = new THREE.CameraHelper(cameraOrtho);
-  sceneOrtho.add(helper);
+  //const helper = new THREE.CameraHelper(cameraOrtho);
+  //sceneOrtho.add(helper);
 
-  const left = 0;
-  const bottom = 0;
-  const width = parentWidth;
-  const height = parentHeight;
-  renderer.setViewport(left, bottom, width, height);
-
-  //TODO: This creates an artifact
-  //renderer.render(sceneOrtho, cameraOrtho);
+  renderer.setViewport(0, 0, parentWidth, parentHeight);
+  renderer.setScissor(0, 0, parentWidth, parentHeight);
+  renderer.setScissorTest(true);
+  renderer.render(sceneOrtho, cameraOrtho);
 }
 
 //TODO: Finish setup of dividers
 function setupDivider(divider, scene, width, height) {
+  while(sceneOrtho.children.length > 0){
+    sceneOrtho.remove(sceneOrtho.children[0]);
+  }
+
   if (divider.callback !== undefined || divider.callback !== null) {
     let args = [];
     if (divider.args !== undefined || divider.args !== null) {
       args = divider.args;
     }
     sprites = divider.callback(width, height, ...args);
+  } else if ('sprite' in divider) {
+    if (Array.isArray(sprites)) {
+      sprites = divider.sprite
+    } else {
+      sprites = [divider.sprite]
+    }
   } else {
-    sprites = dividers.sprite
+    console.log('Divider sprite or callback not set!');
+    return;
   }
-  if (Array.isArray(sprites)) {
-    sprites.forEach((sprite) => {
-      if (sprite !== undefined && sprite !== null) {
-        sceneOrtho.add(sprite);
-console.log('sprite', sprite, 'x', sprite.position.x, 'y', sprite.position.y, sprite.scale);
-      } else {
-        console.log('Sprite is undefined or null!');
-      }
-    });
-  } else if (sprites !== undefined && sprites !== null) {
-    scene.add(sprites);
-  } else {
-    console.log('Sprites is undefined or null!');
-  }
+
+  sprites.forEach((sprite) => {
+    if (sprite !== undefined && sprite !== null) {
+      sceneOrtho.add(sprite);
+    } else {
+      console.log('Sprite is undefined or null!');
+    }
+  });
 }
 
 export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
@@ -227,6 +227,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
 	cameraOrtho.position.z = 10;
   sceneOrtho = new THREE.Scene();
   sceneOrtho.background = null;
+  sceneOrtho.add(cameraOrtho);
 
   window.addEventListener("resize", () => {
     renderer.setSize(canvas.parentNode.clientWidth, canvas.parentNode.clientHeight);
@@ -340,6 +341,56 @@ export function dispatchSwitch(canvas, num) {
     lightsSwitches[i] = true;
   }
   canvas.dispatchEvent(new CustomEvent(SWITCH_EVENT_NAME, {detail: lightsSwitches}));
+}
+
+export function separatorVertical(width, height, tile, size) {
+  const tiles = []
+  let tileHeight;
+  if (size.rotateX) {
+    tileHeight = (tile.height * size.rotateX) * (Math.PI/180);
+  } else {
+    tileHeight = tile.height;
+  }
+  const numY = Math.floor((height * size.height) / (tileHeight + size.distance));
+
+  const posX = width * size.left - (tile.width / 2);
+  const startY = Math.floor((height - (height * size.height)) / 2);
+  for (let i = 0; i < numY; i++) {
+    const sprite = new THREE.Sprite(tile.material);
+    const posY = i * (tileHeight + size.distance) + startY;
+    sprite.center.set(0.0, -1.0);
+    sprite.scale.set(tile.width, tileHeight, 1);
+    sprite.position.set(...translateOrtho(width, height, posX, posY), 1);
+    tiles.push(sprite);
+  }
+  return tiles;
+}
+
+export function separatorHorizontal(width, height, tile, size) {
+  const tiles = []
+  let tileHeight;
+  if (size.rotateX) {
+    tileHeight = (tile.height * size.rotateX) * (Math.PI/180);
+  } else {
+    tileHeight = tile.height;
+  }
+  const numX = Math.floor((width * size.width) / (tile.width + size.distance));
+  const posY = height * size.bottom - (tileHeight / 2);
+  const startX = Math.floor((width - (width * size.width)) / 2);
+
+  for (let i = 0; i < numX; i++) {
+    const sprite =  new THREE.Sprite(tile.material);
+    const posX = i * (tileHeight + size.distance) + startX;
+    sprite.center.set(-2.0, 2.0);
+    sprite.scale.set(tile.width, tileHeight, 1);
+    sprite.position.set(...translateOrtho(width, height, posX, posY), 1);
+    tiles.push(sprite);
+  }
+  return tiles;
+}
+
+function translateOrtho(width, height, x, y) {
+  return [ - (width / 2) + x, - (height / 2) + y];
 }
 
 function loadTile(tileUrl) {

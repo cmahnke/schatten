@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import {initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS} from '@/model';
+import {initModel, separatorVertical, separatorHorizontal, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS} from '@/model';
 import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
 
 const modelUrl = '/gtlf/model-uncompressed.glb';
@@ -17,8 +17,12 @@ const tile = { material: loadTile(tileUrl),
                width: 24};
 
 const separators = DEFAULT_SEPARATORS;
-separators['landscape'] = {callback: separatorVertical, args: [tile, {width: 0, height: .9, left: 2/3, bottom: 0, distance: 0}]};
-separators['portrait'] = {callback: separatorHorizontal, args: [tile, {width: 0.9, height: 0, left: 0, bottom: 2/3, distance: 0}]};
+separators['landscape'] = {callback: separatorVertical, args: [tile,
+                            {width: 0, height: .8, left: 3/4, bottom: 0, distance: 12, rotateX: 35}
+                          ]};
+separators['portrait'] = {callback: separatorHorizontal, args: [tile,
+                            {width: .9, height: 0, left: 0, bottom: 3/4, distance: 12, rotateX: 35}
+                          ]};
 
 //console.log(separators)
 
@@ -33,18 +37,25 @@ function loadTile(tileUrl) {
   return material;
 }
 
+/*
 function separatorVertical(width, height, tile, size) {
   const tiles = []
-  const numY = Math.floor((height * size.height) / (tile.height + size.distance));
-  const posX = width * size.left;
-  const startY = Math.floor((height - (height * size.height)) / 2);
+  let tileHeight;
+  if (size.rotateX) {
+    tileHeight = (tile.height * size.rotateX) * (Math.PI/180);
+  } else {
+    tileHeight = tile.height;
+  }
+  const numY = Math.floor((height * size.height) / (tileHeight + size.distance));
 
+  const posX = width * size.left - (tile.width / 2);
+  const startY = Math.floor((height - (height * size.height)) / 2);
   for (let i = 0; i < numY; i++) {
-    const sprite =  new THREE.Sprite(tile.material);
-    const posY = i * (tile.width + size.distance) + startY;
-    sprite.center.set(0.0, 1.0);
-    sprite.scale.set(tile.width, tile.height, 1);
-    sprite.position.set(...translateOrtho(width, height, posX, posY), 1 );
+    const sprite = new THREE.Sprite(tile.material);
+    const posY = i * (tileHeight + size.distance) + startY;
+    sprite.center.set(0.0, -1.0);
+    sprite.scale.set(tile.width, tileHeight, 1);
+    sprite.position.set(...translateOrtho(width, height, posX, posY), 1);
     tiles.push(sprite);
   }
   return tiles;
@@ -52,15 +63,21 @@ function separatorVertical(width, height, tile, size) {
 
 function separatorHorizontal(width, height, tile, size) {
   const tiles = []
+  let tileHeight;
+  if (size.rotateX) {
+    tileHeight = (tile.height * size.rotateX) * (Math.PI/180);
+  } else {
+    tileHeight = tile.height;
+  }
   const numX = Math.floor((width * size.width) / (tile.width + size.distance));
-  const posY = height * size.bottom;
+  const posY = height * size.bottom - (tileHeight / 2);
   const startX = Math.floor((width - (width * size.width)) / 2);
 
   for (let i = 0; i < numX; i++) {
     const sprite =  new THREE.Sprite(tile.material);
-    const posX = i * (tile.height + size.distance) + startX;
-    sprite.center.set(0.0, 1.0);
-    sprite.scale.set(tile.width, tile.height, 1);
+    const posX = i * (tileHeight + size.distance) + startX;
+    sprite.center.set(-2.0, 2.0);
+    sprite.scale.set(tile.width, tileHeight, 1);
     sprite.position.set(...translateOrtho(width, height, posX, posY), 1);
     tiles.push(sprite);
   }
@@ -68,5 +85,6 @@ function separatorHorizontal(width, height, tile, size) {
 }
 
 function translateOrtho(width, height, x, y) {
-  return [(- width / 2) + x, (- height / 2) + y];
+  return [ - (width / 2) + x, - (height / 2) + y];
 }
+*/
