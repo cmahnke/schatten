@@ -1,5 +1,5 @@
 ---
-title: colorGamutMQLightcolorGamutMQ
+title: "Light"
 weight: 1
 ---
 

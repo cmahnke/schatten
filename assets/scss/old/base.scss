@@ -113,13 +113,6 @@ h1, h2, h3 {
   font-family: $heading-font;
   color: white;
 
-
-
-  /*
-  a {
-    color: transparent;
-  }
-  */
 }
 
 .bright {
@@ -159,19 +152,5 @@ h3 {
 main {
   max-width: 100vw;
   overflow: hidden;
-  /* Make sure this covers the whole screen */
 
-  /*
-  &.home {
-    display: flex;
-    flex-direction: row;
-
-  }
-  */
-/*
-  .content-image {
-    background-image: $hdr-bg;
-    background-size: 100% 100%;
-  }
-  */
 }

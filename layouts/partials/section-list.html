@@ -15,9 +15,15 @@
     {{ $class = .Params.type }}
   {{- end -}}
   {{- if .Weight -}}
-    {{- $class = printf "%s row%s" $class .Weight -}}
+    {{- $class = printf "%s row%d" $class .Weight -}}
   {{- else -}}
     {{- $class = printf "%s row%d" $class $i -}}
+  {{- end -}}
+
+  {{- if not (modBool $i 2) -}}
+    {{- $class = printf "%s odd" $class -}}
+  {{- else -}}
+    {{- $class = printf "%s even" $class -}}
   {{- end -}}
 
   <section class="item card {{ $slug }} {{ $class }}" data-slug="{{ $slug }}">

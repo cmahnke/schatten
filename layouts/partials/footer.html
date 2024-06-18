@@ -1,7 +1,7 @@
 <footer class="footer" role="contentinfo">
   <div class="projektemacher">
-			{{ $.Site.Title }} {{ i18n "isA" }} <a href="https://projektemacher.org/">Projektemacher</a> Blog
-			<span class="logo"></span>
+			{{ $.Site.Title }} {{ i18n "isA" }} <a href="https://projektemacher.org/" title="Projektemacher Seite">Projektemacher</a> Blog
+			<a href="https://christianmahnke.de/" title="Monogram"><span class="logo"></span></a>
       {{- if and $.Sites.First.Copyright (eq $.Sites.First.Copyright "false") -}}
           <span class="copyright"></span>
       {{- else if $.Sites.First.Params.copyrightYears -}}

@@ -1,11 +1,11 @@
 baseURL = "https://schatten.yaapb.projektemacher.org/"
 title = 'Nächtliche Schatten'
-languageCode = "de"
+languageCode = "en"
 publishDir = "docs"
 canonifyurls = true
 languagecode = "de"
-defaultcontentlanguage = "de"
-DefaultContentLanguage = "de"
+defaultcontentlanguage = "en"
+DefaultContentLanguage = "en"
 theme = ["projektemacher-base"]
 disableKinds = ["taxonomy"]
 ignoreErrors = ["error-disable-taxonomy"]

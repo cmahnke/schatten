@@ -49,32 +49,13 @@ main {
 
       &.column1, &.column2 {
 
-
-
-
       }
     }
-/*
-      &.column2 {
 
-        &.active {
-          flex-basis: calc(100% - 1em);
-        }
-
-        &.inactive {
-          flex-basis: 1em;
-          overflow: hidden;
-          ba
-        }
-
-      }
-*/
     .card.item,
     .card.home {
       scroll-snap-align: start end;
       max-height: 100vh;
     }
-
-
   }
 }

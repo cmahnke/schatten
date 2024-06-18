@@ -11,29 +11,31 @@
     {{- .Content -}}
   </div>
 
-  <div class="images">
-    {{- $hdrSuffix := "-hdr" -}}
-    {{- $imageResources := "" -}}
-    {{- $class := "" -}}
-    {{- if (.Resources.Match (printf "*%s.jp*" $hdrSuffix)) -}}
-      {{- $imageResources = .Resources.Match (printf "*%s.jp*" $hdrSuffix) -}}
-      {{- $class = "hdr" -}}
-    {{- else if (.Resources.Match "*.jp*")  -}}
-      {{- $imageResources = .Resources.Match "*.jp*" -}}
-      {{- $class = "sdr" -}}
-    {{- end -}}
-    {{- with $imageResources -}}
-      {{- range . -}}
-        {{- $ar := printf "aspect-ratio: %d / %d;" .Height .Width -}}
-        {{- $bg := printf "background-image: url(%s);" .RelPermalink  -}}
-        <div class="image-container" style="{{ $ar | safeCSS }}">
-          <div class="single-image" style="{{ $bg | safeCSS }}">
-          </div>
-          {{/*
-          <img src="{{ .RelPermalink }}" class="post-image {{ $class }}">
-        */}}
-        </div>
+  {{- with .Resources -}}
+    <div class="images">
+      {{- $hdrSuffix := "-hdr" -}}
+      {{- $imageResources := "" -}}
+      {{- $class := "" -}}
+      {{- if (.Match (printf "*%s.jp*" $hdrSuffix)) -}}
+        {{- $imageResources = .Match (printf "*%s.jp*" $hdrSuffix) -}}
+        {{- $class = "hdr" -}}
+      {{- else if (.Match "*.jp*")  -}}
+        {{- $imageResources = .Match "*.jp*" -}}
+        {{- $class = "sdr" -}}
       {{- end -}}
-    {{- end -}}
-  </div>
+      {{- with $imageResources -}}
+        {{- range . -}}
+          {{- $ar := printf "aspect-ratio: %d / %d;" .Height .Width -}}
+          {{- $bg := printf "background-image: url(%s);" .RelPermalink  -}}
+          <div class="image-container" style="{{ $ar | safeCSS }}">
+            <div class="single-image" style="{{ $bg | safeCSS }}">
+            </div>
+            {{/*
+            <img src="{{ .RelPermalink }}" class="post-image {{ $class }}">
+          */}}
+          </div>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  {{- end -}}
 </div>

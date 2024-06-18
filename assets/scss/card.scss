@@ -140,6 +140,14 @@ $card-padding: .4rem;
       }
     }
 
+    /*
+    .post-title {
+      color: transparent;
+      background-clip: text;
+      @include hdr-background;
+    }
+    */
+
     .post-meta {
       display: none;
 

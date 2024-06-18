@@ -1,0 +1,99 @@
+.card {
+
+  .post-body {
+
+
+    .post-content {
+/*
+      position: relative;
+
+
+      .post-text {
+        font-size: 1.4em;
+        color: white;
+        background-color: black;
+        box-shadow: rgba(0, 0, 0, 0.5) .45em .45em, rgba(0, 0, 0, 0.4) .9em .9em, rgba(0, 0, 0, 0.3) 1.35em 1.35em;
+        padding: .6em;
+        max-width: max-content;
+        margin: 2em;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+
+        ul {
+          padding-top: .2em;
+          padding-inline-start: 1em;
+        }
+
+      }
+      */
+
+      .images {
+        height: 90vh;
+        max-height: 90vh;
+        overflow: hidden;
+
+        .image-container {
+
+          width: 100%;
+          overflow: hidden;
+
+          .single-image {
+            height: 100%;
+            width: 100%;
+            transition: all 500ms;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: left;
+            transform-origin: center left;
+
+            .post-image {
+              transition: all 500ms;
+              object-fit: cover;
+              height: 90vh;
+              aspect-ratio: 4/3;
+            }
+
+            &:hover {
+              /* TODO Add animation to wait a bit */
+              transform: scale(1.4);
+              transition: all 500ms;
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  &.odd .post-content,
+  &.even .post-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &.odd .post-content {
+    .images {
+      order: 1;
+    }
+
+    .post-text {
+      order: 2;
+    }
+
+  }
+
+  &.even .post-content {
+    .images {
+      order: 1;
+    }
+
+    .post-text {
+      order: 2;
+    }
+  }
+
+}

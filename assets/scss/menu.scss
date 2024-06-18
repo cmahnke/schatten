@@ -60,13 +60,14 @@ menu.lang-switch {
 
     &.active {
       transition: all 200ms linear;
+      order: 1;
     }
 
     &.inactive {
       transition: all 200ms linear;
       transform: scale(0, 1);
       transform-origin: left;
-
+      order: 2;
     }
 
     &:hover {
