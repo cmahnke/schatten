@@ -56,3 +56,4 @@ Links and inspirations
 
 # Other
 * Browser theme colors: https://css-tricks.com/meta-theme-color-and-trickery/
+* https://erikdemaine.org/fonts/tetris/
