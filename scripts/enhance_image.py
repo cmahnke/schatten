@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, os, logging, argparse, pathlib, subprocess, io, atexit, shutil
+import sys, os, logging, argparse, pathlib, subprocess, io, atexit, shutil, logging
 from PIL import Image
 import numpy as np
 import cv2 as cv
@@ -15,6 +15,9 @@ ultrahdr_app_bin = '/usr/local/bin/ultrahdr_app'
 
 pipeline = ['grayscale', 'denoise', 'white_balance', 'normalize']
 #pipeline = ['grayscale', 'white_balance']
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 def normalize(img):
     #cvAr = greyscale(pilImg)
@@ -37,6 +40,7 @@ def safe_yuv(img, name):
 
     args = ['ffmpeg', '-i', 'pipe:', '-filter:v', 'format=p010', name]
     cprint(f"$ {' '.join(args)}", 'yellow')
+
 
     converter = (
         ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f"{width}x{height}")
@@ -87,16 +91,19 @@ def main(argv) -> int:
     with Image.open(input) as im:
         #Crop if needed
         w, h = im.size
+        logger.info(f"Input image {input}, size {w}x{h}")
         new_w, new_h = im.size
         new_w -= w % 2
         new_h -= h % 2
         im = im.crop((0, 0, new_w, new_h))
         if w != new_w or h != new_h:
             temp_input = f"{input}-tmp.jpg"
+            logger.info(f"Input image reszized to {temp_input}, size {new_w}x{new_h}")
             if not args.keep:
                 atexit.register(os.remove, temp_input)
             im.save(temp_input)
             input = temp_input
+            #im = Image.open(temp_input)
         # Convert PIL to opencv
         img = cv.cvtColor(np.array(im.convert('RGB')), cv.COLOR_RGB2BGR)
         if len(pipeline):
@@ -105,7 +112,7 @@ def main(argv) -> int:
 
         #show_write(img, output)
     safe_yuv(img, yuv_output)
-    args = [ultrahdr_app_bin, "-m", "0", "-p", yuv_output, "-i", input, "-w", str(new_w), "-h", str(new_h)]
+    args = [ultrahdr_app_bin, "-m", "0", "-p", yuv_output, "-i", input, "-w", str(new_w), "-h", str(new_h), "-a", "0"]
     cprint(f"$ {' '.join(args)}", 'yellow')
     subprocess.check_call(args)
     hdr_out = os.path.join(os.getcwd(), 'out.jpeg')
