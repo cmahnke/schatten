@@ -7,6 +7,11 @@ IMAGE_GLOB="-name *.jpg -o -name *.jpeg ! -name *-hdr*"
 
 SCRIPT=`dirname $0`/./enhance_image.py
 
+if [ -n "$1" ] ; then
+  ADDITIONAL_ARGS="$1"
+else
+  ADDITIONAL_ARGS=""
+fi
 
 if [ -z "$PYTHON" ] ; then
   PYTHON=python3
@@ -30,6 +35,6 @@ for IMAGE in `find "$IMAGE_PREFIX" $IMAGE_GLOB`
 do
     echo "Processing $IMAGE"
     DIR=`dirname $IMAGE`
-    $PYTHON $SCRIPT -i $IMAGE -o $DIR/$(basename $IMAGE .jpeg)-hdr.jpeg
+    $PYTHON $SCRIPT $ADDITIONAL_ARGS -i $IMAGE -o $DIR/$(basename $IMAGE .jpeg)-hdr.jpeg
 
 done

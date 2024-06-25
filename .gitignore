@@ -18,3 +18,5 @@ content/**/*-hdr.jpeg
 assets/jsconfig.json
 static/images/svgs/cm-clippath.svg
 data/stats.json
+**/*.yuv
+**/*-tmp.jpg
