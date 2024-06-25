@@ -12,5 +12,5 @@ $CTX_PATH/../themes/projektemacher-base/scripts/github/setup-xslt.sh
 $CTX_PATH/../themes/projektemacher-base/scripts/github/dart-sass.sh
 
 ./scripts/ffmpeg-7.sh
-./scripts/install-hdr-github.sh
+#./scripts/install-hdr-github.sh
 docker pull ghcr.io/cmahnke/hdr-tools:latest
