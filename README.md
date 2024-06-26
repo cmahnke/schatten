@@ -2,7 +2,6 @@ Nächtliche Schatten
 ===================
 
 # TODO
-* Remove production blocker
 * Cookie banner
   * Add close button
   * Check if external requests are blocked if declined
@@ -20,5 +19,4 @@ Nächtliche Schatten
     * Metamodernism
     * Privacy
   * Finish SCSS for images and texts
-* Use UltraHDR converter from Docker image
 * Check other browsers: Safari, Firefox
