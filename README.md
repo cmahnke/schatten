@@ -8,7 +8,7 @@ Nächtliche Schatten
 * HDR detection - done
   * HDR Canvas detection - done
   * Try to detect change of screen
-  * Bundle as library
+  * Bundle as library - done
 * Transplant mock code to assets - almost done
   * Fix card shadows
 * Improve language switcher

@@ -4,7 +4,7 @@ import Color from 'color';
 import {fontsLoaded, buildThresholdList, setupGrid, handleCardIntersect, setupNav, setupMenu, setupLangSwitch, checkColumns, checkWindowResize, displayHDRWarning, textEffects, colorSteps} from './card-grid.js';
 import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from './model-switch-board.js';
 import {initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME} from './model.js';
-import {checkHDR} from '../ts/hdr-check.ts';
+import {checkHDR} from 'hdr-canvas';
 
 const modelUrl = '/gtlf/model-uncompressed.glb';
 const modelSelector = '#renderer';

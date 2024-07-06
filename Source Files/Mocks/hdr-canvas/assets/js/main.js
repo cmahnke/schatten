@@ -1,4 +1,4 @@
-import {checkHDR , checkHDRCanvas} from '@/hdr-check.ts';
+import {checkHDR, checkHDRCanvas} from 'hdr-canvas';
 import encodeHDR from './hdr-encode';
 import {marked} from 'marked';
 import Color from 'colorjs.io';
