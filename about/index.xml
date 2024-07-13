@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>About on Nocturnal shadows</title>
+    <link>https://schatten.yaapb.projektemacher.org/about/</link>
+    <description>Recent content in About on Nocturnal shadows</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="https://schatten.yaapb.projektemacher.org/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Light</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/light/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://schatten.yaapb.projektemacher.org/about/light/</guid>
+      <description>This page is dedicated to a relatively new phenomenon: &amp;ldquo;digital&amp;rdquo; shadows.&#xA;I refer to the shadows cast by modern street lamps as &amp;ldquo;digital&amp;rdquo; shadows. Many small light sources arranged in a grid (so called LED arrays or matrix LEDs) cast shadows which, when overlapping, produce patterns which look like pixels.&#xA;Light Night Shadow The &amp;ldquo;new&amp;rdquo; or &amp;ldquo;digital&amp;rdquo; shadows are a relatively new phenomenon: even though the light bulb was allegedly &amp;ldquo;banned&amp;rdquo; by the EU in 2009, the technological change to LEDs for street lamps took a little longer.</description>
+    </item>
+    <item>
+      <title>Phenomenon</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/phenomenon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://schatten.yaapb.projektemacher.org/about/phenomenon/</guid>
+      <description>The phenomenon shown is created by the superimposition of shadows cast by parallel light sources. The visualisation can be controlled by touching or scrolling.</description>
+    </item>
+    <item>
+      <title>Metamoderne</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/metamodernism/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://schatten.yaapb.projektemacher.org/about/metamodernism/</guid>
+      <description>Sachen explizit machen&#xA;Links: https://www.alfredstoll.com/metamoderne-kunst https://www.alfredstoll.com/metamoderne-metamodernism https://www.klaus-janowitz.de/wordpress/metamoderne/ https://whatismetamodern.com/ https://unipub.uni-graz.at/obvugrhs/content/titleinfo/5555788/full.pdf </description>
+    </item>
+    <item>
+      <title>Acknowledgements and Links</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://schatten.yaapb.projektemacher.org/about/links/</guid>
+      <description>HDR The HDR images were processed with libultrahdr. Knowledge and tools are based on the preliminary work of Greg Benz and others. The HDR converter has been inspired by the work of Albert Zeyer.&#xA;Typography The variable font Handjet from Rosetta Type is used for titles and headings. This font allows the manipulation of different axes via CSS. This makes different appearances easily configurable via a stylesheet.&#xA;The Variable Fonts page from HEX Projects offers an overview and provides the possibility setting the various parameters directly in the browser.</description>
+    </item>
+    <item>
+      <title>Colophon</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/colophon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://schatten.yaapb.projektemacher.org/about/colophon/</guid>
+      <description>Page This page was generated with Hugo.&#xA;The fonts used are Handjet and&#xA;This site uses modern web technologies (if supported by your browsers) such as WebGL, Variable Fonts and HDR Images.&#xA;The following Javascript and CSS frameworks and libraries have been used:&#xA;js-cookie Normalize.css Fitty Color.js Three JS Motion One Development The following tools were also used for development:&#xA;Vite ESLint Stylelint 3D model The 3D visualisation has been created with Blender.</description>
+    </item>
+  </channel>
+</rss>
