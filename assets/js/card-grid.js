@@ -331,9 +331,16 @@ export function setupLangSwitch(curLang, selector) {
 
   }
 
+  /*
+  langLink.addEventListener('contextmenu', (event) => {
+    console.debug('contextmenu lang switcher');
+  });
+  */
+
   // TODO: Check for mousedown or touch length about 1000ms and show all languages
   langLink.addEventListener('pointerdown', (event) => {
-    console.debug('mousedown lang switcher');
+    event.preventDefault();
+    console.debug('ponterdown lang switcher');
     if (switcher.classList.contains('show')) {
       switcher.classList.remove('show');
       const url = event.target.dataset.url;
@@ -354,6 +361,9 @@ export function setupLangSwitch(curLang, selector) {
   });
 
   switcher.querySelectorAll(`li`).forEach((lang) => {
+    if (elem.classList.some((c) => ["active", "inactive"].includes(c))) {
+      return;
+    }
     var content = lang.innerText || lang.textContent;
     if (content.toUpperCase() == curLang.toUpperCase()) {
       lang.classList.add('active');

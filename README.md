@@ -9,11 +9,11 @@ Nächtliche Schatten
   * Fix card shadows
 * Improve language switcher
  * Check pointerdown event on Chrome
-* Create template for single pages
 * Contents
   * Write texts
     * Light
     * Metamodernism
     * Privacy
   * Finish SCSS for images and texts
+  * Create template for single pages
 * Check other browsers: Safari, Firefox

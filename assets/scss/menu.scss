@@ -323,6 +323,10 @@ menu.lang-switch {
     .stack-menu {
       display: inline-block;
 
+      @media all and (orientation:landscape) {
+        min-width: 30%;
+      }
+
       ul {
         padding-bottom: 1.2em;
 

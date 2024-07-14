@@ -3,9 +3,9 @@
     {{- range .Site.Home.AllTranslations -}}
       {{- $lang := .Lang -}}
       {{- if ne $.Site.Language .Language -}}
-        <li><a href="#{{ $lang }}" data-url="{{ .RelPermalink }}">{{ upper $lang }}</a></li>
+        <li class="inactive lang"><a href="{{ .RelPermalink }}" data-lang="{{ $lang }}" data-url="{{ .RelPermalink }}">{{ upper $lang }}</a></li>
       {{- else -}}
-        <li class="active"><a href="#{{ $lang }}" data-url="{{ .RelPermalink }}">{{ upper $lang }}</a></li>
+        <li class="active lang"><a href="{{ .RelPermalink }}" data-lang="{{ $lang }}" data-url="{{ .RelPermalink }}">{{ upper $lang }}</a></li>
       {{- end -}}
     {{- end -}}
   </menu>

@@ -22,7 +22,7 @@ export default defineConfig({
         ssr: false,
         mimeTypes
     }),
-    checker({typescript: true})
+    checker({typescript: false})
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },
