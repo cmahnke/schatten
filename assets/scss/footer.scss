@@ -20,8 +20,6 @@
                     0 0 .8rem var(--background-color),
                     0 0 1rem var(--background-color),
                     0 0 1.2rem var(--background-color);
-
-    @include handjet-pixelated(250);
     font-size: 1rem;
     position: relative;
     text-shadow: $footer-shadow;
@@ -30,6 +28,7 @@
     min-width: 50%;
     background-color: var(--background-color);
     box-shadow: 0 0 10px var(--background-color);
+    @include handjet-pixelated(250);
 
     .logo {
       content: '';
