@@ -30,7 +30,6 @@ menu.lang-switch {
   font-family: var(--menu-text-font);
   transition: opacity 100ms ease-in-out;
   opacity: 0;
-  cursor: pointer;
 
   @supports (font-variation-settings: normal) {
     font-variation-settings: "wght" 550, "ESHP" 2.4, "EGRD" 1.07;
@@ -60,14 +59,20 @@ menu.lang-switch {
 
     &.active {
       transition: all 200ms linear;
-      order: 1;
+      transform: scale(0, 1);
+      transform-origin: left;
+      cursor: auto;
+      order: 2;
+
+      a {
+        cursor: auto;
+      }
     }
 
     &.inactive {
       transition: all 200ms linear;
-      transform: scale(0, 1);
-      transform-origin: left;
-      order: 2;
+      cursor: pointer;
+      order: 1;
     }
 
     &:hover {

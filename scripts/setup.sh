@@ -11,7 +11,7 @@ convert "Source Files/Images/preview-transparent.png" -channel RGB -negate stati
 #convert <input> -type Grayscale -gravity center -crop 3:2 <output>
 #PYTHON=`./themes/projektemacher-base/scripts/find-python3.sh` ./scripts/hdr.sh
 ./scripts/hdr-docker.sh
-#./scripts/svgo.sh
+./scripts/svgo.sh
 
 if [ -d ./scripts/post-build ] ; then
     echo "Don't forget to run post build scripts after 'hugo'!"

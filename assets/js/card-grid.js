@@ -2,7 +2,7 @@ import {inView} from 'motion';
 import Color from 'color';
 import Cookies from 'js-cookie';
 
-import {checkHDR} from '../ts/hdr-check.ts';
+import {checkHDR} from 'hdr-canvas';
 import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from './model-switch-board.js';
 import {initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME} from './model.js';
 
@@ -307,9 +307,10 @@ export function setupLangSwitch(curLang, selector) {
     selector = 'menu.lang-switch';
   }
   const switcher = document.querySelector(selector);
+  const langLink = switcher.querySelector('.inactive');
 
+/*
   switcher.addEventListener('click', (event) => {
-    console.debug('Clicked lang switcher');
     if (switcher.classList.contains('show')) {
       switcher.classList.remove('show');
       const url = event.target.dataset.url;
@@ -323,6 +324,30 @@ export function setupLangSwitch(curLang, selector) {
     }
     event.stopPropagation()
   });
+*/
+
+  // https://stackoverflow.com/questions/71901720/mousedown-pointerdown-events-not-working-when-keep-pressing-an-element
+  function handleMouseDown(e) {
+
+  }
+
+  // TODO: Check for mousedown or touch length about 1000ms and show all languages
+  langLink.addEventListener('pointerdown', (event) => {
+    console.debug('mousedown lang switcher');
+    if (switcher.classList.contains('show')) {
+      switcher.classList.remove('show');
+      const url = event.target.dataset.url;
+      console.log(`Switching to ${url}`);
+      window.location.replace(url);
+    } else {
+      switcher.classList.add('show');
+      switcher.querySelectorAll(`li a`).forEach((link) => {
+        link.style.pointerEvents = 'all';
+      });
+    }
+    event.stopPropagation()
+  });
+
 
   switcher.addEventListener('mouseleave', () => {
     switcher.classList.remove('show');
