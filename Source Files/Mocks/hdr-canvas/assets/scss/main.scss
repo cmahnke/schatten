@@ -1,4 +1,3 @@
-
 .article-container {
   position: relative;
   /* background-color: black; */
@@ -35,10 +34,10 @@ h2 {
 .content {
   color: #ffffffd0;
   /*mix-blend-mode: difference;*/
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-weight: 600;
   text-shadow: 2px 2px #3e3d3d;
-  align-items: center
+  align-items: center;
 }
 
 #status {
@@ -71,7 +70,11 @@ h2 {
   }
 
   .canvas {
-    background: linear-gradient(180deg, rgb(255 255 255 / 100%) 2em, rgb(0 0 0 / 100%) 2em);
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 100%) 2em,
+      rgb(0 0 0 / 100%) 2em
+    );
     canvas {
       border-top: 1px solid red;
     }
@@ -83,10 +86,8 @@ h2 {
     }
 
     img {
-
     }
   }
-
 }
 
 .test-image {
@@ -103,7 +104,7 @@ h2 {
       padding: 10px;
       color: black;
       left: 0;
-      content: 'SDR';
+      content: "SDR";
       display: block;
       height: 100%;
       width: 100%;

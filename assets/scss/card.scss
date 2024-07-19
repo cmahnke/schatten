@@ -1,4 +1,4 @@
-$card-padding: .4rem;
+$card-padding: 0.4rem;
 
 .cards .stack .card {
   display: flex;
@@ -7,15 +7,19 @@ $card-padding: .4rem;
   /* Center content */
   justify-content: center;
   align-items: center;
-  transition: z-index 300ms linear, box-shadow 300ms linear;
-  padding: .6em;
+  transition:
+    z-index 300ms linear,
+    box-shadow 300ms linear;
+  padding: 0.6em;
   box-sizing: border-box;
   width: inherit;
 
   &.active {
     box-shadow: 0 0 10px var(--background-color);
     z-index: 3;
-    transition: z-index 2000ms linear, box-shadow 300ms linear;
+    transition:
+      z-index 2000ms linear,
+      box-shadow 300ms linear;
 
     /* stylelint-disable selector-class-pattern */
     &.__inserted {
@@ -28,7 +32,7 @@ $card-padding: .4rem;
     position: relative;
     /* display: flex; */
     padding: $card-padding;
-    @media all and (orientation:landscape) {
+    @media all and (orientation: landscape) {
       padding: calc($card-padding * 4);
     }
   }
@@ -36,17 +40,21 @@ $card-padding: .4rem;
   /* Content (class) specific styles */
 
   &.home {
-
     @keyframes home-title {
-
       from {
-        font-variation-settings: "wght" 150, "ELSH" 4, "ELGR" 4;
+        font-variation-settings:
+          "wght" 150,
+          "ELSH" 4,
+          "ELGR" 4;
       }
 
       to {
-        font-variation-settings: "wght" 350, "ELSH" 2, "ELGR" 1;
-        }
-  /*
+        font-variation-settings:
+          "wght" 350,
+          "ELSH" 2,
+          "ELGR" 1;
+      }
+      /*
       0% {
         font-variation-settings: "wght" 350, "ESHP" 2, "EGRD" 1;
       }
@@ -65,7 +73,7 @@ $card-padding: .4rem;
   */
     }
 
-  /* @supports (font-variation-settings: normal) { */
+    /* @supports (font-variation-settings: normal) { */
 
     .page-title {
       position: relative;
@@ -74,7 +82,6 @@ $card-padding: .4rem;
       display: flex;
       flex-basis: 100%;
       justify-content: center;
-
 
       .home-title {
         font-family: var(--title-font);
@@ -90,22 +97,23 @@ $card-padding: .4rem;
         text-align: center;
 
         @supports (font-variation-settings: normal) {
-          font-variation-settings: "wght" 350, "ELSH" 4, "ELGR" 2;
+          font-variation-settings:
+            "wght" 350,
+            "ELSH" 4,
+            "ELGR" 2;
           animation: home-title 15s infinite linear alternate;
         }
 
-        @media all and (orientation:landscape) {
+        @media all and (orientation: landscape) {
           white-space: nowrap;
           font-size: 14vw;
           text-align: unset;
         }
       }
-
     }
-
   }
 
-  @media all and (orientation:landscape) {
+  @media all and (orientation: landscape) {
     &:nth-child(even) .post-header .post-title {
       left: calc($card-padding * 4);
       right: unset;
@@ -126,15 +134,17 @@ $card-padding: .4rem;
       font-size: 2.6rem;
       z-index: 1;
       mix-blend-mode: exclusion;
-      text-shadow: 8px 8px #262626, 16px 16px #4d4d4d;
-      padding-bottom: .45em;
+      text-shadow:
+        8px 8px #262626,
+        16px 16px #4d4d4d;
+      padding-bottom: 0.45em;
       position: absolute;
       top: 1.8rem;
       left: 2rem;
       user-select: none;
       @include handjet-pixelated;
 
-      @media all and (orientation:landscape) {
+      @media all and (orientation: landscape) {
         top: calc($card-padding * 4);
         /* font-size: 9vh; */
       }
@@ -152,11 +162,9 @@ $card-padding: .4rem;
       display: none;
 
       .post-date {
-
       }
 
       .post-tags {
-
       }
     }
   }
@@ -166,7 +174,7 @@ $card-padding: .4rem;
     margin-top: 8.4rem;
     width: inherit;
 
-    @media all and (orientation:landscape) {
+    @media all and (orientation: landscape) {
       margin-top: 4rem;
     }
 
@@ -190,43 +198,44 @@ $card-padding: .4rem;
         @include text-font;
         color: white;
         background-color: black;
-        box-shadow: rgb(0 0 0 / 50%) .45em .45em, rgb(0 0 0 / 40%) .9em .9em, rgb(0 0 0 / 30%) 1.35em 1.35em;
-        padding: .6em;
+        box-shadow:
+          rgb(0 0 0 / 50%) 0.45em 0.45em,
+          rgb(0 0 0 / 40%) 0.9em 0.9em,
+          rgb(0 0 0 / 30%) 1.35em 1.35em;
+        padding: 0.6em;
         z-index: 1;
 
-        @media all and (orientation:landscape) {
+        @media all and (orientation: landscape) {
           margin: 1rem 1.6rem;
         }
 
         ul {
-          padding-top: .2em;
+          padding-top: 0.2em;
           padding-inline-start: 1em;
         }
 
         h1 {
           font-size: 2em;
-          margin-bottom: .6rem;
+          margin-bottom: 0.6rem;
         }
 
         h2 {
           font-size: 1.6em;
-          margin-bottom: .4rem;
+          margin-bottom: 0.4rem;
         }
 
         h3 {
           font-size: 1.2em;
-          margin-bottom: .2rem;
+          margin-bottom: 0.2rem;
         }
-
       }
 
       .images {
         height: 90vh;
         max-height: 90vh;
-            overflow: hidden;
+        overflow: hidden;
 
         .image-container {
-
           width: 100%;
           overflow: hidden;
 
@@ -240,7 +249,6 @@ $card-padding: .4rem;
             transform-origin: center left;
 
             .post-image {
-
               transition: all 500ms;
               object-fit: cover;
               height: 90vh;
@@ -281,5 +289,4 @@ $card-padding: .4rem;
       font-size: small;
     }
   }
-
 }

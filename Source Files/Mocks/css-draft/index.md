@@ -9,5 +9,5 @@ Ein Entwurf für die Startseite
 
 ## Ideas
 
-* Black and white color
-* Greyscale grandients
+- Black and white color
+- Greyscale grandients

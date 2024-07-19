@@ -1,14 +1,14 @@
 /* See https://gist.github.com/certainlyakey/e9c0d8f5c87ff47e3d5b?permalink_comment_id=3458258#gistcomment-3458258 */
-@use 'sass:meta';
-@use 'sass:string';
-@use 'sass:color';
+@use "sass:meta";
+@use "sass:string";
+@use "sass:color";
 
 @function encodecolor($string) {
-  @if meta.type-of($string) == 'color' and string.index(#{$string}, '#') == 1 {
+  @if meta.type-of($string) == "color" and string.index(#{$string}, "#") == 1 {
     $hex: string.slice(color.ie-hex-str($string), 4);
-    $string: string.unquote('#{$hex}');
+    $string: string.unquote("#{$hex}");
 
-    @return '%23' + $string;
+    @return "%23" + $string;
   }
 
   @return $string;

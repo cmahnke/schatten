@@ -1,14 +1,17 @@
-$text-font: 'Figtree', roboto, helvetica, sans-serif;
-$title-font: 'Handjet Variable';
-$heading-font: '';
-$sub-heading-font: '';
-$menu-heading-font: 'Special Elite';
-$menu-text-font: 'Handjet Variable', 'Courier New', courier, monospace;
+$text-font: "Figtree", roboto, helvetica, sans-serif;
+$title-font: "Handjet Variable";
+$heading-font: "";
+$sub-heading-font: "";
+$menu-heading-font: "Special Elite";
+$menu-text-font: "Handjet Variable", "Courier New", courier, monospace;
 
 @mixin handjet-pixelated($weight: 550) {
   font-family: var(--title-font);
   @supports (font-variation-settings: normal) {
-    font-variation-settings: "wght" $weight, "ESHP" 2.4, "EGRD" 1.07;
+    font-variation-settings:
+      "wght" $weight,
+      "ESHP" 2.4,
+      "EGRD" 1.07;
   }
 }
 
@@ -17,7 +20,7 @@ $menu-text-font: 'Handjet Variable', 'Courier New', courier, monospace;
   font-weight: $weight;
 }
 
-.handjet-loaded  {
+.handjet-loaded {
   .home .home-title,
   div.title-font,
   menu.lang-switch {

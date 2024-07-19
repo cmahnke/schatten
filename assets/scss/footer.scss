@@ -8,22 +8,22 @@
   max-height: 1.8rem;
   z-index: 11;
 
-
   .projektemacher {
-    $footer-shadow: 0 0 .2rem var(--background-color),
-                    0 0 .2rem var(--background-color),
-                    0 0 .4rem var(--background-color),
-                    0 0 .4rem var(--background-color),
-                    0 0 .6rem var(--background-color),
-                    0 0 .6rem var(--background-color),
-                    0 0 .8rem var(--background-color),
-                    0 0 .8rem var(--background-color),
-                    0 0 1rem var(--background-color),
-                    0 0 1.2rem var(--background-color);
+    $footer-shadow:
+      0 0 0.2rem var(--background-color),
+      0 0 0.2rem var(--background-color),
+      0 0 0.4rem var(--background-color),
+      0 0 0.4rem var(--background-color),
+      0 0 0.6rem var(--background-color),
+      0 0 0.6rem var(--background-color),
+      0 0 0.8rem var(--background-color),
+      0 0 0.8rem var(--background-color),
+      0 0 1rem var(--background-color),
+      0 0 1.2rem var(--background-color);
     font-size: 1rem;
     position: relative;
     text-shadow: $footer-shadow;
-    padding-top: .2rem;
+    padding-top: 0.2rem;
     text-align: center;
     min-width: 50%;
     background-color: var(--background-color);
@@ -31,9 +31,9 @@
     @include handjet-pixelated(250);
 
     .logo {
-      content: '';
-      height: .8rem;
-      width: .8rem;
+      content: "";
+      height: 0.8rem;
+      width: 0.8rem;
       mask-image: url("/images/cm.png");
       mask-position: center;
       mask-size: contain;
@@ -42,22 +42,19 @@
       display: inline-block;
       mask-repeat: no-repeat;
       filter: drop-shadow($footer-shadow);
-      margin: 0 .4rem;
+      margin: 0 0.4rem;
 
       &::before {
-        content:"";
+        content: "";
         height: 100%;
-        background-image: url('/images/white-hdr.jpeg');
-        display:block;
-
+        background-image: url("/images/white-hdr.jpeg");
+        display: block;
       }
     }
 
     .copyright {
       text-align: center;
-      margin-top: .2rem;
+      margin-top: 0.2rem;
     }
-
-
   }
 }

@@ -1,15 +1,19 @@
 //import * as THREE from 'three';
 
-import {initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS} from '@/model';
-import {createSwitchGrid, addListener, DEFAULT_HANDLERS} from '@/model-switch-board';
+import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@/model";
+import {
+  createSwitchGrid,
+  addListener,
+  DEFAULT_HANDLERS,
+} from "@/model-switch-board";
 
-const modelUrl = '/gtlf/model-uncompressed.glb';
+const modelUrl = "/gtlf/model-uncompressed.glb";
 
-const canvas = document.querySelector('#renderer');
-const dial = document.querySelector('#dial-container');
+const canvas = document.querySelector("#renderer");
+const dial = document.querySelector("#dial-container");
 
 const handlers = DEFAULT_HANDLERS;
-handlers['touch'].args = [document.querySelector('#touch-indicator')];
+handlers["touch"].args = [document.querySelector("#touch-indicator")];
 
 /*
 separators['landscape'] = {callback: separatorVertical, args: [tile,
@@ -22,4 +26,4 @@ separators['portrait'] = {callback: separatorHorizontal, args: [tile,
 
 createSwitchGrid(dial, canvas);
 initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
-addListener(canvas, ['wheel', 'touch'], handlers);
+addListener(canvas, ["wheel", "touch"], handlers);

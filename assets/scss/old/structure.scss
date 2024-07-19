@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 
 main {
   /* Make sure this covers the whole screen */
@@ -39,16 +39,14 @@ main {
         /* TODO: Add Arrow icons */
 
         &.left {
-
         }
 
         &.right {
-
         }
       }
 
-      &.column1, &.column2 {
-
+      &.column1,
+      &.column2 {
       }
     }
 

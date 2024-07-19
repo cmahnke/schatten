@@ -1,8 +1,8 @@
 /* Colors */
 $background-color: #000;
 $text-color: #fff;
-$hdr-bg: url('/images/white-hdr.jpeg');
-$arrow-icon: url('/images/svgs/arrow.svg');
+$hdr-bg: url("/images/white-hdr.jpeg");
+$arrow-icon: url("/images/svgs/arrow.svg");
 /* Fonts */
 @import "fonts";
 @import "hugo-fonts";
@@ -22,4 +22,4 @@ $arrow-icon: url('/images/svgs/arrow.svg');
 @import "content";
 @import "text-effects";
 @import "404";
-@import "services/cookie-consent"
+@import "services/cookie-consent";

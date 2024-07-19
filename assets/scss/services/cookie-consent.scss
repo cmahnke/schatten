@@ -52,7 +52,7 @@ $button-background: gray;
     font-size: 1em;
     line-height: 1;
     vertical-align: middle;
-    margin: .6em;
+    margin: 0.6em;
     opacity: 0.8;
     transition: 0.3s;
     display: inline-block;
@@ -65,8 +65,7 @@ $button-background: gray;
 
     &:hover {
       opacity: 1;
-      box-shadow:
-                  -4px -4px lighten($button-background, 30%);
+      box-shadow: -4px -4px lighten($button-background, 30%);
       transition: 0.3s;
     }
 
@@ -86,7 +85,6 @@ $button-background: gray;
     &.cookie-notice-more {
       color: white;
     }
-
   }
 
   &.hidden {
@@ -116,6 +114,5 @@ $button-background: gray;
       bottom: 4px;
       z-index: 999;
     }
-
   }
 }

@@ -10,7 +10,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      height: .2em;
+      height: 0.2em;
       background: #fff;
       bottom: 0;
       transition: all 0.2s ease-out;
@@ -18,14 +18,20 @@
 
     &:hover:before {
       height: 1.5em;
-      transform: translateY(.2em);
+      transform: translateY(0.2em);
     }
 
     span {
       cursor: pointer;
       position: relative;
       display: inline-block;
-      background: linear-gradient(to bottom, #fff, #fff 60%, #000 60%, #000 100%);
+      background: linear-gradient(
+        to bottom,
+        #fff,
+        #fff 60%,
+        #000 60%,
+        #000 100%
+      );
       background-clip: text;
       background-repeat: no-repeat;
       transition: background 0.2s ease-out;
@@ -33,9 +39,8 @@
       mix-blend-mode: difference;
 
       &:hover {
-        background-position: 0 -.4em;
+        background-position: 0 -0.4em;
       }
-
     }
   }
 }

@@ -1,10 +1,7 @@
 .card {
-
   .post-body {
-
-
     .post-content {
-/*
+      /*
       position: relative;
 
 
@@ -35,7 +32,6 @@
         overflow: hidden;
 
         .image-container {
-
           width: 100%;
           overflow: hidden;
 
@@ -62,11 +58,8 @@
             }
           }
         }
-
       }
-
     }
-
   }
 
   &.odd .post-content,
@@ -83,7 +76,6 @@
     .post-text {
       order: 2;
     }
-
   }
 
   &.even .post-content {
@@ -95,5 +87,4 @@
       order: 2;
     }
   }
-
 }

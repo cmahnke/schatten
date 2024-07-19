@@ -1,7 +1,9 @@
-import {dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME} from './model';
+import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
 
-export const DEFAULT_HANDLERS = {'wheel': {function: handleWheel, args: []},
-                          'touch': {function: handleTouch, args: []}};
+export const DEFAULT_HANDLERS = {
+  wheel: { function: handleWheel, args: [] },
+  touch: { function: handleTouch, args: [] },
+};
 
 let lights = ARRAY_SIZE;
 let last = ARRAY_SIZE;
@@ -21,7 +23,7 @@ export function addListener(canvas, events, handlers) {
 }
 
 export function handleWheel(canvas) {
-  canvas.addEventListener("wheel", function(e) {
+  canvas.addEventListener("wheel", function (e) {
     const newLights = lights + e.deltaY * -0.05;
     if (newLights <= ARRAY_SIZE && newLights >= 0) {
       lights = newLights;
@@ -33,19 +35,21 @@ export function handleWheel(canvas) {
 
 export function handleTouch(canvas, touchIndicator) {
   function isTouchDevice() {
-    return (('ontouchstart' in window) ||
-       (navigator.maxTouchPoints > 0) ||
-       (navigator.msMaxTouchPoints > 0));
+    return (
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      navigator.msMaxTouchPoints > 0
+    );
   }
 
   if (isTouchDevice()) {
     if (touchIndicator != null) {
-      touchIndicator.classList.remove('hide');
+      touchIndicator.classList.remove("hide");
     }
     let startTouch = [];
     let lastTouch = [];
     let lastDirections = new Array(2);
-    const scale = .8;
+    const scale = 0.8;
 
     function getDirection() {
       if (startTouch[0] < lastTouch[0]) {
@@ -64,13 +68,13 @@ export function handleTouch(canvas, touchIndicator) {
       }
     }
 
-    canvas.addEventListener("touchstart", function(e) {
+    canvas.addEventListener("touchstart", function (e) {
       e.preventDefault();
       const current = e.changedTouches[0];
       startTouch = [parseInt(current.pageX), parseInt(current.pageY)];
       lastTouch = [parseInt(current.pageX), parseInt(current.pageY)];
       if (touchIndicator != null) {
-        touchIndicator.classList.add('hide');
+        touchIndicator.classList.add("hide");
       }
     });
 
@@ -78,26 +82,30 @@ export function handleTouch(canvas, touchIndicator) {
       e.preventDefault();
       startTouch = [];
       if (touchIndicator != null) {
-        touchIndicator.classList.remove('hide');
+        touchIndicator.classList.remove("hide");
       }
     }
 
     canvas.addEventListener("touchcancel", endTouch);
     canvas.addEventListener("touchend", endTouch);
 
-    canvas.addEventListener("touchmove", function(e){
-      const widthForLight = (canvas.clientWidth *  scale) / ARRAY_SIZE;
+    canvas.addEventListener("touchmove", function (e) {
+      const widthForLight = (canvas.clientWidth * scale) / ARRAY_SIZE;
       const current = e.changedTouches[0];
       lastTouch = [parseInt(current.pageX), parseInt(current.pageY)];
-      const distance = Math.sqrt(((lastTouch[0] - startTouch[0])**2) + ((lastTouch[1] - startTouch[1])**2));
+      const distance = Math.sqrt(
+        (lastTouch[0] - startTouch[0]) ** 2 +
+          (lastTouch[1] - startTouch[1]) ** 2,
+      );
 
       var newLights;
       getDirection();
       //
-      if (lastDirections[0]) { // || lastDirections[1]
-        newLights = lights - (distance / widthForLight);
+      if (lastDirections[0]) {
+        // || lastDirections[1]
+        newLights = lights - distance / widthForLight;
       } else {
-        newLights = lights + (distance / widthForLight);
+        newLights = lights + distance / widthForLight;
       }
 
       if (newLights < 0) {
@@ -113,14 +121,13 @@ export function handleTouch(canvas, touchIndicator) {
         startTouch = [parseInt(current.pageX), parseInt(current.pageY)];
       }
       switchLEDs(canvas, lights);
-
     });
     /* eslint-disable no-console */
-    console.log('Touch events registred');
+    console.log("Touch events registred");
     /* eslint-enable no-console */
   } else {
     if (touchIndicator != null) {
-      touchIndicator.classList.add('hide');
+      touchIndicator.classList.add("hide");
     }
   }
 }
@@ -128,25 +135,25 @@ export function handleTouch(canvas, touchIndicator) {
 function switchLEDs(canvas, num) {
   const iLightNum = Math.round(num);
   if (last != iLightNum) {
-    dispatchSwitch(canvas, iLightNum)
+    dispatchSwitch(canvas, iLightNum);
     last = iLightNum;
   }
 }
 
 export function createSwitchGrid(elem, canvas) {
   const parent = document.createElement("div");
-  parent.classList.add('dial');
+  parent.classList.add("dial");
 
   for (let i = 1; i < ARRAY_SIZE + 1; i++) {
-    const button =  document.createElement("button");
-    button.classList.add('button');
-    const span =  document.createElement("span");
+    const button = document.createElement("button");
+    button.classList.add("button");
+    const span = document.createElement("span");
     span.innerText = i;
     button.appendChild(span);
-    button.addEventListener('click', () => {
-      canvas.dispatchEvent(new CustomEvent(TOGGLE_EVENT_NAME, {detail: i}));
+    button.addEventListener("click", () => {
+      canvas.dispatchEvent(new CustomEvent(TOGGLE_EVENT_NAME, { detail: i }));
     });
-    parent.appendChild(button)
+    parent.appendChild(button);
   }
   elem.appendChild(parent);
 }

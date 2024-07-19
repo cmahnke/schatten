@@ -1,5 +1,4 @@
 .stack-switcher {
-
   .left,
   .right,
   .up,
@@ -7,7 +6,7 @@
     pointer-events: all;
     position: fixed;
     color: var(--text-color);
-    background : $arrow-icon;
+    background: $arrow-icon;
 
     background-size: contain;
     background-repeat: no-repeat;
@@ -15,7 +14,8 @@
     transform-origin: center;
     cursor: pointer;
     z-index: 5;
-    filter: drop-shadow(0 0 .2rem black) drop-shadow(0 0 .4rem black) drop-shadow(0 0 .6rem black);
+    filter: drop-shadow(0 0 0.2rem black) drop-shadow(0 0 0.4rem black)
+      drop-shadow(0 0 0.6rem black);
   }
 
   .left,
@@ -79,10 +79,10 @@
     }
 
     &:has(.up) {
-      top: .6em;
+      top: 0.6em;
       transform: translate(-50%, 0%);
 
-      @media all and (orientation:landscape) {
+      @media all and (orientation: landscape) {
         top: 1em;
       }
     }
@@ -108,7 +108,6 @@
       .down {
         transform: translate(0%, 20%) scale(1.2);
       }
-
     }
 
     &.hidden {

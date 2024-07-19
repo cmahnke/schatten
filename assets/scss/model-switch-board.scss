@@ -18,10 +18,23 @@
       border: 0;
       /*background-color: white;*/
       /*background: repeating-radial-gradient(circle at 100% 0%, #eee, #ccc 40%);*/
-      background: radial-gradient(closest-side, rgba(212,212,212,.01) 30% , rgba(2,0,36,1)),
-                  repeating-linear-gradient(30deg, rgba(2,0,36,.5), rgba(212,212,212,.5), rgba(2,0,36,.5) 10%),
-                  repeating-linear-gradient(-30deg, rgba(2,0,36,.5), rgba(212,212,212,.5), rgba(2,0,36,.5) 10%)
-                  ;
+      background: radial-gradient(
+          closest-side,
+          rgba(212, 212, 212, 0.01) 30%,
+          rgba(2, 0, 36, 1)
+        ),
+        repeating-linear-gradient(
+          30deg,
+          rgba(2, 0, 36, 0.5),
+          rgba(212, 212, 212, 0.5),
+          rgba(2, 0, 36, 0.5) 10%
+        ),
+        repeating-linear-gradient(
+          -30deg,
+          rgba(2, 0, 36, 0.5),
+          rgba(212, 212, 212, 0.5),
+          rgba(2, 0, 36, 0.5) 10%
+        );
       color: black;
       border-radius: 3px;
 
@@ -29,10 +42,10 @@
         transform: rotateZ(-135deg);
         display: block;
         text-shadow:
-         -1px -1px 0 #fff,
+          -1px -1px 0 #fff,
           1px -1px 0 #fff,
           -1px 1px 0 #fff,
-           1px 1px 0 #fff;
+          1px 1px 0 #fff;
       }
     }
   }

@@ -6,7 +6,7 @@
 
   section {
     scroll-snap-align: start;
-    scroll-margin: .1em;
+    scroll-margin: 0.1em;
   }
 
   .stack {
@@ -15,6 +15,5 @@
     width: 100%;
     max-width: calc(100vw - 1em);
     flex-basis: calc(100vw - 2em);
-
   }
 }

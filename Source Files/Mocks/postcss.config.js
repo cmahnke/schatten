@@ -1,8 +1,8 @@
 const config = {
   plugins: [
-    require('postcss-inline-svg'),
-    require('postcss-discard-duplicates')
-  ]
-}
+    require("postcss-inline-svg"),
+    require("postcss-discard-duplicates"),
+  ],
+};
 
-module.exports = config
+module.exports = config;
