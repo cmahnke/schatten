@@ -165,6 +165,10 @@ export function findTarget(target) {
 }
 
 export function menuLinkHandler(e) {
+  //TODO: Check if it's an error, if taget is undefined
+  if (e.target.href === undefined) {
+    return;
+  }
   var target = e.target.href.split("#")[1];
   var targetElem = findTarget(target);
   e.preventDefault();
@@ -358,14 +362,12 @@ export function setupLangSwitch(curLang, selector) {
   let tmpListener = null;
 
   // TODO: Remove zthsi, only for debug
-  /*
   function sleep(miliseconds) {
      var currentTime = new Date().getTime();
 
      while (currentTime + miliseconds >= new Date().getTime()) {
      }
   }
-  */
 
   const linkClickInterceptor = (e) => {
     e.preventDefault();
@@ -374,6 +376,7 @@ export function setupLangSwitch(curLang, selector) {
 
   function cancelClickInterceptor() {
     this.removeEventListener("click", linkClickInterceptor);
+    console.log('removed click blocker')
   }
 
   const addOpenHandler = () => {
@@ -414,7 +417,7 @@ export function setupLangSwitch(curLang, selector) {
   }
 
   const press = (e) => {
-    function click(e) {
+    function click() {
       switcher.classList.remove("pressed");
       console.log("Firing generated event");
       e.target.removeEventListener("click", linkClickInterceptor);
@@ -427,38 +430,29 @@ export function setupLangSwitch(curLang, selector) {
     let link = e.target;
     console.log("Detected press");
     switcher.classList.add("pressed");
-
-    /*
-    if (e.type == "click") {
-      tmpListener = click.bind(e);
-    }
-    */
-    link.addEventListener("mouseup", tmpListener, {
-      once: true,
-      capture: true,
-    });
-    link.addEventListener("touchcancel", tmpListener, {
-      once: true,
-      capture: true,
-    });
+    tmpListener = click.bind(e.target);
+    link.addEventListener("mouseup", tmpListener);
+    link.addEventListener("touchcancel", tmpListener);
 
     clickTimer = setTimeout(longPress.bind(link), waitExpanded);
-
-    //    link.addEventListener('mouseup', addOpenHandler);
-    //    link.addEventListener('touchcancel', addOpenHandler);
     return false;
   };
 
   function longPress() {
     this.removeEventListener("mouseup", tmpListener);
     this.removeEventListener("touchcancel", tmpListener);
-    const clickRemover = cancelClickInterceptor.bind(this);
-    this.addEventListener("mouseup", clickRemover);
-    this.addEventListener("touchcancel", clickRemover);
-    this.addEventListener("mouseout", (event) => {
-      clickRemover();
+    const clickInterceptorRemover = cancelClickInterceptor.bind(this);
+    const mouseOut = () => {
+      clickInterceptorRemover();
       console.log("mouse out");
-    });
+    }
+    this.addEventListener("mouseup", (e) => {
+      e.preventDefault();
+      clickInterceptorRemover();
+      console.log('mouseup');
+      });
+    this.addEventListener("touchcancel", clickRemover);
+    this.addEventListener("mouseout",  mouseOut);
 
     //this.removeEventListener('click', linkClickInterceptor);
     let link = this;
@@ -480,27 +474,12 @@ export function setupLangSwitch(curLang, selector) {
     switcher.classList.add("expanded");
     switcher.classList.remove("pressed");
 
+    //sleep(10000);
+
     closeTimer = setTimeout(reset.bind(this), waitCollapse);
     //reset();
 
-    /*
-    link.querySelectorAll('.lang a').forEach((b) => {
-      if ('ontouchstart' in document.body) {
-        b.addEventListener('touchend', selected, {
-          capture: false,
-          once: true,
-        });
-      } else {
-        b.addEventListener('mouseup', selected, {
-          capture: false,
-          once: true,
-        });
-      }
-      setTimeout(function () {
-        b.classList.add('go');
-      }, 5);
-    });
-    */
+
   }
 
   addOpenHandler();
@@ -545,7 +524,7 @@ export function setupMenu() {
   document
     .querySelector("input.burger-menu-button")
     .addEventListener("click", (e) => {
-      if (e.target.checked) {
+      if (e.target.checked && document.querySelector(".card.active") !== null) {
         e.target.dataset.caller = document.querySelector(".card.active").id;
         e.target.setAttribute("aria-expanded", "true");
         document.body.classList.add("noscroll");

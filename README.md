@@ -7,12 +7,13 @@ Nächtliche Schatten
   * Check if external requests are blocked if declined
 * Transplant mock code to assets - almost done
   * Fix card shadows
+  * Menu home button
+    * Pressing home and closing menu result in navigation loop
 * Improve language switcher
  * Check release pointer on lang tag
 * Check other browsers: Safari, Firefox
 * Contents
   * Write texts
-    * Project
     * Metamodernism
     * Add translations
   * Finish SCSS for images and texts
@@ -24,7 +25,7 @@ Nächtliche Schatten
 +---------------+----+----+
 | Phenomenon    | x  | x  |
 | Light         | x  | x  |
-| Project       |    |    |
+| Project       | x  | x  |
 | Metamodernism |    |    |
 | Privacy       | x  | x  |
 | Colophon      | x  | x  |
