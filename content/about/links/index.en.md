@@ -1,6 +1,7 @@
 ---
 title: "Acknowledgements and Links"
-weight: 4
+weight: 5
+class: small-text
 ---
 
 ## HDR
@@ -20,3 +21,9 @@ Translated with DeepL.com (free version)
 During the research and realisation, I came across the volume "Fotografien der Fotografie. Generative Systeme 1960 bis 2020" by [Gottfried Jäger](https://www.lr-develop.de/gottfried-jaeger/), published in 2023 by S. Wienand Verlag, Cologne (ISBN 978-3-86832-751-9), fell into my hands. As the structures shown here have a certain similarity to Jäger's pinhole structures, his work is mentioned here.
 
 * [Generative Photography - An Interview With Gottfried Jäger](https://www.artnome.com/news/2019/8/18/generative-photography-an-interview-with-gottfried-jager)
+
+## Literatur
+
+* Thomas Posch, Anja Freyhoff, Thomas Uhlmann (Publisher): [Das Ende der Nacht](https://www.wiley-vch.de/de/fachgebiete/naturwissenschaften/physics-11ph/astronomy-astrophysics-11ph1/das-ende-der-nacht-978-3-527-41179-5). 2nd Edition. Published by Wiley-VCH, Berlin 2013, ISBN: 978-3-527-41179-5
+
+* J. Alexander Schmidt, Martin Töllner (Publisher): StadtLicht - Lichtkonzepte für die Stadtgestaltung. - Grundlagen, Methoden, Instrumente, Beispiele. Published by Fraunhofer IRB Verlag, Stuttgart 2006, ISBN: 978-3-8167-9935-1

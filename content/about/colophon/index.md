@@ -1,7 +1,7 @@
 ---
 title: "Kolophon"
-weight: 5
-todo: true
+weight: 6
+class: small-text
 ---
 
 ## Seite
@@ -31,6 +31,7 @@ Zur Entwicklung wurden zusätzlich die folgenden Werkzeuge eingesetzt:
   <li><a href="https://vitejs.dev/">Vite</a></li>
   <li><a href="https://eslint.org/">ESLint</a></li>
   <li><a href="https://stylelint.io/">Stylelint</a></li>
+  <li><a href="https://prettier.io/">Pretier</a></li>
 </ul>
 
 ## 3D Modell

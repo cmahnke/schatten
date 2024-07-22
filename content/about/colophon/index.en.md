@@ -1,7 +1,7 @@
 ---
 title: "Colophon"
-weight: 5
-todo: true
+weight: 6
+class: small-text
 ---
 
 ## Page
@@ -31,6 +31,7 @@ The following tools were also used for development:
   <li><a href="https://vitejs.dev/">Vite</a></li>
   <li><a href="https://eslint.org/">ESLint</a></li>
   <li><a href="https://stylelint.io/">Stylelint</a></li>
+  <li><a href="https://prettier.io/">Pretier</a></li>
 </ul>
 
 ## 3D model
