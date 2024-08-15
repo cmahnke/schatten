@@ -1,8 +1,8 @@
 ---
-title: "Example post #1"
+title: "Example post #2"
 resources:
 - name: image-:counter
-  src: img*.jpeg
+  src: imm*.jpeg
 ---
 
 This is a made up digital example file. This will be used to:
