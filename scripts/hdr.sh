@@ -3,9 +3,9 @@
 set -e -o pipefail
 
 IMAGE_PREFIX=content
-IMAGE_GLOB="-name *.jpg -o -name *.jpeg ! -name *-hdr*"
+IMAGE_GLOB="-name imm*.jpg -o -name imm*.jpeg ! -name *-hdr*"
 
-SCRIPT=`dirname $0`/./enhance_image.py
+SCRIPT=`dirname $0`/../themes/projektemacher-base/scripts/enhance_image.py
 
 if [ -n "$1" ] ; then
   ADDITIONAL_ARGS="$1"
