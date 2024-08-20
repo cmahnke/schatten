@@ -2,7 +2,7 @@
   "dependencies": {
     "colorjs.io": "^0.5.0",
     "fitty": "^2.4.2",
-    "hdr-canvas": "^0.0.5",
+    "hdr-canvas": "^0.0.9",
     "motion": "^10.17.0"
   }
 }
