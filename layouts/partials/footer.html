@@ -2,14 +2,14 @@
   <div class="projektemacher">
 			{{ $.Site.Title }} {{ i18n "isA" }} <a href="https://projektemacher.org/" title="Projektemacher Seite">Projektemacher</a> Blog
 			<a href="https://christianmahnke.de/" title="Monogram"><span class="logo"></span></a>
-      {{- if and $.Sites.First.Copyright (eq $.Sites.First.Copyright "false") -}}
+      {{- if and $.Sites.Default.Copyright (eq $.Sites.Default.Copyright "false") -}}
           <span class="copyright"></span>
-      {{- else if $.Sites.First.Params.copyrightYears -}}
-          <span class="copyright">&copy; {{ $.Sites.First.Params.copyrightYears }} {{ .Sites.First.Copyright | safeHTML }}</span>
-      {{- else if $.Sites.First.Params.copyright -}}
-          <span class="copyright">{{- .Sites.First.Params.copyright | safeHTML -}}</span>
+      {{- else if $.Sites.Default.Params.copyrightYears -}}
+          <span class="copyright">&copy; {{ $.Sites.Default.Params.copyrightYears }} {{ .Sites.Default.Copyright | safeHTML }}</span>
+      {{- else if $.Sites.Default.Params.copyright -}}
+          <span class="copyright">{{- .Sites.Default.Params.copyright | safeHTML -}}</span>
       {{- else -}}
-          <span class="copyright">&copy; {{ $.Sites.First.LastChange.Year }} {{ $.Sites.First.Title }}</span>
+          <span class="copyright">&copy; {{ $.Sites.Default.LastChange.Year }} {{ $.Sites.Default.Title }}</span>
       {{- end -}}
 		</div>
 </footer>
