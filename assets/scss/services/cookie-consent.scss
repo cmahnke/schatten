@@ -6,7 +6,7 @@ $button-background: gray;
 
 #cookie-notice {
   font-size: medium;
-  padding: 2rem 3rem;
+  padding: 2rem 4rem;
   display: none;
   text-align: center;
   position: fixed;
@@ -15,6 +15,7 @@ $button-background: gray;
   max-height: 30vh;
   background: rgb(70, 70, 70);
   z-index: 999;
+  font-family: $text-font;
 
   .close {
     height: 2.4em;

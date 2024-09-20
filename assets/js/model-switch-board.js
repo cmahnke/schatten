@@ -30,7 +30,7 @@ export function handleWheel(canvas) {
     }
     switchLEDs(canvas, lights);
     e.preventDefault();
-  });
+  }, { passive: true});
 }
 
 export function handleTouch(canvas, touchIndicator) {
@@ -76,7 +76,7 @@ export function handleTouch(canvas, touchIndicator) {
       if (touchIndicator != null) {
         touchIndicator.classList.add("hide");
       }
-    });
+    }, {passive: true});
 
     function endTouch(e) {
       e.preventDefault();
@@ -121,7 +121,7 @@ export function handleTouch(canvas, touchIndicator) {
         startTouch = [parseInt(current.pageX), parseInt(current.pageY)];
       }
       switchLEDs(canvas, lights);
-    });
+    }, { passive: true});
     /* eslint-disable no-console */
     console.log("Touch events registred");
     /* eslint-enable no-console */

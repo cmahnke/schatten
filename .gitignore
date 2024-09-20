@@ -21,3 +21,6 @@ data/stats.json
 **/*.yuv
 **/*-tmp.jpg
 tmp-pdfjs
+**/*.blend1
+content/**/ogPreview.*g
+content/**/ogPreview-overlay.*g

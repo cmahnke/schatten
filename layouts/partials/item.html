@@ -5,7 +5,9 @@
 
 {{- define "partials/post-header.html" -}}
   <div class="post-header">
-    <h1 class="post-title">{{ .Title }}</h1>
+    {{- if ne .Title "" -}}
+      <h1 class="post-title">{{ .Title }}</h1>
+    {{- end -}}
     {{- if not .Params.metaPage -}}
       <div class="post-meta">
         {{- if not .Date.IsZero -}}
@@ -18,6 +20,18 @@
                 </time>
               </span>
             </a>
+          </div>
+        {{- end -}}
+        {{- if and (and .Params.camera (ne .Params.camera "")) (and .Params.film (ne .Params.film "")) -}}
+          <div class="photo-meta">
+            <div class="camara">
+              <span class="key">{{ i18n "Camara" }}</span>
+              <span class="val">{{ .Params.camera }}</span>
+            </div>
+            <div class="film">
+              <span class="key">{{ i18n "Film" }}</span>
+              <span class="val">{{ .Params.film }}</span>
+            </div>
           </div>
         {{- end -}}
         {{- partial "meta/tags.html" . -}}

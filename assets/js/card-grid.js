@@ -392,6 +392,7 @@ export function setupLangSwitch(curLang, selector) {
         lang.addEventListener("touchstart", press, {
           once: true,
           capture: true,
+          passive: true
         });
       });
     } else {
@@ -625,6 +626,7 @@ export function displayHDRWarning() {
 export function checkWindowResize() {
   //TODO: Also check if window has been moved to another screen
   window.addEventListener("resize", () => {
+    //TODO: Check if we need to recalculate more properties here
     console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`);
     /*
     if (canvas !== null) {
