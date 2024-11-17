@@ -3,8 +3,8 @@ import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import stylelint from "vite-plugin-stylelint";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
-import DynamicPublicDirectory from "vite-multiple-assets";
+//import { nodePolyfills } from "vite-plugin-node-polyfills";
+import {DynamicPublicDirectory} from "vite-multiple-assets";
 import { checker } from "vite-plugin-checker";
 
 const mimeTypes = { ".glb": "model/gltf-binary" };
@@ -13,7 +13,7 @@ const mimeTypes = { ".glb": "model/gltf-binary" };
 export default defineConfig({
   base: "./",
   plugins: [
-    nodePolyfills(),
+    //nodePolyfills(),
     {
       apply: "build",
     },

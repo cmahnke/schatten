@@ -9,9 +9,10 @@
     "noEmit": true,
     "esModuleInterop": true,
     "strict": true,
+    "allowJs": false,
     "typeRoots": ["./node_modules/@types", "../../assets/ts/@types"],
-    "target": "es2017",
-    "lib": ["dom", "es2017"]
+    "target": "es2020",
+    "lib": ["dom", "es2020"]
   },
   "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
