@@ -31,7 +31,8 @@ export default defineConfig({
     commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "card-grid/index.html"),
+        main: resolve(__dirname, "index.html"),
+        cardgrid: resolve(__dirname, "card-grid/index.html"),
         pattern: resolve(__dirname, "css-draft/index.html"),
         hdr: resolve(__dirname, "hdr-canvas/index.html"),
         model: resolve(__dirname, "model/index.html"),
