@@ -6,6 +6,12 @@
 
   .post-body {
     .post-content {
+      .post-body {
+        h1 {
+          font-size: 4.6vmin;
+        }
+      }
+
       .post-text {
         display: flex;
         flex-direction: column;
@@ -14,6 +20,7 @@
           white-space: normal;
           flex-basis: 100%;
           text-align: justify;
+          font-size: 3vmin;
         }
       }
     }

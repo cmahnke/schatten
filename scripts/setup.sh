@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -z "$DEPENDENCY_MANAGER" ] ; then
+  export DEPENDENCY_MANAGER=npm
+fi
+
 echo "Calling theme scripts"
 for SCRIPT in $PWD/themes/projektemacher-base/scripts/init/*.sh ; do
     echo "Running $SCRIPT"
@@ -14,12 +18,15 @@ convert "Source Files/Images/preview-transparent.png" -channel RGB -negate stati
 ./scripts/hdr.sh
 ./scripts/svgo.sh
 
-if [ -d ./scripts/post-build ] ; then
-    echo "Don't forget to run post build scripts after 'hugo'!"
-fi
+# Generate Previews
+./themes/projektemacher-base/scripts/preview.sh
 
 convert -density 300 -background none ./themes/projektemacher-base/static/images/cm.svg -monochrome -size 256x256  static/images/cm.png
 
 ./themes/projektemacher-base/scripts/saxon.sh -s:themes/projektemacher-base/static/images/cm.svg  -xsl:themes/projektemacher-base/scripts/xslt/svg-clippath.xsl -o:static/images/svgs/cm-clippath.svg
 
 ./themes/projektemacher-base/scripts/3d-models.sh
+
+if [ -d ./scripts/post-build ] ; then
+    echo "Don't forget to run post build scripts after 'hugo'!"
+fi

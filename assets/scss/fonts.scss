@@ -1,9 +1,4 @@
-$text-font: "Figtree", roboto, helvetica, sans-serif;
-$title-font: "Handjet Variable";
-$heading-font: "";
-$sub-heading-font: "";
-$menu-heading-font: "Special Elite";
-$menu-text-font: "Handjet Variable", "Courier New", courier, monospace;
+@use "vars";
 
 @mixin handjet-pixelated($weight: 550) {
   font-family: var(--title-font);

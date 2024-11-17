@@ -1,12 +1,14 @@
+@use "vars";
+
 :root {
-  --background-color: #{$background-color};
-  --text-color: #{$text-color};
-  --text-font: #{$text-font};
-  --title-font: #{$title-font};
-  --heading-font: #{$heading-font};
-  --sub-heading-font: #{$sub-heading-font};
-  --menu-heading-font: #{$menu-heading-font};
-  --menu-text-font: #{$menu-text-font};
+  --background-color: #{vars.$background-color};
+  --text-color: #{vars.$text-color};
+  --text-font: #{vars.$text-font};
+  --title-font: #{vars.$title-font};
+  --heading-font: #{vars.$heading-font};
+  --sub-heading-font: #{vars.$sub-heading-font};
+  --menu-heading-font: #{vars.$menu-heading-font};
+  --menu-text-font: #{vars.$menu-text-font};
 }
 
 ::selection {

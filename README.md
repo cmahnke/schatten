@@ -25,6 +25,13 @@ Nächtliche Schatten
   * Finish SCSS for images and texts
   * Create template for single pages
 * Open Graph preview
+* Fix Issues
+  * Menu not working anymore
+  * Check if arrows are right
+  * Firefox
+    * Animations not smooth 
+    * Scroll snap in FF broken
+    * Links not working, always jumps back
 
 # Pages
 

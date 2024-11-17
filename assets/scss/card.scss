@@ -1,3 +1,6 @@
+@use "vars";
+@use "fonts";
+
 $card-padding: 0.4rem;
 
 .cards .stack .card {
@@ -86,7 +89,7 @@ $card-padding: 0.4rem;
       .home-title {
         font-family: var(--title-font);
         mix-blend-mode: unset;
-        background-image: $hdr-bg;
+        background-image: vars.$hdr-bg;
         background-size: 100% 100%;
         background-clip: text;
         font-size: 25.5vw;
@@ -142,7 +145,7 @@ $card-padding: 0.4rem;
       top: 1.8rem;
       left: 2rem;
       user-select: none;
-      @include handjet-pixelated;
+      @include fonts.handjet-pixelated;
 
       @media all and (orientation: landscape) {
         top: calc($card-padding * 4);
@@ -195,7 +198,7 @@ $card-padding: 0.4rem;
 
       .post-text {
         font-size: 1.2em;
-        @include text-font;
+        @include fonts.text-font;
         color: white;
         background-color: black;
         box-shadow:
@@ -216,16 +219,19 @@ $card-padding: 0.4rem;
 
         h1 {
           font-size: 2em;
+          margin-top: 0.6rem;
           margin-bottom: 0.6rem;
         }
 
         h2 {
           font-size: 1.6em;
+          margin-top: 0.4rem;
           margin-bottom: 0.4rem;
         }
 
         h3 {
           font-size: 1.2em;
+          margin-top: 0.2rem;
           margin-bottom: 0.2rem;
         }
       }

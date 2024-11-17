@@ -1,7 +1,10 @@
+@use "vars";
+@use "fonts";
+
 .footer {
   display: flex;
   justify-content: center;
-  color: $text-color;
+  color: vars.$text-color;
   width: 100vw;
   position: fixed;
   bottom: 0;
@@ -28,7 +31,7 @@
     min-width: 50%;
     background-color: var(--background-color);
     box-shadow: 0 0 10px var(--background-color);
-    @include handjet-pixelated(250);
+    @include fonts.handjet-pixelated(250);
 
     .logo {
       content: "";

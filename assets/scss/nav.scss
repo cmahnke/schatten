@@ -1,3 +1,5 @@
+@use "vars";
+
 .stack-switcher {
   .left,
   .right,
@@ -6,7 +8,7 @@
     pointer-events: all;
     position: fixed;
     color: var(--text-color);
-    background: $arrow-icon;
+    background: vars.$arrow-icon;
 
     background-size: contain;
     background-repeat: no-repeat;

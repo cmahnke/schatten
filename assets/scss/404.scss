@@ -1,3 +1,5 @@
+@use "vars";
+
 .main {
   .container.error404 {
     margin: auto;
@@ -15,7 +17,7 @@
 
       h1,
       h2 {
-        font-family: $heading-font;
+        font-family: vars.$heading-font;
       }
 
       h1 {

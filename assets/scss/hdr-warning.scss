@@ -1,3 +1,5 @@
+@use "icons";
+
 /* Inspired by https://defency.eu/posts/2023/10/hugo.io-how-to-integrate-cookie-consent-for-google-analytics/ */
 
 $accept-color: #0fff50;
@@ -28,7 +30,7 @@ $button-background: gray;
   .close {
     height: 1.6em;
     width: 1.6em;
-    content: url($close-dark);
+    content: url(icons.$close-dark);
     display: inline-block;
     vertical-align: bottom;
     top: 0.6em;

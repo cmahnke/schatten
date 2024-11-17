@@ -1,4 +1,12 @@
-$touch-icon: url("/images/svgs/finger.svg");
+@use "vars";
+
+.card.phenomenon .post-body .post-content {
+  justify-content: center;
+
+  .post-text {
+    /* height: 100%; */
+  }
+}
 
 .renderer-container {
   width: 100%;
@@ -55,7 +63,7 @@ $touch-icon: url("/images/svgs/finger.svg");
     pointer-events: none;
     position: absolute;
     color: var(--text-color);
-    background: $touch-icon;
+    background: vars.$touch-icon;
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 5;
