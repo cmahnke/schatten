@@ -67,4 +67,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["@monogrid/gainmap-js/libultrahdr"],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler"
+      }
+    }
+  }
 });
