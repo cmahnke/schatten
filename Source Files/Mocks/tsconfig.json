@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
-    "module": "system",
+    "module": "ES2022",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "moduleResolution": "node",
     "noEmit": true,
     "esModuleInterop": true,
     "strict": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["./node_modules/@types", "../../assets/ts/@types"],
-    "target": "es2020",
-    "lib": ["dom", "es2020"]
+    "target": "es2022",
+    "lib": ["dom", "es2022"],
+    "paths": {
+      "three": ["./node_modules/three", "./node_modules/@types/three"],
+      "three/webgpu": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
+      "three/*": ["./node_modules/three/*"],
+      "hdr-canvas/*": ["./node_modules/hdr-canvas/*"]
+    }
   },
   "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

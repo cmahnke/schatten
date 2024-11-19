@@ -4,7 +4,7 @@ import eslint from "vite-plugin-eslint";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import stylelint from "vite-plugin-stylelint";
 //import { nodePolyfills } from "vite-plugin-node-polyfills";
-import {DynamicPublicDirectory} from "vite-multiple-assets";
+import { DynamicPublicDirectory } from "vite-multiple-assets";
 import { checker } from "vite-plugin-checker";
 
 const mimeTypes = { ".glb": "model/gltf-binary" };
@@ -15,17 +15,14 @@ export default defineConfig({
   plugins: [
     //nodePolyfills(),
     {
-      apply: "build",
+      apply: "build"
     },
     stylelint({ build: true, dev: false, lintOnStart: true }),
-    DynamicPublicDirectory(
-      ["card-grid/public", "hdr-canvas/public", "model/public", "../../static"],
-      {
-        ssr: false,
-        mimeTypes,
-      },
-    ),
-    checker({ typescript: false }),
+    DynamicPublicDirectory(["card-grid/public", "hdr-canvas/public", "model/public", "../../static"], {
+      ssr: false,
+      mimeTypes
+    }),
+    checker({ typescript: false })
   ],
   build: {
     commonjsOptions: { transformMixedEsModules: true },
@@ -35,37 +32,37 @@ export default defineConfig({
         cardgrid: resolve(__dirname, "card-grid/index.html"),
         pattern: resolve(__dirname, "css-draft/index.html"),
         hdr: resolve(__dirname, "hdr-canvas/index.html"),
-        model: resolve(__dirname, "model/index.html"),
+        model: resolve(__dirname, "model/index.html")
       },
       output: {
-        assetFileNames: `assets/[name].[ext]`,
-      },
-    },
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
   },
   resolve: {
     preserveSymlinks: true,
     alias: [
       {
         find: /~(.+)/,
-        replacement: join(process.cwd(), "node_modules/$1"),
+        replacement: join(process.cwd(), "node_modules/$1")
       },
       {
         find: /@\/(.+.ts)/,
-        replacement: join(process.cwd(), "common-assets/ts/$1"),
+        replacement: join(process.cwd(), "common-assets/ts/$1")
       },
       {
         find: /@\/(.+.js)/,
-        replacement: join(process.cwd(), "common-assets/js/$1"),
+        replacement: join(process.cwd(), "common-assets/js/$1")
       },
       // Default: No suffix = JavaScript
       {
         find: /@\/(.+)/,
-        replacement: join(process.cwd(), "common-assets/js/$1"),
-      },
-    ],
+        replacement: join(process.cwd(), "common-assets/js/$1")
+      }
+    ]
   },
   optimizeDeps: {
-    exclude: ["@monogrid/gainmap-js/libultrahdr"],
+    exclude: ["@monogrid/gainmap-js/libultrahdr"]
   },
   css: {
     preprocessorOptions: {

@@ -17,23 +17,12 @@ import {
   checkWindowResize,
   displayHDRWarning,
   textEffects,
-  colorSteps,
+  colorSteps
 } from "@/card-grid.js";
-import {
-  createSwitchGrid,
-  addListener,
-  DEFAULT_HANDLERS,
-} from "@/model-switch-board.js";
-import {
-  initModel,
-  DEFAULT_SEPARATORS,
-  DEFAULT_LAYOUTS,
-  REDRAW_EVENT_NAME,
-} from "@/model.js";
+import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board.js";
+import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@/model.js";
 
-const bgColor = new Color(
-  getComputedStyle(document.body).getPropertyValue("--background-color"),
-);
+const bgColor = new Color(getComputedStyle(document.body).getPropertyValue("--background-color"));
 const modelUrl = "/gtlf/model-uncompressed.glb";
 const modelSelector = "#renderer";
 let canvas;
@@ -44,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let observer = new IntersectionObserver(handleCardIntersect, {
     root: null,
     rootMargin: "0px",
-    threshold: buildThresholdList(colorSteps),
+    threshold: buildThresholdList(colorSteps)
   });
   setupNav();
   setupMenu();
@@ -67,9 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (window.location.hash !== "") {
     var id;
-    var target = document.querySelector(
-      `*[data-slug='${window.location.hash}']`,
-    );
+    var target = document.querySelector(`*[data-slug='${window.location.hash}']`);
     if (target !== null && "id" in target) {
       id = target.id;
     } else {

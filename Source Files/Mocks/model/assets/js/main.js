@@ -1,11 +1,7 @@
 //import * as THREE from 'three';
 
 import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@/model";
-import {
-  createSwitchGrid,
-  addListener,
-  DEFAULT_HANDLERS,
-} from "@/model-switch-board";
+import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board";
 
 const modelUrl = "/gtlf/model-uncompressed.glb";
 

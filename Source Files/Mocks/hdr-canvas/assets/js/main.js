@@ -19,7 +19,7 @@ const colorSpace = "rec2100-hlg"; //'rec2100-pq'
 function initHDRCanvas(canvas) {
   const ctx = canvas.getContext("2d", {
     colorSpace: colorSpace,
-    pixelFormat: "float16",
+    pixelFormat: "float16"
   });
   return ctx;
 }
@@ -85,7 +85,7 @@ function loadImage() {
   /* See https://github.com/Fyrd/caniuse/issues/6504#issuecomment-1426886762 */
   const ctx = canvas.getContext("2d", {
     colorSpace: colorSpace,
-    pixelFormat: "float16",
+    pixelFormat: "float16"
   });
   //The next two aren't defined
   //canvas.drawingBufferColorSpace = colorSpace;
@@ -174,12 +174,7 @@ function loadImage() {
   //console.log(new Color('srgb', [0, 255, 0]).to('rec2100'))
   //console.log(new Color('RGB', [255,0,0]).to('rec2100-hlg'));
   //var cBox = new Uint16Image(32, 32).fill([uint8ToUint16(0), 40000, 0, 2**16 - 1]).getImageData();
-  var cBox = colorFillBoxArrayUint16(32, 32, [
-    uint8ToUint16(0),
-    uint8ToUint16(0),
-    uint8ToUint16(128),
-    2 ** 16 - 1,
-  ]);
+  var cBox = colorFillBoxArrayUint16(32, 32, [uint8ToUint16(0), uint8ToUint16(0), uint8ToUint16(128), 2 ** 16 - 1]);
 
   //127 -> 30000
   //181 -> 40000

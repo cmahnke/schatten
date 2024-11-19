@@ -9,7 +9,7 @@ const config = {
   tabWidth: 4,
   semi: false,
   singleQuote: true,
-  arrowParens: 'always'
+  arrowParens: "always"
 };
 
 export default config;
