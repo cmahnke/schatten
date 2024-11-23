@@ -20,10 +20,11 @@ export default defineConfig({
       mimeTypes
     }),
     eslint(),
-    checker({ typescript: false })
+    checker({ typescript: true })
   ],
   build: {
-    commonjsOptions: { transformMixedEsModules: true },
+    target: "esnext",
+    /*commonjsOptions: { transformMixedEsModules: true },*/
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
@@ -56,6 +57,10 @@ export default defineConfig({
       {
         find: /@\/(.+)/,
         replacement: join(process.cwd(), "common-assets/js/$1")
+      },
+      {
+        find: "./src/hdr-check",
+        replacement: resolve(__dirname, "node_modules", "hdr-canvas", "src", "hdr-check")
       }
     ]
   },

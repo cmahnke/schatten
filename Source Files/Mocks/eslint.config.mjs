@@ -7,10 +7,10 @@ export default [
   ...tseslint.configs.recommended,
   ...[eslint.configs.recommended, ...tseslint.configs.recommended].map((conf) => ({
     ...conf,
-    files: ["src/**/*.ts"]
+    files: ["**/*.ts"]
   })),
   {
-    files: ["src/**/*.ts"],
+    files: ["**/*.ts"],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -22,7 +22,8 @@ export default [
     },
     rules: {
       "no-warning-comments": ["warn", {}],
-      "@typescript-eslint/no-unused-vars": ["warn"]
+      "@typescript-eslint/no-unused-vars": ["warn"],
+      "@typescript-eslint/no-unsafe-function-type": ["warn"]
     }
   },
   {

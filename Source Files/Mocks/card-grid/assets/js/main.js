@@ -11,16 +11,16 @@ import {
   setupGrid,
   handleCardIntersect,
   setupNav,
-  setupMenu,
   setupLangSwitch,
   checkColumns,
   checkWindowResize,
-  displayHDRWarning,
-  textEffects,
   colorSteps
-} from "@/card-grid.js";
-import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board.js";
-import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@/model.js";
+} from "@/card-grid.ts";
+import {  textEffects} from "@/effects.ts"
+import { displayHDRWarning} from "@/hdr.ts";
+import { setupMenu} from "@/menu.ts";
+import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board.ts";
+import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@/model.ts";
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue("--background-color"));
 const modelUrl = "/gtlf/model-uncompressed.glb";
