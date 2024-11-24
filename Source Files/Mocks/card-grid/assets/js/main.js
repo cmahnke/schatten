@@ -6,12 +6,11 @@ import "@fontsource-variable/figtree";
 import Color from "color";
 
 import {
-  fontsLoaded,
+  
   buildThresholdList,
   setupGrid,
   handleCardIntersect,
   setupNav,
-  setupLangSwitch,
   checkColumns,
   checkWindowResize,
   colorSteps
@@ -19,6 +18,9 @@ import {
 import {  textEffects} from "@/effects.ts"
 import { displayHDRWarning} from "@/hdr.ts";
 import { setupMenu} from "@/menu.ts";
+import { setupLangSwitch} from "@/lang.ts";
+import {fontsLoaded} from "@/fonts.ts";
+
 import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board.ts";
 import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@/model.ts";
 

@@ -19,8 +19,8 @@ export default defineConfig({
       ssr: false,
       mimeTypes
     }),
-    eslint(),
-    checker({ typescript: true })
+    eslint()
+    /*checker({ typescript: true })*/
   ],
   build: {
     target: "esnext",
@@ -57,11 +57,17 @@ export default defineConfig({
       {
         find: /@\/(.+)/,
         replacement: join(process.cwd(), "common-assets/js/$1")
-      },
+      }
+      /*
       {
         find: "./src/hdr-check",
         replacement: resolve(__dirname, "node_modules", "hdr-canvas", "src", "hdr-check")
+      },
+      {
+        find: "./src/hdr-check(.*)",
+        replacement: join(process.cwd(), "node_modules/hdr-canvas/$1")
       }
+      */
     ]
   },
   optimizeDeps: {

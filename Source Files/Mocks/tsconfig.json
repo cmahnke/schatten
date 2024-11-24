@@ -17,7 +17,9 @@
       "three": ["./node_modules/three", "./node_modules/@types/three"],
       "three/webgpu": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
       "three/*": ["./node_modules/three/*"],
-      "hdr-canvas/*": ["./node_modules/hdr-canvas/*"]
+      "color": ["./node_modules/color", "./node_modules/@types/color"],
+      "hdr-canvas": ["./node_modules/hdr-canvas", "./node_modules/hdr-canvas/dist/index.d.ts"],
+      "colorjs.io": ["./node_modules/colorjs.io", "./node_modules/colorjs.io/types/index.d.ts"]
     }
   },
   "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*"],

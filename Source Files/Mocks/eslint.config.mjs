@@ -7,14 +7,15 @@ export default [
   ...tseslint.configs.recommended,
   ...[eslint.configs.recommended, ...tseslint.configs.recommended].map((conf) => ({
     ...conf,
-    files: ["**/*.ts"]
+    files: ["**/ts/*.ts", "../../assets/**/*.ts"]
   })),
   {
-    files: ["**/*.ts"],
+    files: ["**/ts/*.ts", "../../assets/**/*.ts"],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        /*projectService: true,*/
         tsconfigRootDir: import.meta.dirname
+        /*allowDefaultProject: ["../../../assets/ts/*.ts", "assets/ts/*.ts"]*/
       },
       globals: {
         ...globals.browser
