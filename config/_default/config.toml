@@ -9,6 +9,7 @@
     copyrightYears = "MMXXIV"
     disableScale = true
     disableOpenGraph = true
+    defaultScriptEntrypoint = "ts/main.ts"
 
   [params.preview]
       outputPrefix = "ogPreview"

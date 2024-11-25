@@ -392,7 +392,7 @@ export function setupLangSwitch(curLang, selector) {
         lang.addEventListener("touchstart", press, {
           once: true,
           capture: true,
-          passive: true
+          /* passive: true */
         });
       });
     } else {

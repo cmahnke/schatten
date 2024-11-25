@@ -15,15 +15,17 @@ export default defineConfig({
       apply: "build"
     },
     stylelint({ build: true, dev: false, lintOnStart: true }),
-    DynamicPublicDirectory(["card-grid/public", "hdr-canvas/public", "model/public", "../../static"], {
-      ssr: false,
-      mimeTypes
+    DynamicPublicDirectory(["./card-grid/public", "./hdr-canvas/public", "./model/public", "./public", "../../static"], {
+      ssr: true,
+      mimeTypes,
+      followSymlinks: true
     }),
     eslint()
     /*checker({ typescript: true })*/
   ],
+  publicDir: true,
   build: {
-    target: "esnext",
+    target: "es2022",
     /*commonjsOptions: { transformMixedEsModules: true },*/
     rollupOptions: {
       input: {
