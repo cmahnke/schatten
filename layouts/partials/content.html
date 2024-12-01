@@ -1,3 +1,4 @@
+{{- $previewPrefix := .Site.Params.preview.outputPrefix -}}
 <div class="post-content">
   {{- $contentClass := "" -}}
   {{- $contentStyle := ""  -}}
@@ -23,7 +24,12 @@
         {{- $imageResources = .Match "*.jp*" -}}
         {{- $class = "sdr" -}}
       {{- end -}}
+      {{- $previewResources := .Match (printf "%s*.*" $previewPrefix) -}}
+      {{- $imageResources = complement $previewResources $imageResources -}}
       {{- with $imageResources -}}
+        {{- if gt (len .) 1 -}}
+          {{- errorf "[content.html] Post %s has more then one image: %d" $.File.Path (len .) -}}
+        {{- end -}}
         {{- range . -}}
           {{- $ar := printf "aspect-ratio: %d / %d;" .Height .Width -}}
           {{- $bg := printf "background-image: url(%s);" .RelPermalink  -}}
