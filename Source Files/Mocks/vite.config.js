@@ -1,4 +1,4 @@
-import { resolve, join } from "path";
+import { resolve, join } from "node:path";
 import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
 import stylelint from "vite-plugin-stylelint";
