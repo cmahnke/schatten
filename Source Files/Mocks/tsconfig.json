@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ES2022",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -9,10 +10,12 @@
     "esModuleInterop": true,
     "strict": true,
     "allowJs": false,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["./node_modules/@types", "../../assets/ts/@types"],
     "target": "es2022",
     "lib": ["dom", "es2022"],
+    "rootDirs": ["../../assets/ts", "common-assets/ts", "card-grid/assets/ts", "model/assets/ts"],
     "paths": {
       "three": ["./node_modules/three", "./node_modules/@types/three"],
       "three/webgpu": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
