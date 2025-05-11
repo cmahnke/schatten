@@ -1,15 +1,15 @@
 //import * as THREE from 'three';
 
-import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@/model.ts";
-import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@/model-switch-board.ts";
+import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@hugo-assets/model.ts";
+import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board.ts";
 
 const modelUrl = "/gtlf/model-uncompressed.glb";
 
-const canvas = document.querySelector("#renderer");
-const dial = document.querySelector("#dial-container");
+const canvas = document.querySelector("#renderer")! as HTMLCanvasElement;
+const dial = document.querySelector("#dial-container")! as HTMLElement;
 
 const handlers = DEFAULT_HANDLERS;
-handlers["touch"].args = [document.querySelector("#touch-indicator")];
+handlers["touch"].args = [document.querySelector("#touch-indicator")!];
 
 /*
 separators['landscape'] = {callback: separatorVertical, args: [tile,

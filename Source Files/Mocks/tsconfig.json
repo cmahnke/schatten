@@ -15,8 +15,9 @@
     "typeRoots": ["./node_modules/@types", "../../assets/ts/@types"],
     "target": "es2022",
     "lib": ["dom", "es2022"],
-    "rootDirs": ["../../assets/ts", "common-assets/ts", "card-grid/assets/ts", "model/assets/ts"],
+    "rootDirs": ["../../assets/ts", "card-grid/assets/ts", "model/assets/ts"],
     "paths": {
+      "@hugo-assets/*": ["../../assets/ts/*"],
       "three": ["./node_modules/three", "./node_modules/@types/three"],
       "three/webgpu": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
       "three/*": ["./node_modules/three/*"],
@@ -25,6 +26,6 @@
       "colorjs.io": ["./node_modules/colorjs.io", "./node_modules/colorjs.io/types/index.d.ts"]
     }
   },
-  "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*"],
+  "include": ["hdr-canvas/assets/**/*", "../../assets/ts/**/*", "card-grid/assets/ts/**/*", "model/assets/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
