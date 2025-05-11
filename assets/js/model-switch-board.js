@@ -1,5 +1,6 @@
-import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
+//import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
 
+/*
 export const DEFAULT_HANDLERS = {
   wheel: { function: handleWheel, args: [] },
   touch: { function: handleTouch, args: [] },
@@ -7,6 +8,7 @@ export const DEFAULT_HANDLERS = {
 
 let lights = ARRAY_SIZE;
 let last = ARRAY_SIZE;
+
 
 export function addListener(canvas, events, handlers) {
   if (handlers === undefined || handlers === null) {
@@ -122,9 +124,7 @@ export function handleTouch(canvas, touchIndicator) {
       }
       switchLEDs(canvas, lights);
     }, { passive: true});
-    /* eslint-disable no-console */
     console.log("Touch events registred");
-    /* eslint-enable no-console */
   } else {
     if (touchIndicator != null) {
       touchIndicator.classList.add("hide");
@@ -157,3 +157,5 @@ export function createSwitchGrid(elem, canvas) {
   }
   elem.appendChild(parent);
 }
+
+*/

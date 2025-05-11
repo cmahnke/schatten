@@ -159,6 +159,7 @@ export function render() {
 }
 
 //TODO: Finish setup of dividers
+/*
 function setupDivider(divider, scene, width, height) {
   while (sceneOrtho.children.length > 0) {
     sceneOrtho.remove(sceneOrtho.children[0]);
@@ -390,6 +391,7 @@ export function initModel(canvas, modelUrl, layouts, seperators, loadCallback) {
   canvas.scene = scene;
 }
 
+
 function toggleNo(light) {
   ["Spot", "Sphere"].forEach((kind) => {
     const name = kind + String(light).padStart(3, "0");
@@ -412,6 +414,7 @@ export function dispatchSwitch(canvas, num) {
     new CustomEvent(SWITCH_EVENT_NAME, { detail: lightsSwitches }),
   );
 }
+
 
 export function separatorVertical(width, height, tile, size) {
   const tiles = [];
@@ -475,3 +478,4 @@ export function loadTile(tileUrl) {
   });
   return material;
 }
+*/

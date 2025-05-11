@@ -19,7 +19,7 @@ import {
   createSwitchGrid,
   addListener,
   DEFAULT_HANDLERS,
-} from "./model-switch-board.js";
+} from "./model-switch-board";
 import {
   initModel,
   DEFAULT_SEPARATORS,
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/*
 function links() {
   const links = document.querySelectorAll("a");
   links.forEach((link) => {
@@ -115,3 +116,4 @@ function slider() {
     );
   });
 }
+*/
