@@ -1,7 +1,7 @@
 //import * as THREE from 'three';
 
-import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@hugo-assets/model.ts";
-import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board.ts";
+import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@hugo-assets/model";
+import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board";
 
 const modelUrl = "/gtlf/model-uncompressed.glb";
 

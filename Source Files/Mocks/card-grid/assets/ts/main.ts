@@ -18,18 +18,18 @@ import {
   displayHDRWarning,
   textEffects,
   colorSteps,
-} from "@hugo-assets/card-grid.js";
+} from "@hugo-assets/card-grid";
 import {
   createSwitchGrid,
   addListener,
   DEFAULT_HANDLERS,
-} from "@hugo-assets/model-switch-board.js";
+} from "@hugo-assets/model-switch-board";
 import {
   initModel,
   DEFAULT_SEPARATORS,
   DEFAULT_LAYOUTS,
   REDRAW_EVENT_NAME,
-} from "@hugo-assets/model.js";
+} from "@hugo-assets/model";
 
 const bgColor = new Color(getComputedStyle(document.body).getPropertyValue("--background-color"));
 const modelUrl = "/gtlf/model-uncompressed.glb";

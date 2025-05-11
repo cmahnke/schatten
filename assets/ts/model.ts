@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 type Orientation = "landscape" | "portrait";
 type ViewNames = "GroundView" | "AllView";
@@ -277,7 +277,7 @@ export function initModel(
     function (gltf) {
       const model = gltf.scene;
 
-      gltf.scene.traverse((child) => {
+      gltf.scene.traverse((child: THREE.Object3D) => {
         if (
           child instanceof THREE.Mesh &&
           child.isMesh &&

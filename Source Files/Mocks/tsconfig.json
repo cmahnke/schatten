@@ -18,10 +18,6 @@
     "rootDirs": ["../../assets/ts", "card-grid/assets/ts", "model/assets/ts"],
     "paths": {
       "@hugo-assets/*": ["../../assets/ts/*"],
-      "three": ["./node_modules/three", "./node_modules/@types/three"],
-      "three/webgpu": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
-      "three/*": ["./node_modules/three/*"],
-      "color": ["./node_modules/color", "./node_modules/@types/color"],
       "hdr-canvas": ["./node_modules/hdr-canvas", "./node_modules/hdr-canvas/dist/index.d.ts"],
       "colorjs.io": ["./node_modules/colorjs.io", "./node_modules/colorjs.io/types/index.d.ts"]
     }
