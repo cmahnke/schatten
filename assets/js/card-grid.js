@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 });
 
+/*
 export function generateURLFragment(col, row, fragment) {
   var id;
   if (fragment === undefined) {
@@ -74,7 +75,7 @@ export function generatedCallback(elem) {
   if ("jump" in elem.dataset) {
     const targetId = elem.dataset["jump"];
     const target = document.getElementById(targetId);
-    /* TODO: Check why this doesn't always work */
+    // TODO: Check why this doesn't always work 
     target.scrollIntoView({ behavior: "smooth" });
     console.log(`Jumping to ${targetId}`);
   }
@@ -143,7 +144,7 @@ export function handleCardIntersect(entries) {
         console.log("Card intersect got no target!");
       }
 
-      /* TODO: Check if we really need the previous ones */
+      // TODO: Check if we really need the previous ones 
     } else if (
       entry.intersectionRatio < 1 &&
       entry.target.classList.contains("active")
@@ -186,6 +187,7 @@ export function buildThresholdList(numSteps) {
   thresholds.push(0);
   return thresholds;
 }
+*/
 
 export function setupGrid(root, columnSelector, cardSelector) {
   function columnHeight(column) {
@@ -500,6 +502,7 @@ export function setupLangSwitch(curLang, selector) {
   });
 }
 
+/*
 export function textEffects() {
   const inViewEffects = {
     ".card .post-body": { class: "text-focus-in", duration: 1000 },
@@ -569,6 +572,7 @@ export function fontsLoaded() {
 
   interval = setInterval(fontCheck, 200);
 }
+*/
 
 /*
 function scrollbarSizes () {
@@ -577,6 +581,7 @@ function scrollbarSizes () {
 }
 */
 
+/*
 export function checkColumns(root, columnSelector) {
   const startSelector = document.querySelector(root);
   const columns = startSelector.querySelectorAll(columnSelector).length;
@@ -598,8 +603,9 @@ export function checkColumns(root, columnSelector) {
   }
   return columns;
 }
+*/
 
-export function displayHDRWarning() {
+export function checkWindowResize() {
   const cookieName = "hdr-notice";
   if (!checkHDR()) {
     console.log("Browser doesn't support HDR images!");

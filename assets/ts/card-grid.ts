@@ -1,4 +1,24 @@
+import { inView } from "motion";
 import Color from "color";
+import Cookies from "js-cookie";
+
+import { checkHDR } from "hdr-canvas";
+import {
+  createSwitchGrid,
+  addListener,
+  DEFAULT_HANDLERS,
+} from "./model-switch-board";
+import {
+  initModel,
+  DEFAULT_SEPARATORS,
+  DEFAULT_LAYOUTS,
+  REDRAW_EVENT_NAME,
+} from "./model";
+
+export const fonts: {[key:string]: string} = {
+  handjet: "1em Handjet",
+  "special-elite": "1em Special Elite",
+};
 
 type Directions = "left" | "right" | "up" | "down";
 export const directions: Directions[] = ["left", "right", "up", "down"];
@@ -382,26 +402,6 @@ export function setupGrid(
   }
 }
 
-/*
-export function setupNav(selector) {
-  if (selector === undefined) {
-    for (const direction of directions) {
-      selector += `nav.stack-switcher .${direction},`;
-    }
-    selector = selector.substring(0, selector.length - 1);
-  }
-  document.querySelectorAll(selector).forEach((arrow) => {
-    arrow.classList.add("hidden");
-  });
-  //TODO: This doen't always work
-  document.addEventListener("scroll", () => {
-    document.querySelectorAll(selector).forEach((arrow) => {
-      arrow.classList.add("hidden");
-    });
-  });
-}
-*/
-
 export function setupNav(selector?: string) {
   if (!selector) {
     selector = directions
@@ -432,28 +432,235 @@ export function setupNav(selector?: string) {
 }
 
 /*
-export function checkColumns(root, columnSelector) {
-  const startSelector = document.querySelector(root);
-  const columns = startSelector.querySelectorAll(columnSelector).length;
-
-  if (
-    window.getComputedStyle(startSelector).getPropertyValue("display") == "grid"
-  ) {
-    const gridTemplate = window
-      .getComputedStyle(startSelector)
-      .getPropertyValue("grid-template-columns");
-
-    if (gridTemplate.split(" ").length != columns) {
-      const templateColumn = `repeat(${columns}, calc(100vw - 1rem))`;
-      console.log(
-        `Setting grid-template-column on ${root} to ${templateColumn}`,
-      );
-      startSelector.style.gridTemplateColumns = templateColumn;
-    }
+// See https://www.sliderrevolution.com/resources/css-hamburger-menu/
+export function setupLangSwitch(curLang, selector) {
+  if (curLang === undefined || curLang == null || curLang == "") {
+    curLang = document.querySelector("html").getAttribute("lang");
   }
-  return columns;
+  if (selector === undefined) {
+    selector = "menu.lang-switch";
+  }
+  const switcher = document.querySelector(selector);
+  const langLink = switcher.querySelector(".inactive");
+
+  const waitExpanded = 1000;
+  const waitCollapse = 10000;
+  let clickTimer : undefined|number;
+  let closeTimer : undefined|number;
+  let tmpListener = null;
+
+  // TODO: Remove zthsi, only for debug
+  function sleep(miliseconds) {
+     let currentTime = new Date().getTime();
+
+     while (currentTime + miliseconds >= new Date().getTime()) {
+     }
+  }
+
+  const linkClickInterceptor = (e) => {
+    e.preventDefault();
+    console.log("Captured click");
+  };
+
+  function cancelClickInterceptor() {
+    this.removeEventListener("click", linkClickInterceptor);
+    console.log('removed click blocker')
+  }
+
+  const addOpenHandler = () => {
+    clearTimeout(clickTimer);
+    clearTimeout(closeTimer);
+
+    switcher.querySelectorAll(".lang.inactive a").forEach((lang:HTMLAnchorElement) => {
+      lang.addEventListener("click", linkClickInterceptor);
+    });
+
+    if ("ontouchstart" in document.body) {
+      switcher.querySelectorAll(".lang a").forEach((lang: HTMLAnchorElement) => {
+        lang.addEventListener("touchstart", press, {
+          once: true,
+          capture: true,
+          // passive: true 
+        });
+      });
+    } else {
+      switcher.querySelectorAll(".lang a").forEach((lang: HTMLAnchorElement) => {
+        lang.addEventListener("mousedown", press, {
+          once: true,
+          capture: true,
+        });
+      });
+    }
+  };
+
+  function reset() {
+    //TODO: Reset initial state
+    switcher.classList.remove("expanded");
+    switcher.classList.remove("pressed");
+    if (this !== undefined && this !== null && tmpListener !== null) {
+      this.removeEventListener("mouseup", tmpListener);
+      this.removeEventListener("touchcancel", tmpListener);
+      tmpListener = null;
+    }
+    addOpenHandler();
+  }
+
+  const press = (e: Event) => {
+    function click() {
+      switcher.classList.remove("pressed");
+      console.log("Firing generated event");
+      e.target.removeEventListener("click", linkClickInterceptor);
+      const click = new CustomEvent("click");
+      e.target.fireEvent(click);
+    }
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let link: HTMLAnchorElement = e.target;
+    console.log("Detected press");
+    switcher.classList.add("pressed");
+    tmpListener = click.bind(e.target);
+    link.addEventListener("mouseup", tmpListener);
+    link.addEventListener("touchcancel", tmpListener);
+
+    clickTimer = setTimeout(longPress.bind(link), waitExpanded);
+    return false;
+  };
+
+  function longPress() {
+    this.removeEventListener("mouseup", tmpListener);
+    this.removeEventListener("touchcancel", tmpListener);
+    const clickInterceptorRemover = cancelClickInterceptor.bind(this);
+    const mouseOut = () => {
+      clickInterceptorRemover();
+      console.log("mouse out");
+    }
+    this.addEventListener("mouseup", (e) => {
+      e.preventDefault();
+      clickInterceptorRemover();
+      console.log('mouseup');
+      });
+    this.addEventListener("touchcancel", clickRemover);
+    this.addEventListener("mouseout",  mouseOut);
+
+    //this.removeEventListener('click', linkClickInterceptor);
+    let link = this;
+  
+    // const disableLink = (e) => {
+    //   e.stopImmediatePropagation();
+    //   e.preventDefault();
+    //   console.log('Released button during long press');
+    //   //TODO: Remove this
+    //   //sleep(10000);
+    //   return;
+    // }
+    // this.addEventListener('mouseup', disableLink, {
+    //   once: true,
+    // });
+    
+
+    console.log("Detected long press");
+    switcher.classList.add("expanded");
+    switcher.classList.remove("pressed");
+
+    //sleep(10000);
+
+    closeTimer = setTimeout(reset.bind(this), waitCollapse);
+    //reset();
+
+
+  }
+
+  addOpenHandler();
+
+  switcher.querySelectorAll(`li`).forEach((lang:HTMLLIElement) => {
+    if (
+      Array.from(lang.classList).some((c) => ["active", "inactive"].includes(c))
+    ) {
+      return;
+    }
+    let content:string = lang.innerText || lang.textContent;
+    if (content.toUpperCase() == curLang.toUpperCase()) {
+      lang.classList.add("active");
+    } else {
+      lang.classList.add("inactive");
+    }
+  });
 }
 */
+
+export function textEffects() {
+  const inViewEffects:{[key:string]: {class:string, duration:number}} = {
+    ".card .post-body": { class: "text-focus-in", duration: 1000 },
+  };
+
+  Object.keys(inViewEffects).forEach((sel) => {
+    document.querySelectorAll(sel).forEach((fragment) => {
+      inView(fragment, () => {
+        fragment.classList.add(inViewEffects[sel].class);
+        setTimeout(() => {
+          fragment.classList.remove(inViewEffects[sel].class);
+        }, inViewEffects[sel].duration);
+      });
+    });
+  });
+}
+
+export function setupMenu() {
+  document.querySelectorAll("#menu a").forEach((link) => {
+    link.addEventListener("click", menuLinkHandler);
+  });
+
+  const menuButton:HTMLElement =  document.querySelector<HTMLElement>("input.burger-menu-button")!
+ menuButton.addEventListener("click", (e: Event) => {
+    const target = e.target as HTMLInputElement
+const activeCard = document.querySelector(".card.active")
+      if (target.checked && activeCard !== null) {
+        target.dataset.caller = activeCard.id;
+        target.setAttribute("aria-expanded", "true");
+        document.body.classList.add("noscroll");
+      } else {
+        target.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("noscroll");
+        const caller = target.dataset.caller
+        if (caller !== undefined) {
+        let active = document.getElementById(caller);
+        if (active != null) {
+          active.scrollIntoView({ behavior: "smooth" });
+        } else {
+          console.log("Last active card is null!");
+        }}
+      }
+    });
+}
+
+export function fontsLoaded() {
+  let interval: number|undefined;
+  let timeouts = [];
+
+  function fontCheck() {
+    if (document.fonts) {
+      for (const font in fonts) {
+        if (document.fonts.check(fonts[font])) {
+          document.querySelector("body")!.classList.add(`${font}-loaded`);
+        }
+      }
+    }
+    if (interval) {
+      clearInterval(interval);
+    }
+  }
+
+  for (const font in fonts) {
+    timeouts.push(
+      setTimeout(() => {
+        document.querySelector("body")!.classList.add(`${font}-loaded`);
+      }, 3000),
+    );
+  }
+
+  interval = setInterval(fontCheck, 200);
+}
 
 export function checkColumns(root: string, columnSelector: string): number {
   const startSelector = document.querySelector(root) as HTMLElement;
@@ -479,6 +686,32 @@ export function checkColumns(root: string, columnSelector: string): number {
   }
   return columns;
 }
+
+/*
+export function checkWindowResize() {
+  const cookieName = "hdr-notice";
+  if (!checkHDR()) {
+    console.log("Browser doesn't support HDR images!");
+    if (Cookies.get(cookieName) == "true") {
+      return;
+    }
+    document.querySelector("#hdr-warning")!.style.display = "block";
+    document
+      .querySelectorAll("#hdr-warning .close, #hdr-warning .button")
+      .forEach((close) => {
+        close.addEventListener("click", function () {
+          Cookies.set(cookieName, "true", {
+            expires: 7,
+            path: "",
+            sameSite: "Strict",
+          });
+          document.getElementById("hdr-warning")!.classList.add("hidden");
+          return;
+        });
+      });
+  }
+}
+*/
 
 export function checkWindowResize() {
   //TODO: Also check if window has been moved to another screen

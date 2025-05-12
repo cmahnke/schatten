@@ -39,7 +39,7 @@ let canvas;
 document.addEventListener("DOMContentLoaded", function () {
   fontsLoaded();
   setupGrid(".cards", ".stack", "section");
-  let observer = new IntersectionObserver(handleCardIntersect, {
+  const observer = new IntersectionObserver(handleCardIntersect, {
     root: null,
     rootMargin: "0px",
     threshold: buildThresholdList(colorSteps)
@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
   textEffects();
 
   if (window.location.hash !== "") {
-    var id;
-    var target = document.querySelector(`*[data-slug='${window.location.hash}']`);
+    let id;
+    const target = document.querySelector(`*[data-slug='${window.location.hash}']`);
     if (target !== null && "id" in target) {
       id = target.id;
     } else {

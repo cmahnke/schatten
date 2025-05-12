@@ -90,7 +90,7 @@ let scene,
   sceneOrtho,
   orientation,
   arrow;
-
+/*
 export function render() {
   renderer.clear();
   orientation = "portrait";
@@ -159,7 +159,7 @@ export function render() {
 }
 
 //TODO: Finish setup of dividers
-/*
+
 function setupDivider(divider, scene, width, height) {
   while (sceneOrtho.children.length > 0) {
     sceneOrtho.remove(sceneOrtho.children[0]);
