@@ -1,4 +1,5 @@
 @use "vars";
+@use "effects";
 
 .stack-switcher {
   .left,
@@ -18,6 +19,7 @@
     z-index: 5;
     filter: drop-shadow(0 0 0.2rem black) drop-shadow(0 0 0.4rem black)
       drop-shadow(0 0 0.6rem black);
+    /* @include effects.blur; */
   }
 
   .left,

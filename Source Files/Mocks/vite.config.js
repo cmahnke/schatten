@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
 import stylelint from "vite-plugin-stylelint";
 import { DynamicPublicDirectory } from "vite-multiple-assets";
-import { checker } from "vite-plugin-checker";
+//import checker from 'vite-plugin-checker'
 //import viteHtmlResolveAlias from 'vite-plugin-html-resolve-alias';
 
 const mimeTypes = { ".glb": "model/gltf-binary" };

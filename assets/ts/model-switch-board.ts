@@ -4,7 +4,7 @@ type EventType = "wheel" | "touch";
 
 type Handler = {
   function: Function;
-  args: Array<Element |string |number>;
+  args: Array<Element | string | number>;
 };
 
 type Handlers = {
@@ -48,7 +48,8 @@ export function handleWheel(canvas: HTMLCanvasElement) {
       switchLEDs(canvas, lights);
       e.preventDefault();
     },
-    { passive: true },
+    //If this would be passive, we couldn't intercept the scroll event
+    { passive: false },
   );
 }
 

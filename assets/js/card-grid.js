@@ -365,10 +365,9 @@ export function setupLangSwitch(curLang, selector) {
 
   // TODO: Remove zthsi, only for debug
   function sleep(miliseconds) {
-     var currentTime = new Date().getTime();
+    var currentTime = new Date().getTime();
 
-     while (currentTime + miliseconds >= new Date().getTime()) {
-     }
+    while (currentTime + miliseconds >= new Date().getTime()) {}
   }
 
   const linkClickInterceptor = (e) => {
@@ -378,7 +377,7 @@ export function setupLangSwitch(curLang, selector) {
 
   function cancelClickInterceptor() {
     this.removeEventListener("click", linkClickInterceptor);
-    console.log('removed click blocker')
+    console.log("removed click blocker");
   }
 
   const addOpenHandler = () => {
@@ -448,14 +447,14 @@ export function setupLangSwitch(curLang, selector) {
     const mouseOut = () => {
       clickInterceptorRemover();
       console.log("mouse out");
-    }
+    };
     this.addEventListener("mouseup", (e) => {
       e.preventDefault();
       clickInterceptorRemover();
-      console.log('mouseup');
-      });
+      console.log("mouseup");
+    });
     this.addEventListener("touchcancel", clickRemover);
-    this.addEventListener("mouseout",  mouseOut);
+    this.addEventListener("mouseout", mouseOut);
 
     //this.removeEventListener('click', linkClickInterceptor);
     let link = this;
@@ -481,8 +480,6 @@ export function setupLangSwitch(curLang, selector) {
 
     closeTimer = setTimeout(reset.bind(this), waitCollapse);
     //reset();
-
-
   }
 
   addOpenHandler();

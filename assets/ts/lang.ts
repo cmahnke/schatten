@@ -1,7 +1,11 @@
 const defaultLang = "en";
 
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
-export function setupLangSwitch(base?: string, curLang?: string, selector?: string) {
+export function setupLangSwitch(
+  base?: string,
+  curLang?: string,
+  selector?: string,
+) {
   if (curLang === undefined || curLang == null || curLang == "") {
     const docLang = document.querySelector("html")?.getAttribute("lang");
     if (docLang != undefined && docLang !== null) {
@@ -23,11 +27,11 @@ export function setupLangSwitch(base?: string, curLang?: string, selector?: stri
     return;
   }
 
-  switcher.querySelectorAll('.lang a')?.forEach((langLink) => {
+  switcher.querySelectorAll(".lang a")?.forEach((langLink) => {
     if (langLink instanceof HTMLAnchorElement) {
-      const linkAttr = langLink.getAttribute("href")
+      const linkAttr = langLink.getAttribute("href");
       if (base !== undefined && !linkAttr?.startsWith("/")) {
-        langLink.setAttribute("href", base + "/" + linkAttr)
+        langLink.setAttribute("href", base + "/" + linkAttr);
       }
     }
   });

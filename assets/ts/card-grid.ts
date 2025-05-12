@@ -15,7 +15,7 @@ import {
   REDRAW_EVENT_NAME,
 } from "./model";
 
-export const fonts: {[key:string]: string} = {
+export const fonts: { [key: string]: string } = {
   handjet: "1em Handjet",
   "special-elite": "1em Special Elite",
 };
@@ -390,7 +390,8 @@ export function setupGrid(
       if (grid[k].height < maxHeight) {
         const heightDiff = maxHeight - grid[k].height;
         const lastOfShort: HTMLElement | null = startSelector
-          .querySelectorAll(columnSelector)[k].querySelector(`${cardSelector}:last-child`);
+          .querySelectorAll(columnSelector)
+          [k].querySelector(`${cardSelector}:last-child`);
         if (lastOfShort !== null) {
           const oldHeight = lastOfShort.getBoundingClientRect().height;
           const newHeight = oldHeight + heightDiff;
@@ -465,7 +466,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
         lang.addEventListener("touchstart", press, {
           once: true,
           capture: true,
-          // passive: true 
+          // passive: true
         });
       });
     } else {
@@ -530,7 +531,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
 
     //this.removeEventListener('click', linkClickInterceptor);
     let link = this;
-  
+
     // const disableLink = (e) => {
     //   e.stopImmediatePropagation();
     //   e.preventDefault();
@@ -542,8 +543,8 @@ export function setupLangSwitch(curLang: string, selector:string) {
     // this.addEventListener('mouseup', disableLink, {
     //   once: true,
     // });
-    
-    
+
+
 
     console.log("Detected long press");
     switcher.classList.add("expanded");
@@ -571,8 +572,8 @@ export function setupLangSwitch(curLang: string, selector:string) {
 
   const waitExpanded = 1000;
   const waitCollapse = 10000;
-  let clickTimer : undefined|number;
-  let closeTimer : undefined|number;
+  let clickTimer : undefined|ReturnType<typeof setTimeout>;
+  let closeTimer : undefined|ReturnType<typeof setTimeout>;
   let tmpListener = null;
 
   addOpenHandler();
@@ -594,9 +595,10 @@ export function setupLangSwitch(curLang: string, selector:string) {
 */
 
 export function textEffects() {
-  const inViewEffects:{[key:string]: {class:string, duration:number}} = {
-    ".card .post-body": { class: "text-focus-in", duration: 1000 },
-  };
+  const inViewEffects: { [key: string]: { class: string; duration: number } } =
+    {
+      ".card .post-body": { class: "text-focus-in", duration: 1000 },
+    };
 
   Object.keys(inViewEffects).forEach((sel) => {
     document.querySelectorAll(sel).forEach((fragment) => {
@@ -615,31 +617,34 @@ export function setupMenu() {
     link.addEventListener("click", menuLinkHandler);
   });
 
-  const menuButton:HTMLElement =  document.querySelector<HTMLElement>("input.burger-menu-button")!
- menuButton.addEventListener("click", (e: Event) => {
-    const target = e.target as HTMLInputElement
-const activeCard = document.querySelector(".card.active")
-      if (target.checked && activeCard !== null) {
-        target.dataset.caller = activeCard.id;
-        target.setAttribute("aria-expanded", "true");
-        document.body.classList.add("noscroll");
-      } else {
-        target.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("noscroll");
-        const caller = target.dataset.caller
-        if (caller !== undefined) {
+  const menuButton: HTMLElement = document.querySelector<HTMLElement>(
+    "input.burger-menu-button",
+  )!;
+  menuButton.addEventListener("click", (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const activeCard = document.querySelector(".card.active");
+    if (target.checked && activeCard !== null) {
+      target.dataset.caller = activeCard.id;
+      target.setAttribute("aria-expanded", "true");
+      document.body.classList.add("noscroll");
+    } else {
+      target.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("noscroll");
+      const caller = target.dataset.caller;
+      if (caller !== undefined) {
         let active = document.getElementById(caller);
         if (active != null) {
           active.scrollIntoView({ behavior: "smooth" });
         } else {
           console.log("Last active card is null!");
-        }}
+        }
       }
-    });
+    }
+  });
 }
 
 export function fontsLoaded() {
-  let interval: number|undefined;
+  let interval: ReturnType<typeof setTimeout> | undefined;
   let timeouts = [];
 
   function fontCheck() {

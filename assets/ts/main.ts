@@ -10,7 +10,7 @@ import {
   checkColumns,
   checkWindowResize,
   colorSteps,
-  menuLinkHandler
+  menuLinkHandler,
 } from "./card-grid";
 import {
   createSwitchGrid,
@@ -31,7 +31,9 @@ import { setupLangSwitch } from "./lang";
 import { fontsLoaded } from "./fonts";
 
 declare global {
-  interface Window { checkHDR: Function; }
+  interface Window {
+    checkHDR: Function;
+  }
 }
 
 const fonts = {
@@ -77,9 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //initModel(canvas, modelUrl);
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
     const handlers = DEFAULT_HANDLERS;
-    const touchIndicator = document.querySelector("#touch-indicator") as HTMLElement
-    if (touchIndicator !== null){
-    handlers["touch"].args = [touchIndicator];}
+    const touchIndicator = document.querySelector(
+      "#touch-indicator",
+    ) as HTMLElement;
+    if (touchIndicator !== null) {
+      handlers["touch"].args = [touchIndicator];
+    }
     addListener(canvas, ["wheel", "touch"], handlers);
   }
   textEffects();
