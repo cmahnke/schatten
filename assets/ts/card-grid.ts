@@ -433,31 +433,16 @@ export function setupNav(selector?: string) {
 
 /*
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
-export function setupLangSwitch(curLang, selector) {
-  if (curLang === undefined || curLang == null || curLang == "") {
-    curLang = document.querySelector("html").getAttribute("lang");
-  }
-  if (selector === undefined) {
-    selector = "menu.lang-switch";
-  }
-  const switcher = document.querySelector(selector);
-  const langLink = switcher.querySelector(".inactive");
-
-  const waitExpanded = 1000;
-  const waitCollapse = 10000;
-  let clickTimer : undefined|number;
-  let closeTimer : undefined|number;
-  let tmpListener = null;
-
-  // TODO: Remove zthsi, only for debug
-  function sleep(miliseconds) {
+export function setupLangSwitch(curLang: string, selector:string) {
+  // TODO: Remove this, only for debug
+  function sleep(miliseconds:number) {
      let currentTime = new Date().getTime();
 
      while (currentTime + miliseconds >= new Date().getTime()) {
      }
   }
 
-  const linkClickInterceptor = (e) => {
+  const linkClickInterceptor = (e:Event) => {
     e.preventDefault();
     console.log("Captured click");
   };
@@ -558,6 +543,7 @@ export function setupLangSwitch(curLang, selector) {
     //   once: true,
     // });
     
+    
 
     console.log("Detected long press");
     switcher.classList.add("expanded");
@@ -568,8 +554,26 @@ export function setupLangSwitch(curLang, selector) {
     closeTimer = setTimeout(reset.bind(this), waitCollapse);
     //reset();
 
-
   }
+
+  //TODO: Use another language detection method
+  if (curLang === undefined || curLang == null || curLang == "") {
+    curLang = document.querySelector("html").getAttribute("lang");
+  }
+  if (selector === undefined) {
+    selector = "menu.lang-switch";
+  }
+  const switcher = document.querySelector(selector);
+  if (switcher === null) {
+    throw new Error("Switcher is null!")
+  }
+  const langLink = switcher.querySelector(".inactive");
+
+  const waitExpanded = 1000;
+  const waitCollapse = 10000;
+  let clickTimer : undefined|number;
+  let closeTimer : undefined|number;
+  let tmpListener = null;
 
   addOpenHandler();
 

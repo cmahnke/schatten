@@ -4,6 +4,7 @@ import eslint from "vite-plugin-eslint";
 import stylelint from "vite-plugin-stylelint";
 import { DynamicPublicDirectory } from "vite-multiple-assets";
 import { checker } from "vite-plugin-checker";
+//import viteHtmlResolveAlias from 'vite-plugin-html-resolve-alias';
 
 const mimeTypes = { ".glb": "model/gltf-binary" };
 
@@ -20,13 +21,14 @@ export default defineConfig({
       mimeTypes,
       followSymlinks: true
     }),
-    eslint()
-    /*checker({ typescript: true })*/
+    eslint(),
+    //viteHtmlResolveAlias()
+    //checker({ typescript: true })
   ],
   publicDir: true,
   build: {
     target: "es2022",
-    /*commonjsOptions: { transformMixedEsModules: true },*/
+    // commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
@@ -41,24 +43,27 @@ export default defineConfig({
     }
   },
   resolve: {
-    preserveSymlinks: true,
+    //preserveSymlinks: true,
     alias: [
+      //{'@hugo-assets': '../../assets'},
       {
         find: /~(.+)/,
         replacement: join(process.cwd(), "node_modules", "$1")
       },
       {
-        find: /@\/(.+.ts)/,
+        find: /@hugo-assets\/(.+.ts)/,
         replacement: join(process.cwd(), "../../assets", "ts", "$1")
       },
+      /*
       {
         find: /@\/(.+.js)/,
         replacement: join(process.cwd(), "../../assets", "js", "$1")
       },
-      // Default: No suffix = JavaScript
+      */
+      // Default: No suffix = TypeScript
       {
-        find: /@\/(.+)/,
-        replacement: join(process.cwd(), "../../assets", "js", "$1")
+        find: /@hugo-assets\/(.+)/,
+        replacement: join(process.cwd(), "../../assets", "ts", "$1")
       }
       /*
       {

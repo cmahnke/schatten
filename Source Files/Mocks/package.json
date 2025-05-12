@@ -47,6 +47,7 @@
     "vite-multiple-assets": "^2.2.5",
     "vite-plugin-checker": "^0.9.1",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-html-resolve-alias": "^2.0.0",
     "vite-plugin-singlefile": "^2.2.0",
     "vite-plugin-stylelint": "^6.0.0"
   }
