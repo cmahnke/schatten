@@ -11,21 +11,21 @@ import {
   setupLangSwitch,
   checkColumns,
   checkWindowResize,
-  displayHDRWarning,
   textEffects,
   colorSteps,
-} from "./card-grid.js";
+} from "../ts/card-grid.ts";
 import {
   createSwitchGrid,
   addListener,
   DEFAULT_HANDLERS,
-} from "./model-switch-board";
+} from "../ts/model-switch-board.ts";
 import {
   initModel,
   DEFAULT_SEPARATORS,
   DEFAULT_LAYOUTS,
   REDRAW_EVENT_NAME,
-} from "./model.js";
+} from "../ts/model.ts";
+import {  displayHDRWarning} from "../ts/hdr";
 import { checkHDR } from "hdr-canvas";
 
 const modelUrl = "/gtlf/model-uncompressed.glb";

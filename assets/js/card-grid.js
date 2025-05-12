@@ -1,3 +1,4 @@
+/*
 import { inView } from "motion";
 import Color from "color";
 import Cookies from "js-cookie";
@@ -30,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 });
 
-/*
 export function generateURLFragment(col, row, fragment) {
   var id;
   if (fragment === undefined) {
@@ -75,7 +75,7 @@ export function generatedCallback(elem) {
   if ("jump" in elem.dataset) {
     const targetId = elem.dataset["jump"];
     const target = document.getElementById(targetId);
-    // TODO: Check why this doesn't always work 
+    // TODO: Check why this doesn't always work
     target.scrollIntoView({ behavior: "smooth" });
     console.log(`Jumping to ${targetId}`);
   }
@@ -144,7 +144,7 @@ export function handleCardIntersect(entries) {
         console.log("Card intersect got no target!");
       }
 
-      // TODO: Check if we really need the previous ones 
+      // TODO: Check if we really need the previous ones
     } else if (
       entry.intersectionRatio < 1 &&
       entry.target.classList.contains("active")
@@ -187,7 +187,7 @@ export function buildThresholdList(numSteps) {
   thresholds.push(0);
   return thresholds;
 }
-*/
+
 
 export function setupGrid(root, columnSelector, cardSelector) {
   function columnHeight(column) {
@@ -345,7 +345,7 @@ export function setupNav(selector) {
     });
   });
 }
-
+*/
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 export function setupLangSwitch(curLang, selector) {
   if (curLang === undefined || curLang == null || curLang == "") {
@@ -601,7 +601,7 @@ export function checkColumns(root, columnSelector) {
   return columns;
 }
 */
-
+/*
 export function checkWindowResize() {
   const cookieName = "hdr-notice";
   if (!checkHDR()) {
@@ -631,10 +631,9 @@ export function checkWindowResize() {
   window.addEventListener("resize", () => {
     //TODO: Check if we need to recalculate more properties here
     console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`);
-    /*
-    if (canvas !== null) {
-      canvas.dispatchEvent(new Event(REDRAW_EVENT_NAME));
-    }
-    */
+    // if (canvas !== null) {
+    //   canvas.dispatchEvent(new Event(REDRAW_EVENT_NAME));
+    // }
   });
 }
+*/

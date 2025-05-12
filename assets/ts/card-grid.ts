@@ -333,7 +333,7 @@ export function setupGrid(
       }
     }
     //Add navigation links
-    function lookArround(id: string) {
+    const lookArround = (id: string) => {
       const next = document.getElementById(id);
       if (next != null && next.classList.contains("__inserted")) {
         return false;
@@ -432,7 +432,6 @@ export function setupNav(selector?: string) {
   });
 }
 
-/*
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 export function setupLangSwitch(curLang: string, selector:string) {
   // TODO: Remove this, only for debug
@@ -592,7 +591,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
     }
   });
 }
-*/
+
 
 export function textEffects() {
   const inViewEffects: { [key: string]: { class: string; duration: number } } =

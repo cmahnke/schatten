@@ -1,3 +1,4 @@
+/*
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
@@ -38,7 +39,7 @@ export const DEFAULT_SEPARATORS = {
     ],
   },
 };
-/*
+
       separators['landscape'] = {callback: separatorVertical, args: [tile,
                                   {width: 0, height: .8, left: 3/4, bottom: 0, distance: 12, rotateX: 35}
                                 ]};
