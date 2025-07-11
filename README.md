@@ -59,3 +59,7 @@ Nächtliche Schatten
 | 3      | Film 2 | imm024_N26.jpg | AE-1 Program | Kentmere Pan 400 |
 | 4      | Film 2 | imm030_N30.jpg | AE-1 Program | Kentmere Pan 400 |
 | 5      | Film 2 | imm036_N36.jpg | AE-1 Program | Kentmere Pan 400 |
+
+# Physical installation
+* https://diyadv.wordpress.com/2021/08/17/diy-transparent-screen/
+* Light temperature: 4000K
