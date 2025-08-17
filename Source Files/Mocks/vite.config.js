@@ -21,7 +21,7 @@ export default defineConfig({
       mimeTypes,
       followSymlinks: true
     }),
-    eslint(),
+    eslint()
     //viteHtmlResolveAlias()
     //checker({ typescript: true })
   ],
