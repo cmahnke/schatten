@@ -8,7 +8,6 @@ import {
   handleCardIntersect,
   setupNav,
   setupMenu,
-  setupLangSwitch,
   checkColumns,
   checkWindowResize,
   textEffects,
