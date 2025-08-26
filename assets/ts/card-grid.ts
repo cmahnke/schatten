@@ -432,6 +432,7 @@ export function setupNav(selector?: string) {
   });
 }
 
+/*
 // See https://www.sliderrevolution.com/resources/css-hamburger-menu/
 export function setupLangSwitch(curLang: string, selector:string) {
   // TODO: Remove this, only for debug
@@ -456,7 +457,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
     clearTimeout(clickTimer);
     clearTimeout(closeTimer);
 
-    switcher.querySelectorAll(".lang.inactive a").forEach((lang:HTMLAnchorElement) => {
+    switcher.querySelectorAll(".lang.inactive a").forEach((lang: HTMLAnchorElement) => {
       lang.addEventListener("click", linkClickInterceptor);
     });
 
@@ -520,7 +521,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
       clickInterceptorRemover();
       console.log("mouse out");
     }
-    this.addEventListener("mouseup", (e) => {
+    this.addEventListener("mouseup", (e: Event) => {
       e.preventDefault();
       clickInterceptorRemover();
       console.log('mouseup');
@@ -558,12 +559,12 @@ export function setupLangSwitch(curLang: string, selector:string) {
 
   //TODO: Use another language detection method
   if (curLang === undefined || curLang == null || curLang == "") {
-    curLang = document.querySelector("html").getAttribute("lang");
+    curLang = document.querySelector<HTMLHtmlElement>("html")!.getAttribute("lang");
   }
   if (selector === undefined) {
     selector = "menu.lang-switch";
   }
-  const switcher = document.querySelector(selector);
+  const switcher = document.querySelector(selector)!;
   if (switcher === null) {
     throw new Error("Switcher is null!")
   }
@@ -591,7 +592,7 @@ export function setupLangSwitch(curLang: string, selector:string) {
     }
   });
 }
-
+*/
 
 export function textEffects() {
   const inViewEffects: { [key: string]: { class: string; duration: number } } =

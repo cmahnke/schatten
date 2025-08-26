@@ -12,13 +12,13 @@ import {
   handleCardIntersect,
   setupNav,
   setupMenu,
-  setupLangSwitch,
   checkColumns,
   checkWindowResize,
   textEffects,
   colorSteps
 } from "@hugo-assets/card-grid";
-import {  displayHDRWarning} from "@hugo-assets/hdr";
+import { setupLangSwitch } from "@hugo-assets/lang";
+import { displayHDRWarning } from "@hugo-assets/hdr";
 import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board";
 import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@hugo-assets/model";
 

@@ -3,13 +3,13 @@
     "colorjs.io": "^0.5.2",
     "fitty": "^2.4.2",
     "hdr-canvas": "^0.0.13",
-    "motion": "^12.10.5",
-    "three": "^0.176.0"
+    "motion": "^12.23.12",
+    "three": "^0.179.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.33.0",
     "@types/color": "^4.2.0",
     "@types/js-cookie": "^3.0.6",
-    "@types/three": "^0.176.0"
+    "@types/three": "^0.179.0"
   }
 }
