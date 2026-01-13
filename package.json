@@ -1,15 +1,17 @@
 {
   "dependencies": {
-    "colorjs.io": "^0.5.2",
+    "colorjs.io": "^0.6.0",
     "fitty": "^2.4.2",
-    "hdr-canvas": "^0.0.13",
-    "motion": "^12.23.12",
-    "three": "^0.179.1"
+    "hdr-canvas": "^0.1.2",
+    "motion": "^12.26.1",
+    "three": "^0.182.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.39.2",
     "@types/color": "^4.2.0",
     "@types/js-cookie": "^3.0.6",
-    "@types/three": "^0.179.0"
+    "@types/three": "^0.182.0",
+    "node-addon-api": "^8.5.0",
+    "node-gyp": "^12.1.0"
   }
 }
