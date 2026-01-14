@@ -24,3 +24,7 @@ tmp-pdfjs
 **/*.blend1
 content/**/ogPreview.*g
 content/**/ogPreview-overlay.*g
+
+assets/scss/flags/*
+assets/scss/npm-fonts/*
+*.bak

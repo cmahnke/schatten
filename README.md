@@ -29,7 +29,7 @@ Nächtliche Schatten
   * Menu not working anymore
   * Check if arrows are right
   * Firefox
-    * Animations not smooth 
+    * Animations not smooth
     * Scroll snap in FF broken
     * Links not working, always jumps back
 
@@ -63,3 +63,6 @@ Nächtliche Schatten
 # Physical installation
 * https://diyadv.wordpress.com/2021/08/17/diy-transparent-screen/
 * Light temperature: 4000K
+
+## Links
+* https://andrewwerth.com/
