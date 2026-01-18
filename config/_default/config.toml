@@ -6,7 +6,7 @@
     svgIcon = "/images/favicon.svg"
     enableImageViewer = true
     enablePDFViewer = false
-    copyrightYears = "MMXXIV"
+    copyrightYears = "MMXXVI"
     disableScale = true
     disableOpenGraph = true
     defaultScriptEntrypoint = "ts/main.ts"
