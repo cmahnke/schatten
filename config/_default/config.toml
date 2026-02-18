@@ -1,5 +1,4 @@
 [params]
-    author = "Christian Mahnke"
     keywords = "Schatten, Nacht, Fotographie"
     description = "Die „Digitalisierung“ der Nacht"
     logo = "/images/logo.png"
@@ -24,3 +23,8 @@
           template = "./Source Files/Other/preview-template.svg"
           scale = "width"
           removeMissing = true
+
+[params.author]
+  email = 'mail@christianmahnke.de'
+  name = 'Christian Mahnke'
+  uri = 'http://www.wikidata.org/entity/Q137668638'
