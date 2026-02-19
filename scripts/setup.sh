@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ -z "$DEPENDENCY_MANAGER" ] ; then
   export DEPENDENCY_MANAGER=npm
 fi
