@@ -1,5 +1,11 @@
 #!/bin/sh
 
+RUN_DEPENDENCIES="cmake pkg-config libjpeg-dev ninja-build"
+
+echo "Installing $RUN_DEPENDENCIES"
+sudo apt-get install $RUN_DEPENDENCIES
+
+
 # TODO Replace with https://github.com/cmahnke/hdr-tools
 
 mkdir ./build
