@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nocturnal shadows</title>
+    <link>https://schatten.yaapb.projektemacher.org/</link>
+    <description>Recent content on Nocturnal shadows</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>mail@christianmahnke.de (Christian Mahnke)</managingEditor>
+    <webMaster>mail@christianmahnke.de (Christian Mahnke)</webMaster><atom:link href="https://schatten.yaapb.projektemacher.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Light</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/light/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/light/</guid>
+      <description>&lt;p&gt;This page is dedicated to a relatively new phenomenon: &amp;ldquo;digital&amp;rdquo; shadows.&lt;/p&gt;
+&lt;p&gt;I refer to the shadows cast by modern street lamps as &amp;ldquo;digital&amp;rdquo; shadows. Many small light sources arranged in a grid (so called LED arrays or matrix LEDs) cast shadows which, when overlapping, produce patterns which look like pixels.&lt;/p&gt;
+&lt;h1 id=&#34;night&#34;&gt;Night&lt;/h1&gt;
+&lt;p&gt;For millions of years the night was dark, and insects and other nocturnal animals have adapted to this. They orientated themselves towards the moon or other weak natural light sources at night. These light sources, such as the moon and the stars, influence not only the day-night cycles but also reproduction&amp;hellip;&lt;/p&gt;</description>
+      </item>
+    
+    <item>
+      <title>Phenomenon</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/phenomenon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/phenomenon/</guid>
+      <description>&lt;p&gt;The phenomenon shown is created by the superimposition of shadows cast by parallel light sources.
+The visualisation can be controlled by touching or scrolling.&lt;/p&gt;
+&lt;p&gt;&lt;canvas id=&#34;renderer&#34;&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;div id=&#34;touch-indicator&#34; class=&#34;touch-icon hide&#34;&gt;&lt;/div&gt;</description>
+      </item>
+    
+    <item>
+      <title>Projekt</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/project/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/project/</guid>
+      <description>&lt;h1 id=&#34;idea&#34;&gt;Idea&lt;/h1&gt;
+&lt;p&gt;The idea for the project is already a few years old, originally conceived as a short series for &lt;a href=&#34;https://yaapb.projektemacher.org/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;YAAPB&lt;/span&gt;&lt;/a&gt;, it lay dormant for over half a decade. Even though it wasn&amp;rsquo;t realised in that time, I used the time to get a little more involved with street and city lighting at night.&lt;/p&gt;
+&lt;p&gt;At the beginning of this year (2024), the time had come: in late winter, the first analogue and digital test shots were taken, the latter to serve as placeholders for the website. In the area of analogue photography, the low amount of light for night shots posed a particular challenge. Which camera and which film was used in each case is noted in the respective contributions.&lt;/p&gt;</description>
+      </item>
+    
+    <item>
+      <title>Metamodernism</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/metamodernism/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/metamodernism/</guid>
+      <description></description>
+      </item>
+    
+    <item>
+      <title>Acknowledgements and Links</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/links/</guid>
+      <description>&lt;h2 id=&#34;hdr&#34;&gt;HDR&lt;/h2&gt;
+&lt;p&gt;The HDR images were processed with &lt;a href=&#34;https://github.com/google/libultrahdr&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;&lt;code&gt;libultrahdr&lt;/code&gt;&lt;/span&gt;&lt;/a&gt;. Knowledge and tools are based on the preliminary work of &lt;a href=&#34;https://gregbenzphotography.com/hdr/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Greg Benz&lt;/span&gt;&lt;/a&gt; and others. The HDR converter has been &lt;a href=&#34;https://github.com/albertz/playground/blob/master/ultrahdr.py&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;inspired&lt;/span&gt;&lt;/a&gt; by the work of &lt;a href=&#34;http://www.az2000.de/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Albert Zeyer&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;typography&#34;&gt;Typography&lt;/h2&gt;
+&lt;p&gt;The variable font &lt;a href=&#34;https://rosettatype.com/Handjet&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Handjet&lt;/span&gt;&lt;/a&gt; from &lt;a href=&#34;https://rosettatype.com/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Rosetta Type&lt;/span&gt;&lt;/a&gt; is used for titles and headings. This font allows the manipulation of different axes via CSS. This makes different appearances easily configurable via a stylesheet.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://v-fonts.com/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Variable Fonts&lt;/span&gt;&lt;/a&gt; page from &lt;a href=&#34;https://hex.xyz/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;HEX Projects&lt;/span&gt;&lt;/a&gt; offers an overview and provides the possibility setting the various parameters directly in the browser.&lt;/p&gt;</description>
+      </item>
+    
+    <item>
+      <title>Colophon</title>
+      <link>https://schatten.yaapb.projektemacher.org/about/colophon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/about/colophon/</guid>
+      <description>&lt;h2 id=&#34;page&#34;&gt;Page&lt;/h2&gt;
+&lt;p&gt;This page was generated with &lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Hugo&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The fonts used are &lt;a href=&#34;https://rosettatype.com/Handjet&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Handjet&lt;/span&gt;&lt;/a&gt; and&lt;/p&gt;
+&lt;p&gt;This site uses modern web technologies (if supported by your browsers) such as &lt;a href=&#34;https://www.khronos.org/webgl/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;WebGL&lt;/span&gt;&lt;/a&gt;, &lt;a href=&#34;https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Variable Fonts&lt;/span&gt;&lt;/a&gt; and &lt;a href=&#34;https://gregbenzphotography.com/hdr/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;HDR Images&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The following Javascript and CSS frameworks and libraries have been used:&lt;/p&gt;
+&lt;ul class=&#34;inline-list&#34;&gt;
+  &lt;li&gt;&lt;a href=&#34;https://github.com/js-cookie/js-cookie&#34;&gt;js-cookie&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://necolas.github.io/normalize.css/&#34;&gt;Normalize.css&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://rikschennink.github.io/fitty/&#34;&gt;Fitty&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://colorjs.io/&#34;&gt;Color.js&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://threejs.org/&#34;&gt;Three JS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://motion.dev/&#34;&gt;Motion One&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;development&#34;&gt;Development&lt;/h2&gt;
+&lt;p&gt;The following tools were also used for development:&lt;/p&gt;
+&lt;ul class=&#34;inline-list&#34;&gt;
+  &lt;li&gt;&lt;a href=&#34;https://vitejs.dev/&#34;&gt;Vite&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://eslint.org/&#34;&gt;ESLint&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://stylelint.io/&#34;&gt;Stylelint&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://prettier.io/&#34;&gt;Pretier&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;3d-model&#34;&gt;3D model&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&#34;#phenomenon&#34;&gt;&lt;span&gt;3D visualisation&lt;/span&gt;&lt;/a&gt; has been created with &lt;a href=&#34;https://www.blender.org/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Blender&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;inspiration-for-effects&#34;&gt;Inspiration for effects&lt;/h2&gt;
+&lt;ul class=&#34;inline-list&#34;&gt;
+  &lt;li&gt;&lt;a href=&#34;https://codepen.io/RickyMarou/pen/dyoMXYR&#34;&gt;Link &lt;nimation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://codepen.io/avixsoft/pen/mdyOLKR&#34;&gt;Home icon animation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;https://animista.net/play/text/focus-in/text-focus-in&#34;&gt;Fade in effect for text&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;hosting&#34;&gt;Hosting&lt;/h2&gt;
+&lt;p&gt;The site is hosted by &lt;a href=&#34;https://github.com/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;GitHub&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;</description>
+      </item>
+    
+    <item>
+      <title>Example post #1</title>
+      <link>https://schatten.yaapb.projektemacher.org/images/1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/images/1/</guid>
+      <description>&lt;p&gt;This is a made up digital example file. This will be used to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check if the enhancer works&lt;/li&gt;
+&lt;li&gt;Have an example to build an example&lt;/li&gt;
+&lt;/ul&gt;</description>
+      </item>
+    
+    <item>
+      <title>Example post #2</title>
+      <link>https://schatten.yaapb.projektemacher.org/images/2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/images/2/</guid>
+      <description>&lt;p&gt;This is a made up digital example file. This will be used to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check if the enhancer works&lt;/li&gt;
+&lt;li&gt;Have an example to build an example&lt;/li&gt;
+&lt;/ul&gt;</description>
+      </item>
+    
+    <item>
+      <title>Example post #2</title>
+      <link>https://schatten.yaapb.projektemacher.org/images/3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/images/3/</guid>
+      <description>&lt;p&gt;This is a made up digital example file. This will be used to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check if the enhancer works&lt;/li&gt;
+&lt;li&gt;Have an example to build an example&lt;/li&gt;
+&lt;/ul&gt;</description>
+      </item>
+    
+    <item>
+      <title>Example post #2</title>
+      <link>https://schatten.yaapb.projektemacher.org/images/4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/images/4/</guid>
+      <description>&lt;p&gt;This is a made up digital example file. This will be used to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check if the enhancer works&lt;/li&gt;
+&lt;li&gt;Have an example to build an example&lt;/li&gt;
+&lt;/ul&gt;</description>
+      </item>
+    
+    <item>
+      <title>Example post #2</title>
+      <link>https://schatten.yaapb.projektemacher.org/images/5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/images/5/</guid>
+      <description>&lt;p&gt;This is a made up digital example file. This will be used to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check if the enhancer works&lt;/li&gt;
+&lt;li&gt;Have an example to build an example&lt;/li&gt;
+&lt;/ul&gt;</description>
+      </item>
+    
+    <item>
+      <title>Privacy policy</title>
+      <link>https://schatten.yaapb.projektemacher.org/privacy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/privacy/</guid>
+      <description>&lt;h2 id=&#34;hosting&#34;&gt;Hosting&lt;/h2&gt;
+&lt;p&gt;The hoster collects the following data transmitted by your browser in log files:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IP address&lt;/li&gt;
+&lt;li&gt;The address of the previously visited website (Referer [sic!] request header)&lt;/li&gt;
+&lt;li&gt;Date and time of the enquiry&lt;/li&gt;
+&lt;li&gt;Time zone difference to Greenwich Mean Time&lt;/li&gt;
+&lt;li&gt;Content of the request&lt;/li&gt;
+&lt;li&gt;HTTP status code&lt;/li&gt;
+&lt;li&gt;Amount of data transferred&lt;/li&gt;
+&lt;li&gt;Website from which the request originates&lt;/li&gt;
+&lt;li&gt;Information about the browser and operating system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is necessary to display the website and to ensure stability and security. This corresponds to a legitimate interest within the meaning of &lt;a href=&#34;https://gdpr-info.eu/art-6-gdpr/&#34; target=&#34;_blank&#34;&gt;&lt;span&gt;Art. 6 para. 1 sentence 1 lit. f GDPR&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;</description>
+      </item>
+    
+    <item>
+      <title>Tags</title>
+      <link>https://schatten.yaapb.projektemacher.org/meta/tags/index.json</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/meta/tags/index.json</guid>
+      <description></description>
+      </item>
+    
+    <item>
+      <title>Wikidata</title>
+      <link>https://schatten.yaapb.projektemacher.org/meta/wikidata/index.json</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>mail@christianmahnke.de (Christian Mahnke)</author>
+      <guid>https://schatten.yaapb.projektemacher.org/meta/wikidata/index.json</guid>
+      <description></description>
+      </item>
+    
+  </channel>
+</rss>
