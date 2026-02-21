@@ -1,5 +1,5 @@
 #yuvio
-numpy<2
+numpy
 ffmpeg-python
 opencv-contrib-python-headless
 coloraide
