@@ -48,7 +48,9 @@
   {{ end }}
   <body class="{{ $class }} {{ if .IsHome }}home{{ end }}">
     {{- if not hugo.IsServer -}}
-        {{- partial "piwik.html" . -}}
+      {{- if templates.Exists ( printf "_partials/analytics.html") -}}
+        {{- partial "analytics.html" . -}}
+      {{- end -}}
     {{- end -}}
     {{ block "content" . }}{{ end }}
     {{- partialCached "services/cookie-consent.html" . -}}
