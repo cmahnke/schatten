@@ -95,8 +95,8 @@ h2 {
   .sdr {
     position: relative;
 
-    &:after {
-      background-color: rgba(255 255 255 / 50%);
+    &::after {
+      background-color: rgb(255 255 255 / 50%);
       padding: 10px;
       color: black;
       left: 0;

@@ -24,7 +24,7 @@ $button-background: gray;
   .close {
     height: 2.4em;
     width: 2.4em;
-    content: url(icons.$close-light);
+    content: url("#{icons.$close-light}");
     display: inline-block;
     vertical-align: bottom;
     top: 1.4em;

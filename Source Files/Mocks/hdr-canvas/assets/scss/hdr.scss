@@ -1,3 +1,9 @@
+:root {
+  --hdr-enabled: "false";
+}
+
 @media (dynamic-range: high) {
-  --hdr-enabled: "true";
+  :root {
+    --hdr-enabled: "true";
+  }
 }

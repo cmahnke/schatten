@@ -30,7 +30,7 @@ $button-background: gray;
   .close {
     height: 1.6em;
     width: 1.6em;
-    content: url(icons.$close-dark);
+    content: url("#{icons.$close-dark}");
     display: inline-block;
     vertical-align: bottom;
     top: 0.6em;
