@@ -42,7 +42,8 @@ jobs:
         working-directory: ./Source\ Files/Mocks
         run: |
           npm run lint
-          npx tsc      
+          npx tsc
+          npx stylelint "../../assets/scss/*.scss"
 
   deploy:
     runs-on: ubuntu-24.04

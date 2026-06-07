@@ -50,7 +50,7 @@ input[type="text"] {
   caret-color: white;
 }
 
-@media (print) {
+@media print {
   a[href]::after {
     content: " <" attr(href) "> ";
   }
