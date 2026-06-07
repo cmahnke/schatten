@@ -51,8 +51,8 @@ window.addEventListener("load", (event) => {
 */
 
 document.addEventListener("DOMContentLoaded", function () {
-  slider();
-  processLinks();
+  //slider();
+  //processLinks();
   let canvas: HTMLCanvasElement | null; 
   fontsLoaded(fonts);
   setupGrid(".cards", ".stack", "section");
@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
   displayHDRWarning();
   canvas = document.querySelector(modelSelector);
   if (canvas !== null) {
-    //initModel(canvas, modelUrl);
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
     const handlers = DEFAULT_HANDLERS;
     const touchIndicator = document.querySelector(

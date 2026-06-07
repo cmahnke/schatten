@@ -130,9 +130,9 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
           const activeCard = document.querySelector(".card.active");
           if (activeCard) {
             e.target.dataset.caller = activeCard.id;
-            e.target.setAttribute("aria-expanded", "true");
-            document.body.classList.add("noscroll");
           }
+          e.target.setAttribute("aria-expanded", "true");
+          document.body.classList.add("noscroll");
         } else {
           e.target.setAttribute("aria-expanded", "false");
           document.body.classList.remove("noscroll");

@@ -392,7 +392,7 @@ export function textEffects() {
   return () => cleanups.forEach((stop) => stop());
 }
 
-export function setupMenu() {
+export function setupMenu(): void {
   document.querySelectorAll("#menu a").forEach((link) => {
     link.addEventListener("click", menuLinkHandler);
   });
@@ -408,8 +408,10 @@ export function setupMenu() {
   menuButton.addEventListener("click", (e: Event) => {
     const target = e.target as HTMLInputElement;
     const activeCard = document.querySelector(".card.active");
-    if (target.checked && activeCard !== null) {
-      target.dataset.caller = activeCard.id;
+    if (target.checked) {
+      if (activeCard !== null) {
+        target.dataset.caller = activeCard.id;
+      }
       target.setAttribute("aria-expanded", "true");
       document.body.classList.add("noscroll");
     } else {

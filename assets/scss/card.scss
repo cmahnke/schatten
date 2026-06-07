@@ -199,12 +199,13 @@ $card-padding: 0.4rem;
       .post-text {
         font-size: 1.2em;
         @include fonts.text-font;
+
         color: white;
         background-color: black;
         box-shadow:
-          rgb(0 0 0 / 50%) 0.45em 0.45em,
-          rgb(0 0 0 / 40%) 0.9em 0.9em,
-          rgb(0 0 0 / 30%) 1.35em 1.35em;
+          rgb(0 0 0 / 0.5) 0.45em 0.45em,
+          rgb(0 0 0 / 0.4) 0.9em 0.9em,
+          rgb(0 0 0 / 0.3) 1.35em 1.35em;
         padding: 0.6em;
         z-index: 1;
 
