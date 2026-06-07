@@ -33,6 +33,10 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: Generate Files
+        run: |
+          ./scripts/setup.sh
+
       - name: Install Node dependencies
         working-directory: "./Source Files/Mocks"
         run: |
