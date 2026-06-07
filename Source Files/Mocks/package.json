@@ -22,7 +22,7 @@
     "marked": "^18.0.5",
     "motion": "^12.40.0",
     "sirv": "^3.0.2",
-    "three": "^0.184.0"
+    "three": "0.184.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

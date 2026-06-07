@@ -17,10 +17,11 @@ type Layout = Square & {
   pxWidth: number;
   pxHeight: number;
   name: ViewNames;
-  camera: THREE.Camera | THREE.PerspectiveCamera | undefined;
+  camera: THREE.Camera | undefined;
   raycaster: THREE.Raycaster | undefined;
   mouse: THREE.Vector2 | undefined;
 };
+
 type Layouts = {
   [ORIENTATION in Orientation]: Layout[];
 };
@@ -89,28 +90,20 @@ export const DEFAULT_SEPARATORS: Seperators = {
     sprite: undefined,
   },
 };
-/*
-      separators['landscape'] = {callback: separatorVertical, args: [tile,
-                                  {width: 0, height: .8, left: 3/4, bottom: 0, distance: 12, rotateX: 35}
-                                ]};
-      separators['portrait'] = {callback: separatorHorizontal, args: [tile,
-                                  {width: .9, height: 0, left: 0, bottom: 3/4, distance: 12, rotateX: 35}
-                                ]};
-*/
 
 function defaultLayout(
   left = 0,
   bottom = 0,
   width = 0,
   height = 0,
-  name = "GroundView",
+  name: ViewNames = "GroundView",
 ): Layout {
   return {
-    left: left,
-    bottom: bottom,
-    width: width,
-    height: height,
-    name: name,
+    left,
+    bottom,
+    width,
+    height,
+    name,
     pxLeft: 0,
     pxBottom: 0,
     pxWidth: 0,
@@ -118,7 +111,7 @@ function defaultLayout(
     camera: undefined,
     raycaster: undefined,
     mouse: undefined,
-  } as Layout;
+  };
 }
 
 export const DEFAULT_LAYOUTS: Layouts = {
@@ -148,7 +141,6 @@ export function render() {
   orientation = "portrait";
 
   rendererParent = renderer.domElement.parentElement as HTMLElement;
-  //const ratio = window.devicePixelRatio || 1;
   const parentWidth = rendererParent.clientWidth;
   const parentHeight = rendererParent.clientHeight;
 
@@ -161,6 +153,11 @@ export function render() {
   cameraOrtho.top = parentHeight / 2;
   cameraOrtho.bottom = -parentHeight / 2;
   cameraOrtho.updateProjectionMatrix();
+
+  while (sceneOrtho.children.length > 0) {
+    sceneOrtho.remove(sceneOrtho.children[0]);
+  }
+  sceneOrtho.add(cameraOrtho);
 
   for (let i = 0; i < views[orientation].length; ++i) {
     if (views[orientation][i].camera === undefined) {
@@ -182,7 +179,6 @@ export function render() {
     renderer.setViewport(left, bottom, width, height);
     renderer.setScissor(left, bottom, width, height);
     renderer.setScissorTest(true);
-    //renderer.setClearColor(view.background);
 
     if (
       view.camera !== undefined &&
@@ -194,19 +190,19 @@ export function render() {
       renderer.render(scene, view.camera);
     }
 
-    if (dividers !== null && orientation in dividers) {
-      if (i + 1 < views[orientation].length) {
-        const divider = dividers[orientation];
-        setupDivider(divider, sceneOrtho, parentWidth, parentHeight);
-      }
+    // Only draw the divider between views, not after the last view
+    if (
+      dividers !== null &&
+      dividers !== undefined &&
+      orientation in dividers &&
+      i + 1 < views[orientation].length
+    ) {
+      const divider = dividers[orientation];
+      setupDivider(divider, parentWidth, parentHeight);
     }
   }
 
   renderer.clearDepth();
-
-  //TODO: Remove this
-  //const helper = new THREE.CameraHelper(cameraOrtho);
-  //sceneOrtho.add(helper);
 
   renderer.setViewport(0, 0, parentWidth, parentHeight);
   renderer.setScissor(0, 0, parentWidth, parentHeight);
@@ -214,25 +210,19 @@ export function render() {
   renderer.render(sceneOrtho, cameraOrtho);
 }
 
-//TODO: Finish setup of dividers
 function setupDivider(
   divider: Seperator,
-  scene: THREE.Scene,
   width: number,
   height: number,
 ) {
-  while (sceneOrtho.children.length > 0) {
-    sceneOrtho.remove(sceneOrtho.children[0]);
-  }
-
-  if (divider.callback !== undefined || divider.callback !== null) {
-    if (divider.args !== undefined || divider.args !== null) {
+  if (divider.callback !== undefined && divider.callback !== null) {
+    if (divider.args !== undefined && divider.args !== null) {
       sprites = divider.callback(width, height, ...divider.args);
     } else {
       sprites = divider.callback(width, height);
     }
   } else if ("sprite" in divider && divider["sprite"] !== undefined) {
-    sprites = divider.sprite;
+    sprites = divider.sprite as THREE.Sprite[];
   } else {
     console.log("Divider sprite or callback not set!");
     return;
@@ -264,13 +254,44 @@ export function initModel(
     views = layouts;
   }
 
-  if (seperators !== undefined || seperators !== null) {
+  if (seperators !== undefined && seperators !== null) {
     dividers = seperators;
   }
 
-  const loader = new GLTFLoader();
+  renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  const ratio = window.devicePixelRatio || 1;
+  renderer.setPixelRatio(ratio);
+
+  if (!(renderer.domElement.parentElement instanceof HTMLElement)) {
+    throw new Error("Renderer canvas must have an HTMLElement parent.");
+  }
+  rendererParent = renderer.domElement.parentElement;
+
+  const parentWidth = rendererParent.clientWidth;
+  const parentHeight = rendererParent.clientHeight;
+  renderer.setSize(parentWidth, parentHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
+  renderer.autoClear = false;
+
+  cameraOrtho = new THREE.OrthographicCamera(
+    -parentWidth / 2,
+    parentWidth / 2,
+    parentHeight / 2,
+    -parentHeight / 2,
+    1,
+    10,
+  );
+  cameraOrtho.position.z = 10;
+  sceneOrtho = new THREE.Scene();
+  sceneOrtho.background = null;
+  sceneOrtho.add(cameraOrtho);
 
   scene = new THREE.Scene();
+
+  const loader = new GLTFLoader();
 
   loader.load(
     modelUrl,
@@ -287,17 +308,23 @@ export function initModel(
           child.receiveShadow = true;
           child.material.side = THREE.DoubleSide;
         } else if (child instanceof THREE.SpotLight && child.isLight) {
-          child.intensity = 100;
+          child.intensity = 40;
           child.decay = 3.0;
           child.castShadow = true;
-          child.shadow.bias = 0.0001;
+          child.shadow.bias = -0.001;
+          child.shadow.normalBias = 0.02;
+          child.shadow.mapSize.width = 1024;
+          child.shadow.mapSize.height = 1024;
+          child.shadow.camera.near = .1;
+          child.shadow.camera.far = 100;
+          child.shadow.radius = 4;  
         }
       });
 
       (["portrait", "landscape"] as Orientation[]).forEach((direction) => {
         for (let i = 0; i < views[direction].length; i++) {
           gltf.cameras.forEach((cam: THREE.Camera) => {
-            if (cam.name == views[direction][i].name) {
+            if (cam.name === views[direction][i].name) {
               renderer.compile(model, cam, scene);
               views[direction][i].camera = cam;
               views[direction][i].raycaster = new THREE.Raycaster();
@@ -306,6 +333,7 @@ export function initModel(
           });
         }
       });
+
       scene.add(model);
 
       render();
@@ -313,44 +341,13 @@ export function initModel(
         loadCallback();
       }
     },
-    function (xhr) {
-      //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    function (_xhr) {
+      // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
     },
     function (error) {
       console.log(`An error happened while loading ${modelUrl}`, error);
     },
   );
-
-  // Add alpha: true for transparency
-  renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-  const ratio = window.devicePixelRatio || 1;
-  renderer.setPixelRatio(ratio);
-  if (renderer.domElement.parentElement instanceof HTMLElement)
-    rendererParent = renderer.domElement.parentElement;
-
-  const parentWidth = rendererParent.clientWidth;
-  const parentHeight = rendererParent.clientHeight;
-  renderer.setSize(parentWidth, parentHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.VSMShadowMap;
-  renderer.autoClear = false;
-  //renderer.setClearColor(0x000000, 0);
-
-  // Used to render the seperator
-  cameraOrtho = new THREE.OrthographicCamera(
-    -parentWidth / 2,
-    parentWidth / 2,
-    parentHeight / 2,
-    -parentHeight / 2,
-    1,
-    10,
-  );
-  cameraOrtho.position.z = 10;
-  sceneOrtho = new THREE.Scene();
-  sceneOrtho.background = null;
-  sceneOrtho.add(cameraOrtho);
 
   window.addEventListener("resize", () => {
     if (canvas.parentElement != null) {
@@ -369,7 +366,7 @@ export function initModel(
     for (let i = 0; i < views[orientation].length; i++) {
       const view = views[orientation][i];
       if (view.mouse === undefined) {
-        return;
+        continue;
       }
       const mouse: THREE.Vector2 = view.mouse;
       const canvasRect = eTarget.getBoundingClientRect();
@@ -379,25 +376,23 @@ export function initModel(
         y: e.clientY - canvasRect.top,
       };
 
-      // Check if we are in the correct camera
       if (
         canvasMouse.x < view.pxLeft ||
         canvasMouse.x > view.pxWidth + view.pxLeft ||
         canvasMouse.y > canvasRect.height - view.pxBottom ||
         canvasMouse.y < canvasRect.height - (view.pxBottom + view.pxHeight)
       ) {
-        //console.log(`Currently not in camera ${view.name}`);
         continue;
       }
 
-      const camaraMouse = {
+      const cameraMouse = {
         x: canvasMouse.x - view.pxLeft,
         y:
           canvasMouse.y - (canvasRect.height - (view.pxBottom + view.pxHeight)),
       };
 
-      mouse.x = (camaraMouse.x / view.pxWidth) * 2 - 1;
-      mouse.y = -(camaraMouse.y / view.pxHeight) * 2 + 1;
+      mouse.x = (cameraMouse.x / view.pxWidth) * 2 - 1;
+      mouse.y = -(cameraMouse.y / view.pxHeight) * 2 + 1;
 
       const raycaster = views[orientation][i].raycaster;
       raycaster?.setFromCamera(
@@ -405,7 +400,7 @@ export function initModel(
         views[orientation][i].camera as THREE.Camera,
       );
 
-      if ("debug" in view && view.debug) {
+      if ("debug" in view && (view as any).debug) {
         if (arrow !== null) {
           scene.remove(arrow);
         }
@@ -419,15 +414,14 @@ export function initModel(
         render();
       }
 
-      for (let i = 1; i < ARRAY_SIZE + 1; i++) {
-        const name = "Sphere" + String(i).padStart(3, "0");
+      for (let j = 1; j < ARRAY_SIZE + 1; j++) {
+        const name = "Sphere" + String(j).padStart(3, "0");
         const obj = scene.getObjectByName(name);
         if (obj !== undefined) {
           const intersects = raycaster?.intersectObject(obj, true);
 
           if (intersects !== undefined && intersects.length > 0) {
-            //console.log(`Get intersection for ${name}`);
-            toggleNo(i);
+            toggleNo(j);
             render();
           }
         }
@@ -452,7 +446,7 @@ export function initModel(
     e: CustomEvent<boolean[]>,
   ) => {
     const lights: boolean[] = e.detail;
-    if (!Array.isArray(lights) || lights.length != ARRAY_SIZE) {
+    if (!Array.isArray(lights) || lights.length !== ARRAY_SIZE) {
       return;
     }
     for (let i = 1; i < ARRAY_SIZE + 1; i++) {
@@ -471,7 +465,6 @@ export function initModel(
   renderer.domElement.addEventListener(REDRAW_EVENT_NAME, () => {
     render();
   });
-  //canvas.scene = scene;
 }
 
 function toggleNo(light: number) {
@@ -479,11 +472,7 @@ function toggleNo(light: number) {
     const name = kind + String(light).padStart(3, "0");
     const obj: THREE.Object3D | undefined = scene.getObjectByName(name);
     if (obj !== undefined) {
-      if (obj.visible == false) {
-        obj.visible = true;
-      } else {
-        obj.visible = false;
-      }
+      obj.visible = !obj.visible;
     }
   });
 }
@@ -506,18 +495,17 @@ export function separatorVertical(
   size: SeperatorArgs,
 ) {
   const tiles: THREE.Sprite[] = [];
-  let tileHeight;
-  if (size.rotateX) {
-    tileHeight = tile.height * size.rotateX * (Math.PI / 180);
-  } else {
-    tileHeight = tile.height;
-  }
+  const tileHeight = size.rotateX
+    ? tile.height * Math.cos(size.rotateX * (Math.PI / 180))
+    : tile.height;
+
   const numY = Math.floor(
     (height * size.height) / (tileHeight + size.distance),
   );
 
   const posX = width * size.left - tile.width / 2;
   const startY = Math.floor((height - height * size.height) / 2);
+
   for (let i = 0; i < numY; i++) {
     const sprite = new THREE.Sprite(tile.material);
     const posY = i * (tileHeight + size.distance) + startY;
@@ -536,19 +524,18 @@ export function separatorHorizontal(
   size: SeperatorArgs,
 ) {
   const tiles: THREE.Sprite[] = [];
-  let tileHeight;
-  if (size.rotateX) {
-    tileHeight = tile.height * size.rotateX * (Math.PI / 180);
-  } else {
-    tileHeight = tile.height;
-  }
+  const tileHeight = size.rotateX
+    ? tile.height * Math.cos(size.rotateX * (Math.PI / 180))
+    : tile.height;
+
+  // Fix: use tile.width (not tileHeight) for horizontal spacing
   const numX = Math.floor((width * size.width) / (tile.width + size.distance));
   const posY = height * size.bottom - tileHeight / 2;
   const startX = Math.floor((width - width * size.width) / 2);
 
   for (let i = 0; i < numX; i++) {
     const sprite = new THREE.Sprite(tile.material);
-    const posX = i * (tileHeight + size.distance) + startX;
+    const posX = i * (tile.width + size.distance) + startX;
     sprite.center.set(-2.0, 2.0);
     sprite.scale.set(tile.width, tileHeight, 1);
     sprite.position.set(...translateOrtho(width, height, posX, posY), 1);

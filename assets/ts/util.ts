@@ -97,7 +97,7 @@ export function displayHDRWarning() {
             close.addEventListener("click", () => {
               Cookies.set(cookieName, "true", {
                 expires: 7,
-                path: "",
+                path: "/",
                 sameSite: "Strict",
               });
               warningElement.classList.add("hidden");
@@ -151,4 +151,43 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
   } else {
     console.error("Burger menu button not found!");
   }
+}
+
+export function processLinks(): void {
+  const links = document.querySelectorAll("a");
+  links.forEach((link: HTMLElement) => {
+    const href = link.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      console.log(href);
+    } else if (!href) {
+      console.warn("Link is missing href attribute:", link);
+    }
+  });
+}
+
+export function slider(): void {
+  const inactiveColumns = document.querySelectorAll(".section.column.inactive");
+  inactiveColumns.forEach((column: Element) => {
+    column.addEventListener(
+      "click",
+      (event: Event) => {
+        const activeColumn = document.querySelector(".section.column.active");
+        if (activeColumn) {
+          if (
+            event.currentTarget != null &&
+            event.currentTarget instanceof HTMLElement
+          ) {
+            event.currentTarget.classList.remove("inactive");
+            event.currentTarget.classList.add("active");
+          }
+          activeColumn.classList.remove("active");
+          activeColumn.classList.add("inactive");
+          slider();
+        } else {
+          console.error("No active section found.");
+        }
+      },
+      { once: true },
+    );
+  });
 }
