@@ -3,7 +3,7 @@
 import { initModel, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS } from "@hugo-assets/model";
 import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board";
 
-const modelUrl = "/gtlf/model-uncompressed.glb";
+const modelUrl = "/gltf/model-uncompressed.glb";
 
 const canvas = document.querySelector("#renderer")! as HTMLCanvasElement;
 const dial = document.querySelector("#dial-container")! as HTMLElement;

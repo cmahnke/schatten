@@ -317,7 +317,7 @@ export function initModel(
       //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
     },
     function (error) {
-      console.log("An error happened", error);
+      console.log(`An error happened while loading ${modelUrl}`, error);
     },
   );
 

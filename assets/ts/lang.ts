@@ -30,8 +30,10 @@ export function setupLangSwitch(
   switcher.querySelectorAll(".lang a")?.forEach((langLink) => {
     if (langLink instanceof HTMLAnchorElement) {
       const linkAttr = langLink.getAttribute("href");
-      if (base !== undefined && !linkAttr?.startsWith("/")) {
-        langLink.setAttribute("href", base + "/" + linkAttr);
+      if (base !== undefined && linkAttr) {
+        const normalizedBase = base.endsWith("/") ? base.slice(0, -1) : base;
+        const normalizedPath = linkAttr.startsWith("/") ? linkAttr : `/${linkAttr}`;
+        langLink.setAttribute("href", normalizedBase + normalizedPath);
       }
     }
   });

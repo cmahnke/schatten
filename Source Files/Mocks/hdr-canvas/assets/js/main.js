@@ -127,7 +127,7 @@ function loadImage() {
   }
 
   // Green box with pixels
-  var imageObj = new Uint16Image(32, 32);
+  var imageObj = new Float16Image(32, 32);
   imageObj.fill([0, 2 ** 16 - 1, 0, 2 ** 16 - 1]);
   imageObj.setPixel(0, 0, [2 ** 16 - 1, 0, 0, 2 ** 16 - 1]);
   imageObj.setPixel(1, 1, [2 ** 16 - 1, 0, 0, 2 ** 16 - 1]);
@@ -174,6 +174,7 @@ function loadImage() {
   //console.log(new Color('srgb', [0, 255, 0]).to('rec2100'))
   //console.log(new Color('RGB', [255,0,0]).to('rec2100-hlg'));
   //var cBox = new Uint16Image(32, 32).fill([uint8ToUint16(0), 40000, 0, 2**16 - 1]).getImageData();
+  /*
   var cBox = colorFillBoxArrayUint16(32, 32, [uint8ToUint16(0), uint8ToUint16(0), uint8ToUint16(128), 2 ** 16 - 1]);
 
   //127 -> 30000
@@ -189,6 +190,7 @@ function loadImage() {
   const parent = document.querySelector(".test-image");
   const image = document.querySelector(".test-image .sdr");
   hdrCanvasImage(parent, image);
+  */
 }
 
 function addStatus() {

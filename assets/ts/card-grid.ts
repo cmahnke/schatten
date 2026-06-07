@@ -1,6 +1,8 @@
 import { inView } from "motion";
 import Color from "color";
 
+type ColorInstance = InstanceType<typeof Color>;
+
 export const fonts: { [key: string]: string } = {
   handjet: "1em Handjet",
   "special-elite": "1em Special Elite",
@@ -11,7 +13,7 @@ export const directions: Directions[] = ["left", "right", "up", "down"];
 
 export const maxShade: number = 20; // In percent
 export const colorSteps: number = (255 / 100) * maxShade;
-let bgColor: Color;
+let bgColor: ColorInstance;
 
 document.addEventListener("DOMContentLoaded", function () {
   bgColor = new Color(
@@ -108,7 +110,7 @@ export function generatedCallback(elem: HTMLElement, targetId?: string) {
 
 export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
   // See https://github.com/Qix-/color/issues/53#issuecomment-656590710
-  function lightenBy(color: Color, amount: number): Color {
+  function lightenBy(color: ColorInstance, amount: number): ColorInstance {
     const lightness = color.lightness();
     return color.lightness(lightness + amount);
   }

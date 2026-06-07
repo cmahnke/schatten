@@ -1,5 +1,4 @@
 /*----- Imports -----*/
-import Color from "color";
 import { checkHDR } from "hdr-canvas";
 
 import {
@@ -37,20 +36,20 @@ const fonts = {
   handjet: "1em Handjet",
   "special-elite": "1em Special Elite",
 };
-const modelUrl = "/gtlf/model-uncompressed.glb";
+const modelUrl = "/gltf/model-uncompressed.glb";
 const modelSelector = "#renderer";
 let canvas: HTMLCanvasElement | null;
 
 /*----- Reexport -----*/
 
-window.checkHDR = checkHDR || {};
+window.checkHDR = checkHDR || (() => false);
 
 /*----- Page functions -----*/
 
 /*
 window.addEventListener("load", (event) => {
   slider();
-  links();
+  processLinks();
 });
 */
 
@@ -88,9 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (window.location.hash !== "") {
     let id: string;
-    const target = document.querySelector(
-      `*[data-slug='${window.location.hash}']`,
-    );
+    const hashValue = window.location.hash.replace("#", "");
+    const target = document.querySelector(`*[data-slug='${hashValue}']`);
     if (target !== null && "id" in target) {
       id = target.id;
     } else {
@@ -100,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-export function links(): void {
+export function processLinks(): void {
   const links = document.querySelectorAll("a");
   links.forEach((link: HTMLElement) => {
     const href = link.getAttribute("href");

@@ -11,6 +11,7 @@
     "strict": true,
     "allowJs": false,
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["./node_modules/@types", "../../assets/ts/@types"],
     "target": "es2022",

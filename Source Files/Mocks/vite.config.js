@@ -12,6 +12,8 @@ const mimeTypes = { ".glb": "model/gltf-binary" };
 export default defineConfig({
   base: "./",
   server: {
+    middlewareMode: false,
+    strictPort: true,
     fs: {
       allow: [
         resolve(__dirname),
@@ -21,9 +23,6 @@ export default defineConfig({
     }
   },
   plugins: [
-    {
-      apply: "build"
-    },
     stylelint({ build: true, dev: false, lintOnStart: true }),
     DynamicPublicDirectory(["./card-grid/public", "./hdr-canvas/public", "./model/public", "./public", "../../static"], {
       ssr: true,
@@ -41,7 +40,6 @@ export default defineConfig({
       return 4096;
     },
     target: "es2022",
-    // commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
@@ -89,9 +87,6 @@ export default defineConfig({
       }
       */
     ]
-  },
-  optimizeDeps: {
-    exclude: ["@monogrid/gainmap-js/libultrahdr"]
   },
   css: {
     preprocessorOptions: {

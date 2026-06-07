@@ -8,7 +8,15 @@ function inView(fragment: Element, callback: () => void): void {
     threshold: 1.0,
   };
 
-  const observer = new IntersectionObserver(callback, options);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        callback();
+        observer.disconnect();
+      }
+    });
+  }, options);
+
   observer.observe(fragment);
 }
 
@@ -33,20 +41,24 @@ export function textEffects() {
 type PreloadFonts = { [key: string]: string };
 
 export function fontsLoaded(fonts: PreloadFonts): void {
-  let interval: ReturnType<typeof setTimeout> | null = null;
+  let interval: ReturnType<typeof setInterval> | null = null;
   const timeouts: ReturnType<typeof setTimeout>[] = [];
 
   function fontCheck() {
-    if (document.fonts) {
-      for (const font in fonts) {
-        if (document.fonts.check(fonts[font])) {
-          document.querySelector("body")?.classList.add(`${font}-loaded`);
-        }
+    if (!document.fonts) return;
+
+    let allLoaded = true;
+    for (const font in fonts) {
+      if (document.fonts.check(fonts[font])) {
+        document.querySelector("body")?.classList.add(`${font}-loaded`);
+      } else {
+        allLoaded = false;
       }
     }
 
-    if (interval) {
+    if (allLoaded && interval) {
       clearInterval(interval);
+      timeouts.forEach(clearTimeout);
     }
   }
 
@@ -61,7 +73,6 @@ export function fontsLoaded(fonts: PreloadFonts): void {
   interval = setInterval(fontCheck, 200);
 }
 
-
 export function displayHDRWarning() {
   const cookieName = "hdr-notice";
   if (!checkHDR()) {
@@ -73,15 +84,16 @@ export function displayHDRWarning() {
     const warningElement = document.querySelector(
       "#hdr-warning",
     ) as HTMLElement;
-    if (warningElement) {
 
-      warningElement.innerHTML =  "<i class='close'></i><span class='hdr-warning-text'>This page offers HDR content that your monitor unfortunately does not support. Further information can be found on the <a href='https://gregbenzphotography.com/hdr/'>HDR page by Greg Benz</a>.</span>  <button class='hdr-ok button' href='#'><span>Ok</span></button>";
+    if (warningElement) {
+      warningElement.innerHTML =
+        "<i class='close'></i><span class='hdr-warning-text'>This page offers HDR content that your monitor unfortunately does not support. Further information can be found on the <a href='https://gregbenzphotography.com/hdr/'>HDR page by Greg Benz</a>.</span> <button class='hdr-ok button' href='#'><span>Ok</span></button>";
       warningElement.style.display = "block";
 
       warningElement
         .querySelectorAll(".close, .hdr-ok.button")
         .forEach((close: Element) => {
-          if (close instanceof HTMLButtonElement) {
+          if (close instanceof HTMLElement) {
             close.addEventListener("click", () => {
               Cookies.set(cookieName, "true", {
                 expires: 7,
@@ -110,9 +122,9 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
   const burgerButton = document.querySelector(
     "input.burger-menu-button",
   ) as HTMLInputElement;
+
   if (burgerButton) {
     burgerButton.addEventListener("click", (e: MouseEvent) => {
-      //const input = e.target as HTMLInputElement;
       if (e.target instanceof HTMLInputElement) {
         if (e.target.checked) {
           const activeCard = document.querySelector(".card.active");
