@@ -400,7 +400,7 @@ export function initModel(
         views[orientation][i].camera as THREE.Camera,
       );
 
-      if ("debug" in view && (view as any).debug) {
+      if ("debug" in view && view.debug) {
         if (arrow !== null) {
           scene.remove(arrow);
         }

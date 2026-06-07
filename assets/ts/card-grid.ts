@@ -43,7 +43,7 @@ export function generateURLFragment(
 
   const target = document.getElementById(id);
   if (target !== null && "slug" in target.dataset) {
-    id = target.dataset["slug"];
+    id = target.dataset["slug"]!;
   }
 
   return id;

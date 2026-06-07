@@ -53,7 +53,7 @@ window.addEventListener("load", (event) => {
 document.addEventListener("DOMContentLoaded", function () {
   //slider();
   //processLinks();
-  let canvas: HTMLCanvasElement | null; 
+  //let canvas: HTMLCanvasElement | null; 
   fontsLoaded(fonts);
   setupGrid(".cards", ".stack", "section");
   const observer = new IntersectionObserver(handleCardIntersect, {
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkColumns(".cards", ".stack");
   checkWindowResize();
   displayHDRWarning();
-  canvas = document.querySelector(modelSelector);
+  const canvas = document.querySelector<HTMLCanvasElement>(modelSelector);
   if (canvas !== null) {
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
     const handlers = DEFAULT_HANDLERS;
