@@ -34,12 +34,12 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install Node dependencies
-        working-directory: ./Source\ Files/Mocks
+        working-directory: "./Source Files/Mocks"
         run: |
           npm i --force          
 
       - name: Run lint
-        working-directory: ./Source\ Files/Mocks
+        working-directory: "./Source Files/Mocks"
         run: |
           npm run lint
           npx tsc
