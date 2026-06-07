@@ -45,6 +45,11 @@ export default [
   },
   {
     files: ["*.config.{js,ts,cjs,mjs}"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
     rules: {
       "no-unused-vars": [
         "warn",

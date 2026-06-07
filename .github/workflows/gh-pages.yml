@@ -20,6 +20,30 @@ env:
   PYTHON_VERSION: '3.12'
 
 jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install Node dependencies
+        working-directory: ./Source\ Files/Mocks
+        run: |
+          npm i --force          
+
+      - name: Run lint
+        working-directory: ./Source\ Files/Mocks
+        run: |
+          npm run lint
+          npx tsc      
+
   deploy:
     runs-on: ubuntu-24.04
     steps:
