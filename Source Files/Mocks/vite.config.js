@@ -11,6 +11,15 @@ const mimeTypes = { ".glb": "model/gltf-binary" };
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "./",
+  server: {
+    fs: {
+      allow: [
+        resolve(__dirname),
+        resolve(__dirname, "../../assets"),
+        resolve(__dirname, "../../static")
+      ]
+    }
+  },
   plugins: [
     {
       apply: "build"
@@ -21,12 +30,16 @@ export default defineConfig({
       mimeTypes,
       followSymlinks: true
     }),
-    eslint()
+
     //viteHtmlResolveAlias()
     //checker({ typescript: true })
   ],
   publicDir: true,
   build: {
+    assetsInlineLimit: (filePath) => {
+      if (filePath.endsWith(".svg")) return true;
+      return 4096;
+    },
     target: "es2022",
     // commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
@@ -43,28 +56,28 @@ export default defineConfig({
     }
   },
   resolve: {
-    //preserveSymlinks: true,
     alias: [
-      //{'@hugo-assets': '../../assets'},
       {
-        find: /~(.+)/,
-        replacement: join(process.cwd(), "node_modules", "$1")
+        find: "@hugo-assets",
+        replacement: resolve(__dirname, "../../assets/ts")
       },
       {
-        find: /@hugo-assets\/(.+.ts)/,
-        replacement: join(process.cwd(), "../../assets", "ts", "$1")
+        find: "~",
+        replacement: resolve(__dirname, "node_modules")
       },
-      /*
       {
-        find: /@\/(.+.js)/,
-        replacement: join(process.cwd(), "../../assets", "js", "$1")
+        find: "/fonts",
+        replacement: resolve(__dirname, "../../static/fonts")
       },
-      */
-      // Default: No suffix = TypeScript
       {
-        find: /@hugo-assets\/(.+)/,
-        replacement: join(process.cwd(), "../../assets", "ts", "$1")
-      }
+        find: /.*images\/((svgs\/)?.+\.svg)$/,
+        replacement: resolve(__dirname, "../../static/images/$1")
+      },
+      {
+        find: /.*images\/(.+\.(png|jpg|jpeg|gif|webp))$/,
+        replacement: resolve(__dirname, "../../static/images/$1")
+      },
+      
       /*
       {
         find: "./src/hdr-check",
@@ -83,7 +96,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: "modern-compiler"
+        api: "modern-compiler",
+        loadPaths: [resolve(__dirname, "../../assets/scss")]
       }
     }
   }

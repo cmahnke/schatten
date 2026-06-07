@@ -2,6 +2,8 @@ Nächtliche Schatten
 ===================
 
 # TODO
+* Add a analytics tool
+* Fix Vite dev env
 * Cookie banner
   * Add close button
   * Check if external requests are blocked if declined

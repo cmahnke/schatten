@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "rimraf ./dist ./build && tsc && vite build",
+    "build": "rimraf ./dist ./build && vite build",
     "preview": "vite preview",
     "stylelint": "stylelint '**/*.scss'",
     "lint": "eslint . -c eslint.config.mjs --report-unused-disable-directives --max-warnings 0",

@@ -1,19 +1,5 @@
 import { inView } from "motion";
 import Color from "color";
-import Cookies from "js-cookie";
-
-import { checkHDR } from "hdr-canvas";
-import {
-  createSwitchGrid,
-  addListener,
-  DEFAULT_HANDLERS,
-} from "./model-switch-board";
-import {
-  initModel,
-  DEFAULT_SEPARATORS,
-  DEFAULT_LAYOUTS,
-  REDRAW_EVENT_NAME,
-} from "./model";
 
 export const fonts: { [key: string]: string } = {
   handjet: "1em Handjet",
@@ -641,34 +627,6 @@ export function setupMenu() {
       }
     }
   });
-}
-
-export function fontsLoaded() {
-  let interval: ReturnType<typeof setTimeout> | undefined;
-  let timeouts = [];
-
-  function fontCheck() {
-    if (document.fonts) {
-      for (const font in fonts) {
-        if (document.fonts.check(fonts[font])) {
-          document.querySelector("body")!.classList.add(`${font}-loaded`);
-        }
-      }
-    }
-    if (interval) {
-      clearInterval(interval);
-    }
-  }
-
-  for (const font in fonts) {
-    timeouts.push(
-      setTimeout(() => {
-        document.querySelector("body")!.classList.add(`${font}-loaded`);
-      }, 3000),
-    );
-  }
-
-  interval = setInterval(fontCheck, 200);
 }
 
 export function checkColumns(root: string, columnSelector: string): number {

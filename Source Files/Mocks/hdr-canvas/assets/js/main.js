@@ -2,7 +2,7 @@ import { checkHDR, checkHDRCanvas } from "hdr-canvas";
 //import encodeHDR from "./hdr-encode";
 import { marked } from "marked";
 import Color from "colorjs.io";
-import { Uint16Image } from "hdr-canvas";
+import { Float16Image } from "hdr-canvas";
 
 //See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 /*
@@ -46,13 +46,13 @@ function hdrCanvasImage(parent, image) {
   hdrCanvas.width = image.width;
   hdrCanvas.height = image.height;
 
-  const rec210hglImage = Uint16Image.fromImageData(imData);
+  const rec210hglImage = Float16Image.fromImageData(imData);
 
   console.log(rec210hglImage);
 
   /*
     rec210hglImage.pixelCallback((r, g, b, a) => {
-      return Uint16Array.from([r -1000, g+2000, b+1000, a]);
+      return Float16Array.from([r -1000, g+2000, b+1000, a]);
     });
 */
 
@@ -103,8 +103,8 @@ function loadImage() {
     console.log(canvasArray);
   };
 
-  function colorFillBoxArrayUint16(height, width, color) {
-    const box = new Uint16Array(height * width * 4);
+  function colorFillBoxArrayFloat16(height, width, color) {
+    const box = new Float16Array(height * width * 4);
     for (var i = 0; i < box.length; i += 4) {
       box[i] = color[0];
       box[i + 1] = color[1];

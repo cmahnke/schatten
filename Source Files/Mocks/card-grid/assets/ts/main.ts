@@ -1,3 +1,6 @@
+import "../../../../../assets/ts/main.ts";
+
+/*
 //Fonts
 import "@fontsource-variable/handjet/full.css";
 import "@fontsource/special-elite";
@@ -6,19 +9,17 @@ import "@fontsource-variable/figtree";
 import Color from "color";
 
 import {
-  fontsLoaded,
   buildThresholdList,
   setupGrid,
   handleCardIntersect,
   setupNav,
-  setupMenu,
   checkColumns,
   checkWindowResize,
-  textEffects,
-  colorSteps
+  colorSteps,
+  menuLinkHandler
 } from "@hugo-assets/card-grid";
 import { setupLangSwitch } from "@hugo-assets/lang";
-import { displayHDRWarning } from "@hugo-assets/hdr";
+import { textEffects, displayHDRWarning, fontsLoaded, setupMenu } from "@hugo-assets/util";
 import { createSwitchGrid, addListener, DEFAULT_HANDLERS } from "@hugo-assets/model-switch-board";
 import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS, REDRAW_EVENT_NAME } from "@hugo-assets/model";
 
@@ -27,8 +28,13 @@ const modelUrl = "/gtlf/model-uncompressed.glb";
 const modelSelector = "#renderer";
 let canvas;
 
+const fonts = {
+  handjet: "1em Handjet",
+  "special-elite": "1em Special Elite",
+};
+
 document.addEventListener("DOMContentLoaded", function () {
-  fontsLoaded();
+  fontsLoaded(fonts);
   setupGrid(".cards", ".stack", "section");
   const observer = new IntersectionObserver(handleCardIntersect, {
     root: null,
@@ -36,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     threshold: buildThresholdList(colorSteps)
   });
   setupNav();
-  setupMenu();
+  setupMenu(menuLinkHandler);
   setupLangSwitch();
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
@@ -65,3 +71,4 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(`Init: Moving to ${id}`);
   }
 });
+*/

@@ -24,11 +24,8 @@ import {
   REDRAW_EVENT_NAME,
 } from "./model";
 
-import { textEffects } from "./effects";
-import { displayHDRWarning } from "./hdr";
-import { setupMenu } from "./menu";
+import { textEffects, displayHDRWarning, fontsLoaded, setupMenu } from "./util";
 import { setupLangSwitch } from "./lang";
-import { fontsLoaded } from "./fonts";
 
 declare global {
   interface Window {
