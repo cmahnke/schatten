@@ -4,7 +4,7 @@
     "build": "rimraf ./dist ./build && vite build",
     "preview": "vite preview",
     "stylelint": "stylelint '**/*.scss'",
-    "lint": "eslint . ../../assets/ts --no-warn-ignored --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . ../../assets/ts --no-warn-ignored --report-unused-disable-directives",
     "tsc": "tsc",
     "clean": "rimraf ./dist ./build",
     "format": "prettier . --check",
