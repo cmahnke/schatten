@@ -7,7 +7,7 @@ export function setupLangSwitch(
 ) {
   let resolvedLang: string;
   if (!curLang) {
-    const docLang = document.querySelector("html")?.getAttribute("lang");
+    const docLang = document.documentElement.getAttribute("lang");
     resolvedLang = docLang ?? defaultLang;
   } else {
     resolvedLang = curLang;
@@ -77,6 +77,7 @@ export function setupLangSwitch(
     clearTimeout(closeTimer);
 
     switcher.querySelectorAll(".lang.inactive a").forEach((lang) => {
+      lang.removeEventListener("click", linkClickInterceptor);
       lang.addEventListener("click", linkClickInterceptor);
     });
 
@@ -115,7 +116,7 @@ export function setupLangSwitch(
       console.log("Firing generated click event");
       if (e.target instanceof HTMLElement) {
         e.target.removeEventListener("click", linkClickInterceptor);
-        e.target.dispatchEvent(new CustomEvent("click"));
+        (e.target as HTMLAnchorElement).click();
       }
     }
 
@@ -179,12 +180,13 @@ export function setupLangSwitch(
 
   switcher.querySelectorAll("li").forEach((lang) => {
     if (
-      Array.from(lang.classList).some((c) => ["active", "inactive"].includes(c))
+      lang.classList.contains("active") ||
+      lang.classList.contains("inactive")
     ) {
       return;
     }
 
-    if (lang instanceof HTMLElement && lang.innerText != null) {
+    if (lang instanceof HTMLElement) {
       const content = lang.innerText.trim();
       if (content.toUpperCase() === resolvedLang.toUpperCase()) {
         lang.classList.add("active");

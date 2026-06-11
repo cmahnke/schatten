@@ -85,9 +85,7 @@ export function displayHDRWarning() {
       return;
     }
 
-    const warningElement = document.querySelector(
-      "#hdr-warning",
-    ) as HTMLElement;
+    const warningElement = document.querySelector<HTMLElement>("#hdr-warning");
 
     if (warningElement) {
       warningElement.innerHTML =
@@ -160,20 +158,6 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
   } else {
     console.error("Burger menu button not found!");
   }
-}
-
-export function processLinks(): void {
-  const links = document.querySelectorAll("a");
-  links.forEach((link: HTMLAnchorElement) => {
-    const href = link.getAttribute("href");
-    if (href && href.startsWith("#")) {
-      console.log("Processing link with href:", { href: href });
-      //console.log(href);
-    } else if (!href) {
-      console.warn("Link is missing href attribute:", { link: link });
-      //console.warn("Link is missing href attribute:", link);
-    }
-  });
 }
 
 export function slider(): void {

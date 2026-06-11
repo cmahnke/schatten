@@ -20,6 +20,7 @@ type Layout = Square & {
   camera: THREE.Camera | undefined;
   raycaster: THREE.Raycaster | undefined;
   mouse: THREE.Vector2 | undefined;
+  debug?: boolean;
 };
 
 type Layouts = {
@@ -217,6 +218,13 @@ export function render() {
 }
 
 function setupDivider(divider: Seperator, width: number, height: number) {
+  sprites = divider.callback(width, height, ...divider.args);
+  sprites.forEach((sprite) => {
+    sceneOrtho.add(sprite);
+  });
+}
+/*
+function setupDivider(divider: Seperator, width: number, height: number) {
   if (divider.callback !== undefined && divider.callback !== null) {
     if (divider.args !== undefined && divider.args !== null) {
       sprites = divider.callback(width, height, ...divider.args);
@@ -239,6 +247,7 @@ function setupDivider(divider: Seperator, width: number, height: number) {
     }
   });
 }
+*/
 
 export function initModel(
   canvas: HTMLCanvasElement,
@@ -247,13 +256,13 @@ export function initModel(
   seperators: Seperators,
   loadCallback?: () => void,
 ) {
-  if (layouts === undefined || layouts === null) {
+  if (layouts === undefined) {
     views = DEFAULT_LAYOUTS;
   } else {
     views = layouts;
   }
 
-  if (seperators !== undefined && seperators !== null) {
+  if (seperators !== undefined) {
     dividers = seperators;
   }
 
@@ -360,7 +369,7 @@ export function initModel(
 
   function mouseHandler(e: MouseEvent) {
     e.preventDefault();
-    const eTarget = e.target as HTMLElement;
+    //const eTarget = e.target as HTMLElement;
 
     for (let i = 0; i < views[orientation].length; i++) {
       const view = views[orientation][i];
@@ -368,7 +377,8 @@ export function initModel(
         continue;
       }
       const mouse: THREE.Vector2 = view.mouse;
-      const canvasRect = eTarget.getBoundingClientRect();
+      //const canvasRect = eTarget.getBoundingClientRect();
+      const canvasRect = renderer.domElement.getBoundingClientRect();
 
       const canvasMouse = {
         x: e.clientX - canvasRect.left,

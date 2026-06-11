@@ -14,14 +14,6 @@ type Handlers = {
   [TYPE in EventType]: Handler;
 };
 
-/*
-TODO: check what's the better approach 
-//Using maxTouchPoints > 0 is for detecting general touch capability. 
-function isTouchDevice() {
-  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-}
-*/
-
 export function handleWheel(canvas: HTMLCanvasElement) {
   let lights = ARRAY_SIZE;
   let last = ARRAY_SIZE;
@@ -29,7 +21,13 @@ export function handleWheel(canvas: HTMLCanvasElement) {
   canvas.addEventListener(
     "wheel",
     (e) => {
-      const newLights = lights + e.deltaY * -0.05;
+      const pixelDelta =
+        e.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? e.deltaY * 16
+          : e.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? e.deltaY * 400
+            : e.deltaY;
+      const newLights = lights + pixelDelta * -0.05;
       if (newLights <= ARRAY_SIZE && newLights >= 0) {
         lights = newLights;
       }

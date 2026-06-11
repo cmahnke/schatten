@@ -2,14 +2,9 @@ import { inView } from "motion";
 import Color from "color";
 
 type ColorInstance = InstanceType<typeof Color>;
+type Directions = "left" | "right" | "up" | "down";
 
-export const fonts: { [key: string]: string } = {
-  handjet: "1em Handjet",
-  "special-elite": "1em Special Elite",
-};
-
-export type Directions = "left" | "right" | "up" | "down";
-export const directions: Directions[] = ["left", "right", "up", "down"];
+const directions: Directions[] = ["left", "right", "up", "down"];
 
 export const maxShade: number = 20;
 export const colorSteps: number = Math.round((255 / 100) * maxShade);
@@ -52,7 +47,7 @@ export function generateURLFragment(
 
   const target = document.getElementById(id);
   if (target !== null && "slug" in target.dataset) {
-    id = target.dataset["slug"]!;
+    id = target.dataset.slug!;
   }
   console.log(`Generated URL fragment: ${id}`);
   return id;
@@ -70,7 +65,6 @@ export function toggleNav(elem: HTMLElement) {
             target.scrollIntoView({ behavior: "smooth" });
           } else {
             console.error(`Target element '${targetId}' not found.`);
-            //console.error(`Target element '${targetId}' not found.`);
           }
         }
         return false;
@@ -388,7 +382,7 @@ export function setupNav(selector?: string) {
 
   document.querySelectorAll(selector).forEach((arrow) => {
     // Hide the link elements that are parent of the arrow
-    arrow.parentElement!.classList.add("hidden");
+    arrow.parentElement?.classList.add("hidden");
   });
 
   const observer = new IntersectionObserver(
@@ -432,46 +426,6 @@ export function textEffects() {
   // Return cleanup so callers can tear down observers
   return () => cleanups.forEach((stop) => stop());
 }
-
-/*
-export function setupMenu(): void {
-  document.querySelectorAll("#menu a").forEach((link) => {
-    link.addEventListener("click", menuLinkHandler);
-  });
-
-  const menuButton = document.querySelector<HTMLInputElement>(
-    "input.burger-menu-button",
-  );
-  if (!menuButton) {
-    console.warn("Burger menu button not found");
-    return;
-  }
-
-  menuButton.addEventListener("click", (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    const activeCard = document.querySelector(".card.active");
-    if (target.checked) {
-      if (activeCard !== null) {
-        target.dataset.caller = activeCard.id;
-      }
-      target.setAttribute("aria-expanded", "true");
-      document.body.classList.add("noscroll");
-    } else {
-      target.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("noscroll");
-      const caller = target.dataset.caller;
-      if (caller !== undefined) {
-        const active = document.getElementById(caller);
-        if (active !== null) {
-          active.scrollIntoView({ behavior: "smooth" });
-        } else {
-          console.log("Last active card is null!");
-        }
-      }
-    }
-  });
-}
-*/
 
 export function checkColumns(root: string, columnSelector: string): number {
   const startSelector = document.querySelector(root) as HTMLElement | null;

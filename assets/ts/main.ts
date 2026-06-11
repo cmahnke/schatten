@@ -1,5 +1,3 @@
-import { checkHDR } from "hdr-canvas";
-
 import {
   buildThresholdList,
   setupGrid,
@@ -12,12 +10,7 @@ import {
   isDirection,
 } from "./card-grid";
 import { addListener, DEFAULT_HANDLERS } from "./model-switch-board";
-import {
-  initModel,
-  DEFAULT_SEPARATORS,
-  DEFAULT_LAYOUTS,
-  REDRAW_EVENT_NAME,
-} from "./model";
+import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS } from "./model";
 
 import {
   textEffects,
@@ -26,7 +19,6 @@ import {
   setupMenu,
   createMouseShadowEffect,
   slider,
-  processLinks,
 } from "./util";
 import { setupLangSwitch } from "./lang";
 
@@ -37,33 +29,20 @@ declare global {
 }
 
 const pageTitleSelector = ".cards h1.post-title";
-const fonts = {
+export const fonts = {
   handjet: "1em Handjet",
   "special-elite": "1em Special Elite",
 };
 const modelUrl = "/gltf/model-uncompressed.glb";
 const modelSelector = "#renderer";
 
-/*----- Reexport -----*/
-
-window.checkHDR = checkHDR || (() => false);
-
-/*----- Page functions -----*/
-
-/*
-window.addEventListener("load", (event) => {
-
-});
-*/
-
-console.log("Running main.ts");
 document.addEventListener("DOMContentLoaded", function () {
   initializeApp();
 });
 
 export function initializeApp(): void {
+  console.log("Initializing app");
   //slider();
-  //processLinks();
   fontsLoaded(fonts);
   console.log("Fonts loaded, setting up grid and observers");
   setupGrid(".cards", ".stack", "section");
@@ -74,7 +53,6 @@ export function initializeApp(): void {
   });
   setupNav();
   setupMenu(menuLinkHandler);
-  //setupMenu();
   setupLangSwitch(window.location.origin);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
@@ -87,9 +65,8 @@ export function initializeApp(): void {
   if (canvas !== null) {
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
 
-    const touchIndicator = document.querySelector(
-      "#touch-indicator",
-    ) as HTMLElement;
+    const touchIndicator =
+      document.querySelector<HTMLElement>("#touch-indicator");
     const handlers = {
       ...DEFAULT_HANDLERS,
       touch: { ...DEFAULT_HANDLERS.touch, args: [touchIndicator] },
@@ -106,7 +83,7 @@ export function initializeApp(): void {
 
   if (window.location.hash !== "") {
     let id: string;
-    const hashValue = window.location.hash.replace("#", "");
+    const hashValue = window.location.hash.substring(1);
     const target = document.querySelector(`*[data-slug='${hashValue}']`);
     if (target instanceof HTMLElement && target.id !== "") {
       id = target.id;
