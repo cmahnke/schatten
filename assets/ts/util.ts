@@ -206,3 +206,62 @@ export function slider(): void {
     );
   });
 }
+
+export function isTouchDevice(): boolean {
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+export function createMouseShadowEffect(
+  selector: string,
+): (() => void) | undefined {
+  const elements = document.querySelectorAll<HTMLElement>(selector);
+
+  if (isTouchDevice()) {
+    return;
+  }
+
+  if (elements.length === 0) {
+    console.warn(`No elements to add shadow do: "${selector}"`);
+    return;
+  }
+
+  const SHADOW_1_MAX = 8;
+  const SHADOW_1_COLOR = "#262626";
+  const SHADOW_2_COLOR = "#4d4d4d";
+  const SHADOW_2_MAX = 16;
+
+  function updateShadow(e: MouseEvent): void {
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+
+      const elCenterX = rect.left + rect.width / 2;
+      const elCenterY = rect.top + rect.height / 2;
+
+      const dx = elCenterX - e.clientX;
+      const dy = elCenterY - e.clientY;
+
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const normalizedX = distance === 0 ? 0 : dx / distance;
+      const normalizedY = distance === 0 ? 0 : dy / distance;
+
+      const shadow1X = (normalizedX * SHADOW_1_MAX).toFixed(2);
+      const shadow1Y = (normalizedY * SHADOW_1_MAX).toFixed(2);
+      const shadow2X = (normalizedX * SHADOW_2_MAX).toFixed(2);
+      const shadow2Y = (normalizedY * SHADOW_2_MAX).toFixed(2);
+
+      el.style.textShadow = `
+        ${shadow1X}px ${shadow1Y}px ${SHADOW_1_COLOR},
+        ${shadow2X}px ${shadow2Y}px ${SHADOW_2_COLOR}
+      `;
+    });
+  }
+
+  document.addEventListener("mousemove", updateShadow);
+
+  return function cleanup(): void {
+    document.removeEventListener("mousemove", updateShadow);
+    elements.forEach((el) => {
+      el.style.textShadow = "";
+    });
+  };
+}

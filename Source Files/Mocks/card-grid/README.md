@@ -1,5 +1,6 @@
 # TODO
 
+- Check if this still applies
 - Scroll issues
   - Check scroll out of frame on Chrome
   - Scroll issues with overflowing text on Firefox - check custom scroll-snap-align: start;

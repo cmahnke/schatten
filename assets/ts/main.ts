@@ -1,7 +1,4 @@
 import { checkHDR } from "hdr-canvas";
-import { Logger } from "./logger";
-
-const logger = new Logger("Main", "debug");
 
 import {
   buildThresholdList,
@@ -28,6 +25,7 @@ import {
   displayHDRWarning,
   fontsLoaded,
   setupMenu,
+  createMouseShadowEffect,
   slider,
   processLinks,
 } from "./util";
@@ -39,6 +37,7 @@ declare global {
   }
 }
 
+const pageTitleSelector = ".cards h1.post-title";
 const fonts = {
   handjet: "1em Handjet",
   "special-elite": "1em Special Elite",
@@ -84,6 +83,7 @@ export function initializeApp(): void {
   checkColumns(".cards", ".stack");
   checkWindowResize();
   displayHDRWarning();
+  createMouseShadowEffect(pageTitleSelector);
   const canvas = document.querySelector<HTMLCanvasElement>(modelSelector);
   if (canvas !== null) {
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
@@ -96,7 +96,7 @@ export function initializeApp(): void {
     }
     addListener(canvas, ["wheel", "touch"], handlers);
   } else {
-    logger.error("Canvas element not found");
+    console.error("Canvas element not found");
   }
   textEffects();
 
