@@ -81,7 +81,6 @@ export function displayHDRWarning() {
   const cookieName = "hdr-notice";
   if (!checkHDR()) {
     console.warn("Browser doesn't support HDR images!");
-    //console.warn("Browser doesn't support HDR images!");
     if (Cookies.get(cookieName) === "true") {
       return;
     }
@@ -142,14 +141,13 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
         } else {
           e.target.setAttribute("aria-expanded", "false");
           document.body.classList.remove("noscroll");
-          const activeId = e.target?.dataset.caller;
+          const activeId = e.target.dataset.caller;
           if (activeId) {
             const activeCard = document.getElementById(activeId);
             if (activeCard) {
               activeCard.scrollIntoView({ behavior: "smooth" });
             } else {
               console.log("Last active card is null!");
-              //console.log("Last active card is null!");
             }
           }
         }
@@ -162,13 +160,12 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
     console.log("Burger menu button event listener added.");
   } else {
     console.error("Burger menu button not found!");
-    //console.error("Burger menu button not found!");
   }
 }
 
 export function processLinks(): void {
   const links = document.querySelectorAll("a");
-  links.forEach((link: HTMLElement) => {
+  links.forEach((link: HTMLAnchorElement) => {
     const href = link.getAttribute("href");
     if (href && href.startsWith("#")) {
       console.log("Processing link with href:", { href: href });
@@ -221,7 +218,7 @@ export function createMouseShadowEffect(
   }
 
   if (elements.length === 0) {
-    console.warn(`No elements to add shadow do: "${selector}"`);
+    console.warn(`No elements to add shadow to: "${selector}"`);
     return;
   }
 
@@ -250,8 +247,8 @@ export function createMouseShadowEffect(
       const shadow2Y = (normalizedY * SHADOW_2_MAX).toFixed(2);
 
       el.style.textShadow = `
-        ${shadow1X}px ${shadow1Y}px ${SHADOW_1_COLOR},
-        ${shadow2X}px ${shadow2Y}px ${SHADOW_2_COLOR}
+        ${shadow1X}px ${shadow1Y}px 0px ${SHADOW_1_COLOR},
+        ${shadow2X}px ${shadow2Y}px 0px ${SHADOW_2_COLOR}
       `;
     });
   }

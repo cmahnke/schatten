@@ -33,7 +33,7 @@ import { setupLangSwitch } from "./lang";
 
 declare global {
   interface Window {
-    checkHDR: Function;
+    checkHDR: () => boolean;
   }
 }
 
@@ -76,7 +76,7 @@ export function initializeApp(): void {
   });
   setupNav();
   setupMenu(menuLinkHandler);
-  setupLangSwitch(window.location.href);
+  setupLangSwitch(window.location.origin);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
@@ -108,7 +108,7 @@ export function initializeApp(): void {
     let id: string;
     const hashValue = window.location.hash.replace("#", "");
     const target = document.querySelector(`*[data-slug='${hashValue}']`);
-    if (target !== null && "id" in target) {
+    if (target instanceof HTMLElement && target.id !== "") {
       id = target.id;
     } else {
       id = window.location.hash;

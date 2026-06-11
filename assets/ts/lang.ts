@@ -46,13 +46,11 @@ export function setupLangSwitch(
   const linkClickInterceptor = (e: Event) => {
     e.preventDefault();
     console.log("Captured click on language link");
-    //console.log("Captured click");
   };
 
   function cancelClickInterceptor(this: HTMLElement) {
     this.removeEventListener("click", linkClickInterceptor);
     console.log("Removed click blocker");
-    //console.log("removed click blocker");
   }
 
   let longPressMouseUpHandler: ((e: Event) => void) | null = null;

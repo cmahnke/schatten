@@ -18,7 +18,10 @@
     </li>
     {{- $sections := where .Pages "Kind" "section" -}}
     {{- range $i, $section := $sections -}}
-      <li class="stack-menu">
+      {{- if eq $section.Path "/meta" -}}
+        {{- continue -}}
+      {{- end -}}
+      <li class="stack-menu" data-section="{{- $section.Path -}}">
         <lh class="menu-heading">{{- $section.Title -}}</lh>
         <ul>
           {{- $items := $section.Pages -}}

@@ -111,7 +111,6 @@ export function generatedCallback(elem: HTMLElement) {
         target.scrollIntoView({ behavior: "smooth" });
       } else {
         console.error(`Target element '${targetId}' not found.`);
-        //console.error(`Target element '${targetId}' not found.`);
       }
     }
   }
@@ -171,6 +170,8 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
         entry.boundingClientRect.width * entry.boundingClientRect.height;
       const intersectionSize =
         entry.intersectionRect.width * entry.intersectionRect.height;
+
+      // TODO: Check if the rounding is really needed (for the string from the data attribute) or if we can just compare the raw numbers
       ratio = roundToDecimals(intersectionSize / clientSize, 6);
 
       entryElement.dataset.ratio = `${ratio}`;
