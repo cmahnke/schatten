@@ -38,7 +38,12 @@ type SeperatorArgs = Square & {
 };
 
 type Seperator = {
-  callback: Function;
+  callback: (
+    width: number,
+    height: number,
+    tile: Tile,
+    size: SeperatorArgs,
+  ) => THREE.Sprite[];
   args: [Tile, SeperatorArgs];
   sprite: undefined | THREE.Sprite[];
 };
@@ -133,7 +138,7 @@ let scene: THREE.Scene,
   cameraOrtho: THREE.OrthographicCamera,
   sceneOrtho: THREE.Scene,
   orientation: Orientation,
-  arrow: THREE.ArrowHelper,
+  arrow: THREE.ArrowHelper | undefined,
   rendererParent: HTMLElement;
 
 export function render() {
@@ -186,7 +191,8 @@ export function render() {
     ) {
       view.camera.aspect = width / height;
       view.camera.updateProjectionMatrix();
-      renderer.clear();
+      //renderer.clear();
+      renderer.clearDepth();
       renderer.render(scene, view.camera);
     }
 
@@ -215,7 +221,8 @@ function setupDivider(divider: Seperator, width: number, height: number) {
     if (divider.args !== undefined && divider.args !== null) {
       sprites = divider.callback(width, height, ...divider.args);
     } else {
-      sprites = divider.callback(width, height);
+      console.log("Tried to call divider callback without args!");
+      //sprites = divider.callback(width, height);
     }
   } else if ("sprite" in divider && divider["sprite"] !== undefined) {
     sprites = divider.sprite as THREE.Sprite[];
@@ -238,12 +245,8 @@ export function initModel(
   modelUrl: string,
   layouts: Layouts,
   seperators: Seperators,
-  loadCallback?: Function,
+  loadCallback?: () => void,
 ) {
-  if (canvas === null) {
-    console.log("Model canvas is null!");
-  }
-
   if (layouts === undefined || layouts === null) {
     views = DEFAULT_LAYOUTS;
   } else {
@@ -397,17 +400,21 @@ export function initModel(
       );
 
       if ("debug" in view && view.debug) {
-        if (arrow !== null) {
+        if (arrow !== undefined) {
           scene.remove(arrow);
         }
-        arrow = new THREE.ArrowHelper(
-          raycaster?.ray.direction,
-          raycaster?.ray.origin,
-          2,
-          0xffff00,
-        );
-        scene.add(arrow);
-        render();
+        if (raycaster) {
+          arrow = new THREE.ArrowHelper(
+            raycaster.ray.direction,
+            raycaster.ray.origin,
+            2,
+            0xffff00,
+          );
+          scene.add(arrow);
+          render();
+        } else {
+          console.error("Raycaster is undefined!");
+        }
       }
 
       for (let j = 1; j < ARRAY_SIZE + 1; j++) {

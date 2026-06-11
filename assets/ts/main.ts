@@ -9,9 +9,8 @@ import {
   checkWindowResize,
   colorSteps,
   menuLinkHandler,
-  directions,
+  isDirection,
 } from "./card-grid";
-import type { Directions } from "./card-grid";
 import { addListener, DEFAULT_HANDLERS } from "./model-switch-board";
 import {
   initModel,
@@ -65,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
 export function initializeApp(): void {
   //slider();
   //processLinks();
-  //let canvas: HTMLCanvasElement | null;
   fontsLoaded(fonts);
   console.log("Fonts loaded, setting up grid and observers");
   setupGrid(".cards", ".stack", "section");
@@ -76,6 +74,7 @@ export function initializeApp(): void {
   });
   setupNav();
   setupMenu(menuLinkHandler);
+  //setupMenu();
   setupLangSwitch(window.location.origin);
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
@@ -87,20 +86,21 @@ export function initializeApp(): void {
   const canvas = document.querySelector<HTMLCanvasElement>(modelSelector);
   if (canvas !== null) {
     initModel(canvas, modelUrl, DEFAULT_LAYOUTS, DEFAULT_SEPARATORS);
-    const handlers = DEFAULT_HANDLERS;
+
     const touchIndicator = document.querySelector(
       "#touch-indicator",
     ) as HTMLElement;
-    if (touchIndicator !== null) {
-      handlers["touch"].args = [touchIndicator];
-    }
+    const handlers = {
+      ...DEFAULT_HANDLERS,
+      touch: { ...DEFAULT_HANDLERS.touch, args: [touchIndicator] },
+    };
     addListener(canvas, ["wheel", "touch"], handlers);
   } else {
     console.error("Canvas element not found");
   }
   textEffects();
 
-  if (directions.includes(window.location.hash.substring(1) as Directions)) {
+  if (isDirection(window.location.hash.substring(1))) {
     window.location.hash = "";
   }
 

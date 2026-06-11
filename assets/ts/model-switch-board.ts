@@ -1,15 +1,26 @@
 import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
+// This seems to be true for the primary pointer device by using (pointer: coarse).
+import { isTouchDevice } from "./util";
 
 type EventType = "wheel" | "touch";
 
 type Handler = {
-  function: Function;
-  args: Array<Element | string | number>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fn: (canvas: HTMLCanvasElement, ...args: any[]) => void;
+  args: unknown[];
 };
 
 type Handlers = {
   [TYPE in EventType]: Handler;
 };
+
+/*
+TODO: check what's the better approach 
+//Using maxTouchPoints > 0 is for detecting general touch capability. 
+function isTouchDevice() {
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+}
+*/
 
 export function handleWheel(canvas: HTMLCanvasElement) {
   let lights = ARRAY_SIZE;
@@ -41,10 +52,6 @@ export function handleTouch(
   canvas: HTMLCanvasElement,
   touchIndicator: HTMLElement | null,
 ) {
-  function isTouchDevice() {
-    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  }
-
   if (isTouchDevice()) {
     if (touchIndicator) {
       touchIndicator.classList.remove("hide");
@@ -150,8 +157,8 @@ export function handleTouch(
 
 // Declared after functions to avoid forward-reference confusion
 export const DEFAULT_HANDLERS: Handlers = {
-  wheel: { function: handleWheel, args: [] },
-  touch: { function: handleTouch, args: [] },
+  wheel: { fn: handleWheel, args: [] },
+  touch: { fn: handleTouch, args: [] },
 };
 
 export function addListener(
@@ -163,10 +170,10 @@ export function addListener(
 
   if (Array.isArray(events)) {
     events.forEach((event) => {
-      resolvedHandlers[event].function(canvas, ...resolvedHandlers[event].args);
+      resolvedHandlers[event].fn(canvas, ...resolvedHandlers[event].args);
     });
   } else {
-    resolvedHandlers[events].function(canvas, ...resolvedHandlers[events].args);
+    resolvedHandlers[events].fn(canvas, ...resolvedHandlers[events].args);
   }
 }
 

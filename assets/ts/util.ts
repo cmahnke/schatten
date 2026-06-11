@@ -53,7 +53,7 @@ export function fontsLoaded(fonts: PreloadFonts): void {
     let allLoaded = true;
     for (const font in fonts) {
       if (document.fonts.check(fonts[font])) {
-        document.querySelector("body")?.classList.add(`${font}-loaded`);
+        document.body.classList.add(`${font}-loaded`);
       } else {
         allLoaded = false;
       }
@@ -69,7 +69,7 @@ export function fontsLoaded(fonts: PreloadFonts): void {
   for (const font in fonts) {
     timeouts.push(
       setTimeout(() => {
-        document.querySelector("body")?.classList.add(`${font}-loaded`);
+        document.body.classList.add(`${font}-loaded`);
       }, 3000),
     );
   }
@@ -91,7 +91,7 @@ export function displayHDRWarning() {
 
     if (warningElement) {
       warningElement.innerHTML =
-        "<i class='close'></i><span class='hdr-warning-text'>This page offers HDR content that your monitor unfortunately does not support. Further information can be found on the <a href='https://gregbenzphotography.com/hdr/'>HDR page by Greg Benz</a>.</span> <button class='hdr-ok button' href='#'><span>Ok</span></button>";
+        "<i class='close'></i><span class='hdr-warning-text'>This page offers HDR content that your monitor unfortunately does not support. Further information can be found on the <a href='https://gregbenzphotography.com/hdr/'>HDR page by Greg Benz</a>.</span> <button class='hdr-ok button'><span>Ok</span></button>";
       warningElement.style.display = "block";
 
       warningElement
@@ -110,7 +110,6 @@ export function displayHDRWarning() {
         });
     } else {
       console.error("HDR warning element not found.");
-      //console.error("HDR warning element not found.");
     }
   }
 }
@@ -124,9 +123,9 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
   });
 
   // Add click event listener to burger menu button
-  const burgerButton = document.querySelector(
+  const burgerButton = document.querySelector<HTMLInputElement>(
     "input.burger-menu-button",
-  ) as HTMLInputElement;
+  );
 
   if (burgerButton) {
     burgerButton.addEventListener("click", (e: MouseEvent) => {

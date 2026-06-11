@@ -12,15 +12,20 @@ export type Directions = "left" | "right" | "up" | "down";
 export const directions: Directions[] = ["left", "right", "up", "down"];
 
 export const maxShade: number = 20;
-export const colorSteps: number = (255 / 100) * maxShade;
+export const colorSteps: number = Math.round((255 / 100) * maxShade);
 
 let bgColor: ColorInstance = new Color("#ffffff");
 
 document.addEventListener("DOMContentLoaded", function () {
-  bgColor = new Color(
-    getComputedStyle(document.body).getPropertyValue("--background-color"),
-  );
+  const rawColor = getComputedStyle(document.body)
+    .getPropertyValue("--background-color")
+    .trim();
+  bgColor = rawColor ? new Color(rawColor) : new Color("#ffffff");
 });
+
+export function isDirection(s: string): s is Directions {
+  return (directions as string[]).includes(s);
+}
 
 export function findTarget(target: string): HTMLElement | null {
   let targetElem = document.getElementById(target);
@@ -315,7 +320,6 @@ export function setupGrid(
       const next = document.getElementById(id);
       if (next === null) {
         console.log(`Next element for id ${id} is null!`);
-        //console.log(`Next element for id ${id} is null!`);
         return false;
       }
       return !next.classList.contains("__inserted");
@@ -429,6 +433,7 @@ export function textEffects() {
   return () => cleanups.forEach((stop) => stop());
 }
 
+/*
 export function setupMenu(): void {
   document.querySelectorAll("#menu a").forEach((link) => {
     link.addEventListener("click", menuLinkHandler);
@@ -461,12 +466,12 @@ export function setupMenu(): void {
           active.scrollIntoView({ behavior: "smooth" });
         } else {
           console.log("Last active card is null!");
-          //console.log("Last active card is null!");
         }
       }
     }
   });
 }
+*/
 
 export function checkColumns(root: string, columnSelector: string): number {
   const startSelector = document.querySelector(root) as HTMLElement | null;
