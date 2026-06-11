@@ -1,5 +1,7 @@
-/*----- Imports -----*/
 import { checkHDR } from "hdr-canvas";
+import { Logger } from "./logger";
+
+const logger = new Logger("Main", "debug");
 
 import {
   buildThresholdList,
@@ -10,11 +12,10 @@ import {
   checkWindowResize,
   colorSteps,
   menuLinkHandler,
+  directions,
 } from "./card-grid";
-import {
-  addListener,
-  DEFAULT_HANDLERS,
-} from "./model-switch-board";
+import type { Directions } from "./card-grid";
+import { addListener, DEFAULT_HANDLERS } from "./model-switch-board";
 import {
   initModel,
   DEFAULT_SEPARATORS,
@@ -22,7 +23,14 @@ import {
   REDRAW_EVENT_NAME,
 } from "./model";
 
-import { textEffects, displayHDRWarning, fontsLoaded, setupMenu, slider, processLinks } from "./util";
+import {
+  textEffects,
+  displayHDRWarning,
+  fontsLoaded,
+  setupMenu,
+  slider,
+  processLinks,
+} from "./util";
 import { setupLangSwitch } from "./lang";
 
 declare global {
@@ -50,11 +58,17 @@ window.addEventListener("load", (event) => {
 });
 */
 
+console.log("Running main.ts");
 document.addEventListener("DOMContentLoaded", function () {
+  initializeApp();
+});
+
+export function initializeApp(): void {
   //slider();
   //processLinks();
-  //let canvas: HTMLCanvasElement | null; 
+  //let canvas: HTMLCanvasElement | null;
   fontsLoaded(fonts);
+  console.log("Fonts loaded, setting up grid and observers");
   setupGrid(".cards", ".stack", "section");
   const observer = new IntersectionObserver(handleCardIntersect, {
     root: null,
@@ -81,8 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
       handlers["touch"].args = [touchIndicator];
     }
     addListener(canvas, ["wheel", "touch"], handlers);
+  } else {
+    logger.error("Canvas element not found");
   }
   textEffects();
+
+  if (directions.includes(window.location.hash.substring(1) as Directions)) {
+    window.location.hash = "";
+  }
 
   if (window.location.hash !== "") {
     let id: string;
@@ -95,6 +115,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     console.log(`Init: Moving to ${id}`);
   }
-});
-
-
+}

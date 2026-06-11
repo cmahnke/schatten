@@ -12,12 +12,13 @@ export function setupLangSwitch(
   } else {
     resolvedLang = curLang;
   }
+  console.log(`Resolved language: ${resolvedLang}`);
 
   const resolvedSelector = selector ?? "menu.lang-switch";
 
   const switchElement = document.querySelector(resolvedSelector);
   if (switchElement === null) {
-    console.error(`Can't find element for ${resolvedSelector}`);
+    console.error(`Can't find element for selector: ${resolvedSelector}`);
     return;
   }
   const switcher = switchElement as HTMLElement;
@@ -44,12 +45,14 @@ export function setupLangSwitch(
 
   const linkClickInterceptor = (e: Event) => {
     e.preventDefault();
-    console.log("Captured click");
+    console.log("Captured click on language link");
+    //console.log("Captured click");
   };
 
   function cancelClickInterceptor(this: HTMLElement) {
     this.removeEventListener("click", linkClickInterceptor);
-    console.log("removed click blocker");
+    console.log("Removed click blocker");
+    //console.log("removed click blocker");
   }
 
   let longPressMouseUpHandler: ((e: Event) => void) | null = null;
@@ -126,7 +129,7 @@ export function setupLangSwitch(
     }
 
     const link: HTMLAnchorElement = e.target;
-    console.log("Detected press");
+    console.log("Detected press on language link");
     switcher.classList.add("pressed");
 
     tmpListener = fireClick;
@@ -150,7 +153,7 @@ export function setupLangSwitch(
     longPressMouseUpHandler = (e: Event) => {
       e.preventDefault();
       clickInterceptorRemover();
-      console.log("mouseup after long press");
+      console.log("Mouseup after long press");
     };
 
     longPressTouchCancelHandler = () => {
@@ -178,9 +181,7 @@ export function setupLangSwitch(
 
   switcher.querySelectorAll("li").forEach((lang) => {
     if (
-      Array.from(lang.classList).some((c) =>
-        ["active", "inactive"].includes(c),
-      )
+      Array.from(lang.classList).some((c) => ["active", "inactive"].includes(c))
     ) {
       return;
     }

@@ -170,10 +170,7 @@ export function addListener(
   }
 }
 
-export function createSwitchGrid(
-  elem: HTMLElement,
-  canvas: HTMLCanvasElement,
-) {
+export function createSwitchGrid(elem: HTMLElement, canvas: HTMLCanvasElement) {
   const parent = document.createElement("div");
   parent.classList.add("dial");
 
@@ -184,9 +181,7 @@ export function createSwitchGrid(
     span.innerText = i.toString();
     button.appendChild(span);
     button.addEventListener("click", () => {
-      canvas.dispatchEvent(
-        new CustomEvent(TOGGLE_EVENT_NAME, { detail: i }),
-      );
+      canvas.dispatchEvent(new CustomEvent(TOGGLE_EVENT_NAME, { detail: i }));
     });
     parent.appendChild(button);
   }

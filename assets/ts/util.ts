@@ -45,7 +45,10 @@ export function fontsLoaded(fonts: PreloadFonts): void {
   const timeouts: ReturnType<typeof setTimeout>[] = [];
 
   function fontCheck() {
-    if (!document.fonts) return;
+    if (!document.fonts) {
+      console.warn("Font loading API not supported in this browser.");
+      return;
+    }
 
     let allLoaded = true;
     for (const font in fonts) {
@@ -57,6 +60,7 @@ export function fontsLoaded(fonts: PreloadFonts): void {
     }
 
     if (allLoaded && interval) {
+      console.log("All fonts loaded!");
       clearInterval(interval);
       timeouts.forEach(clearTimeout);
     }
@@ -77,6 +81,7 @@ export function displayHDRWarning() {
   const cookieName = "hdr-notice";
   if (!checkHDR()) {
     console.warn("Browser doesn't support HDR images!");
+    //console.warn("Browser doesn't support HDR images!");
     if (Cookies.get(cookieName) === "true") {
       return;
     }
@@ -106,6 +111,7 @@ export function displayHDRWarning() {
         });
     } else {
       console.error("HDR warning element not found.");
+      //console.error("HDR warning element not found.");
     }
   }
 }
@@ -143,13 +149,20 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
               activeCard.scrollIntoView({ behavior: "smooth" });
             } else {
               console.log("Last active card is null!");
+              //console.log("Last active card is null!");
             }
           }
         }
+      } else {
+        console.error(
+          "Burger menu button event target is not an input element.",
+        );
       }
     });
+    console.log("Burger menu button event listener added.");
   } else {
     console.error("Burger menu button not found!");
+    //console.error("Burger menu button not found!");
   }
 }
 
@@ -158,9 +171,11 @@ export function processLinks(): void {
   links.forEach((link: HTMLElement) => {
     const href = link.getAttribute("href");
     if (href && href.startsWith("#")) {
-      console.log(href);
+      console.log("Processing link with href:", { href: href });
+      //console.log(href);
     } else if (!href) {
-      console.warn("Link is missing href attribute:", link);
+      console.warn("Link is missing href attribute:", { link: link });
+      //console.warn("Link is missing href attribute:", link);
     }
   });
 }

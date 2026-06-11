@@ -114,5 +114,8 @@ export default defineConfig({
         loadPaths: [resolve(__dirname, "../../assets/scss")]
       }
     }
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
   }
 });

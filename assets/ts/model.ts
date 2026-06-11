@@ -210,11 +210,7 @@ export function render() {
   renderer.render(sceneOrtho, cameraOrtho);
 }
 
-function setupDivider(
-  divider: Seperator,
-  width: number,
-  height: number,
-) {
+function setupDivider(divider: Seperator, width: number, height: number) {
   if (divider.callback !== undefined && divider.callback !== null) {
     if (divider.args !== undefined && divider.args !== null) {
       sprites = divider.callback(width, height, ...divider.args);
@@ -315,9 +311,9 @@ export function initModel(
           child.shadow.normalBias = 0.02;
           child.shadow.mapSize.width = 1024;
           child.shadow.mapSize.height = 1024;
-          child.shadow.camera.near = .1;
+          child.shadow.camera.near = 0.1;
           child.shadow.camera.far = 100;
-          child.shadow.radius = 4;  
+          child.shadow.radius = 4;
         }
       });
 

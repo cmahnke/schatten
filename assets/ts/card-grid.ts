@@ -8,7 +8,7 @@ export const fonts: { [key: string]: string } = {
   "special-elite": "1em Special Elite",
 };
 
-type Directions = "left" | "right" | "up" | "down";
+export type Directions = "left" | "right" | "up" | "down";
 export const directions: Directions[] = ["left", "right", "up", "down"];
 
 export const maxShade: number = 20;
@@ -36,20 +36,25 @@ export function generateURLFragment(
   fragment?: string,
 ): string | undefined {
   if (col === undefined || row === undefined) {
+    console.log(
+      "Column or row data attribute is undefined, cannot generate URL fragment.",
+    );
     return undefined;
   }
 
-  let id = fragment === undefined ? `${col}/${row}` : `${col}/${row}/${fragment}`;
+  let id =
+    fragment === undefined ? `${col}/${row}` : `${col}/${row}/${fragment}`;
 
   const target = document.getElementById(id);
   if (target !== null && "slug" in target.dataset) {
     id = target.dataset["slug"]!;
   }
-
+  console.log(`Generated URL fragment: ${id}`);
   return id;
 }
 
 export function toggleNav(elem: HTMLElement) {
+  console.log(`Toggling navigation for element ${elem.id}`, elem);
   for (const direction of directions) {
     if (direction in elem.dataset) {
       const clickHandler = () => {
@@ -60,6 +65,7 @@ export function toggleNav(elem: HTMLElement) {
             target.scrollIntoView({ behavior: "smooth" });
           } else {
             console.error(`Target element '${targetId}' not found.`);
+            //console.error(`Target element '${targetId}' not found.`);
           }
         }
         return false;
@@ -68,17 +74,28 @@ export function toggleNav(elem: HTMLElement) {
       document
         .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
         .forEach((arrow: Element) => {
+          console.log(`Showing ${direction} arrow for element`, arrow);
           if (arrow instanceof HTMLAnchorElement) {
             arrow.classList.remove("hidden");
             arrow.onclick = clickHandler;
+            console.trace(`Added click handler for ${direction} arrow`, arrow);
+          } else {
+            console.error(
+              `Arrow element for direction '${direction}' is not an anchor element.`,
+            );
           }
         });
     } else {
       document
         .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
         .forEach((arrow: Element) => {
+          console.log(`Hiding ${direction} arrow for element`, arrow);
           if (arrow instanceof HTMLAnchorElement) {
             arrow.classList.add("hidden");
+          } else {
+            console.error(
+              `Arrow element for direction '${direction}' is not an anchor element.`,
+            );
           }
         });
     }
@@ -94,6 +111,7 @@ export function generatedCallback(elem: HTMLElement) {
         target.scrollIntoView({ behavior: "smooth" });
       } else {
         console.error(`Target element '${targetId}' not found.`);
+        //console.error(`Target element '${targetId}' not found.`);
       }
     }
   }
@@ -105,6 +123,11 @@ function lightenBy(color: ColorInstance, amount: number): ColorInstance {
 }
 
 export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
+  function roundToDecimals(num: number, decimals = 6) {
+    const factor = Math.pow(10, decimals);
+    return Math.round(num * factor) / factor;
+  }
+
   entries.forEach((entry: IntersectionObserverEntry) => {
     if (!(entry.target instanceof HTMLElement)) {
       return;
@@ -121,7 +144,7 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
       return;
     }
 
-    let ratio: string = "1";
+    let ratio: number = 1;
 
     if (entry.rootBounds === null || entryElement.parentNode === null) {
       return;
@@ -148,12 +171,12 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
         entry.boundingClientRect.width * entry.boundingClientRect.height;
       const intersectionSize =
         entry.intersectionRect.width * entry.intersectionRect.height;
-      ratio = (intersectionSize / clientSize).toFixed(6);
+      ratio = roundToDecimals(intersectionSize / clientSize, 6);
 
-      entryElement.dataset.ratio = ratio;
+      entryElement.dataset.ratio = `${ratio}`;
     }
 
-    if (entry.intersectionRatio.toFixed(6) === ratio) {
+    if (roundToDecimals(entry.intersectionRatio, 6) === ratio) {
       entryElement.classList.add("active");
       const urlFragment = generateURLFragment(
         entryElement.dataset.col,
@@ -189,7 +212,7 @@ export function menuLinkHandler(e: Event) {
     if (targetElem) {
       targetElem.scrollIntoView({ behavior: "smooth" });
     } else {
-      console.error(`Target element '${target}' not found`);
+      console.error(`Target element '${target}' not found.`);
     }
 
     const menuCheckbox = document.querySelector(
@@ -261,7 +284,9 @@ export function setupGrid(
       }
     }
   });
-
+  console.log(
+    `Initial grid setup: maxWidth=${maxWidth}, maxCards=${maxCards}, maxHeight=${maxHeight}`,
+  );
   // Make the grid even
   for (let i = 0; i < grid.length; i++) {
     const column = columns[i];
@@ -289,6 +314,7 @@ export function setupGrid(
       const next = document.getElementById(id);
       if (next === null) {
         console.log(`Next element for id ${id} is null!`);
+        //console.log(`Next element for id ${id} is null!`);
         return false;
       }
       return !next.classList.contains("__inserted");
@@ -306,10 +332,14 @@ export function setupGrid(
       }
       if (j + 1 < cards.length) {
         const nextId = `${i + 1}/${j + 2}`;
-        if (lookAround(nextId)) cards[j].dataset.down = nextId;
+        if (lookAround(nextId)) {
+          cards[j].dataset.down = nextId;
+        }
       } else if (j + 1 === cards.length && i + 1 < maxWidth) {
         const nextId = `${i + 2}/1`;
-        if (lookAround(nextId)) cards[j].dataset.down = nextId;
+        if (lookAround(nextId)) {
+          cards[j].dataset.down = nextId;
+        }
       }
       if (i + 1 < maxWidth) {
         const nextId = `${i + 2}/${j + 1}`;
@@ -331,7 +361,8 @@ export function setupGrid(
           `${cardSelector}:last-child`,
         );
         if (lastOfShort !== null) {
-          const newHeight = lastOfShort.getBoundingClientRect().height + heightDiff;
+          const newHeight =
+            lastOfShort.getBoundingClientRect().height + heightDiff;
           lastOfShort.style.height = `${newHeight}px`;
         }
       }
@@ -343,11 +374,16 @@ export function setupNav(selector?: string) {
   if (!selector) {
     selector = directions
       .map((direction) => `nav.stack-switcher .${direction}`)
-      .join(",");
+      .join(", ");
   }
 
+  console.log(
+    `Setting up navigation arrows with selector '${selector}', hiding arrows`,
+  );
+
   document.querySelectorAll(selector).forEach((arrow) => {
-    arrow.classList.add("hidden");
+    // Hide the link elements that are parent of the arrow
+    arrow.parentElement!.classList.add("hidden");
   });
 
   const observer = new IntersectionObserver(
@@ -424,6 +460,7 @@ export function setupMenu(): void {
           active.scrollIntoView({ behavior: "smooth" });
         } else {
           console.log("Last active card is null!");
+          //console.log("Last active card is null!");
         }
       }
     }

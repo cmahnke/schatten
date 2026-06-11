@@ -1,4 +1,16 @@
+console.warn("Running Vite prototype (from Source Files/Mocks/card-grid/assets/ts/main.ts)");
+
+
+//import { initializeApp } from "../../../../../assets/ts/main.ts";
 import "../../../../../assets/ts/main.ts";
+
+/*
+document.addEventListener("DOMContentLoaded", function () {
+  initializeApp();
+});
+*/
+
+//await import("../../../../../assets/ts/main.ts");
 
 /*
 //Fonts
