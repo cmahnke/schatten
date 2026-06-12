@@ -14,6 +14,14 @@ type Handlers = {
   [TYPE in EventType]: Handler;
 };
 
+  function switchLEDs(canvas: HTMLCanvasElement, num: number) {
+    const iLightNum = Math.round(num);
+    if (last !== iLightNum) {
+      dispatchSwitch(canvas, iLightNum);
+      last = iLightNum;
+    }
+  }
+
 export function handleWheel(canvas: HTMLCanvasElement) {
   let lights = ARRAY_SIZE;
   let last = ARRAY_SIZE;
@@ -36,14 +44,6 @@ export function handleWheel(canvas: HTMLCanvasElement) {
     },
     { passive: false },
   );
-
-  function switchLEDs(canvas: HTMLCanvasElement, num: number) {
-    const iLightNum = Math.round(num);
-    if (last !== iLightNum) {
-      dispatchSwitch(canvas, iLightNum);
-      last = iLightNum;
-    }
-  }
 }
 
 export function handleTouch(

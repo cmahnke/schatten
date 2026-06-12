@@ -1,3 +1,5 @@
+import { checkHDR } from "hdr-canvas";
+
 import {
   buildThresholdList,
   setupGrid,
@@ -35,6 +37,9 @@ export const fonts = {
 };
 const modelUrl = "/gltf/model-uncompressed.glb";
 const modelSelector = "#renderer";
+
+/*----- Reexport -----*/
+window.checkHDR = checkHDR || (() => false);
 
 document.addEventListener("DOMContentLoaded", function () {
   initializeApp();
