@@ -1,5 +1,5 @@
 import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
-// This seems to be true for the primary pointer device by using (pointer: coarse).
+// isTouchDevice uses (pointer: coarse) which matches the primary pointer device.
 import { isTouchDevice } from "./util";
 
 type EventType = "wheel" | "touch";
@@ -14,9 +14,20 @@ type Handlers = {
   [TYPE in EventType]: Handler;
 };
 
+function makeSwitchLEDs(canvas: HTMLCanvasElement) {
+  let last = ARRAY_SIZE;
+  return function switchLEDs(num: number) {
+    const iLightNum = Math.round(num);
+    if (last !== iLightNum) {
+      dispatchSwitch(canvas, iLightNum);
+      last = iLightNum;
+    }
+  };
+}
+
 export function handleWheel(canvas: HTMLCanvasElement) {
   let lights = ARRAY_SIZE;
-  let last = ARRAY_SIZE;
+  const switchLEDs = makeSwitchLEDs(canvas);
 
   canvas.addEventListener(
     "wheel",
@@ -27,23 +38,17 @@ export function handleWheel(canvas: HTMLCanvasElement) {
           : e.deltaMode === WheelEvent.DOM_DELTA_PAGE
             ? e.deltaY * 400
             : e.deltaY;
+
       const newLights = lights + pixelDelta * -0.05;
-      if (newLights <= ARRAY_SIZE && newLights >= 0) {
-        lights = newLights;
-      }
-      switchLEDs(canvas, lights);
+
+      // Clamp and store — lights stays fractional for sub-step sensitivity
+      lights = Math.max(0, Math.min(ARRAY_SIZE, newLights));
+
+      switchLEDs(lights);
       e.preventDefault();
     },
     { passive: false },
   );
-
-  function switchLEDs(canvas: HTMLCanvasElement, num: number) {
-    const iLightNum = Math.round(num);
-    if (last !== iLightNum) {
-      dispatchSwitch(canvas, iLightNum);
-      last = iLightNum;
-    }
-  }
 }
 
 export function handleTouch(
@@ -56,20 +61,11 @@ export function handleTouch(
     }
 
     let lights = ARRAY_SIZE;
-    let last = ARRAY_SIZE;
+    const switchLEDs = makeSwitchLEDs(canvas);
 
     let startTouch: [number, number] = [NaN, NaN];
-    let lastTouch: [number, number] = [NaN, NaN];
     const lastDirections: [boolean, boolean] = [false, false];
     const scale = 0.8;
-
-    function switchLEDs(canvas: HTMLCanvasElement, num: number) {
-      const iLightNum = Math.round(num);
-      if (last !== iLightNum) {
-        dispatchSwitch(canvas, iLightNum);
-        last = iLightNum;
-      }
-    }
 
     function getDirection(touch: Touch) {
       lastDirections[0] = startTouch[0] < touch.pageX; // true = right
@@ -82,7 +78,6 @@ export function handleTouch(
         e.preventDefault();
         const current = e.changedTouches[0];
         startTouch = [current.pageX, current.pageY];
-        lastTouch = [current.pageX, current.pageY];
         if (touchIndicator) {
           touchIndicator.classList.add("hide");
         }
@@ -104,44 +99,34 @@ export function handleTouch(
     canvas.addEventListener(
       "touchmove",
       (e: TouchEvent) => {
-        // Guard against touchmove firing before touchstart
         if (isNaN(startTouch[0])) return;
 
         const widthForLight = (canvas.clientWidth * scale) / ARRAY_SIZE;
         const current = e.changedTouches[0];
-        lastTouch = [current.pageX, current.pageY];
 
         const distance = Math.sqrt(
-          (lastTouch[0] - startTouch[0]) ** 2 +
-            (lastTouch[1] - startTouch[1]) ** 2,
+          (current.pageX - startTouch[0]) ** 2 +
+            (current.pageY - startTouch[1]) ** 2,
         );
 
         getDirection(current);
 
         let newLights: number;
         if (lastDirections[0]) {
-          // swiping right = decrease lights
           newLights = lights - distance / widthForLight;
         } else {
-          // swiping left = increase lights
           newLights = lights + distance / widthForLight;
         }
 
         newLights = Math.max(0, Math.min(ARRAY_SIZE, newLights));
 
-        // When the rounded value changes, reset the drag origin so each
-        // "step" is relative — this is what gives the detent/click feel.
-        // We update lights AFTER checking so the next drag segment starts
-        // from the current position.
-        if (last !== Math.round(newLights)) {
+        if (Math.round(newLights) !== Math.round(lights)) {
           startTouch = [current.pageX, current.pageY];
           lights = newLights;
         }
 
-        switchLEDs(canvas, newLights);
+        switchLEDs(newLights);
       },
-      // touchmove must stay passive: true so we don't block scrolling on
-      // the rest of the page; we are not calling preventDefault() here
       { passive: true },
     );
 
@@ -153,11 +138,10 @@ export function handleTouch(
   }
 }
 
-// Declared after functions to avoid forward-reference confusion
-export const DEFAULT_HANDLERS: Handlers = {
-  wheel: { fn: handleWheel, args: [] },
-  touch: { fn: handleTouch, args: [] },
-};
+export const DEFAULT_HANDLERS: Readonly<Handlers> = Object.freeze({
+  wheel: Object.freeze({ fn: handleWheel, args: [] as unknown[] }),
+  touch: Object.freeze({ fn: handleTouch, args: [] as unknown[] }),
+});
 
 export function addListener(
   canvas: HTMLCanvasElement,
@@ -176,6 +160,8 @@ export function addListener(
 }
 
 export function createSwitchGrid(elem: HTMLElement, canvas: HTMLCanvasElement) {
+  elem.querySelector(".dial")?.remove();
+
   const parent = document.createElement("div");
   parent.classList.add("dial");
 

@@ -57,7 +57,8 @@ export function toggleNav(elem: HTMLElement) {
   console.log(`Toggling navigation for element ${elem.id}`, elem);
   for (const direction of directions) {
     if (direction in elem.dataset) {
-      const clickHandler = () => {
+      const clickHandler = (e: Event) => {
+        e.preventDefault();
         const targetId = elem.dataset[direction];
         if (targetId !== undefined) {
           const target = document.getElementById(targetId);
@@ -67,8 +68,6 @@ export function toggleNav(elem: HTMLElement) {
             console.error(`Target element '${targetId}' not found.`);
           }
         }
-        //TODO: check if we wnat e.preventDefault()
-        return;
       };
 
       document
@@ -171,7 +170,8 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
       const intersectionSize =
         entry.intersectionRect.width * entry.intersectionRect.height;
 
-      // TODO: Check if the rounding is really needed (for the string from the data attribute) or if we can just compare the raw numbers
+      // TODO: Check if the rounding is really needed (for the string from the
+      // data attribute) or if we can just compare the raw numbers
       ratio = roundToDecimals(intersectionSize / clientSize, 6);
 
       entryElement.dataset.ratio = `${ratio}`;
@@ -179,6 +179,7 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
 
     if (roundToDecimals(entry.intersectionRatio, 6) === ratio) {
       entryElement.classList.add("active");
+      entryElement.classList.remove("previous");
       const urlFragment = generateURLFragment(
         entryElement.dataset.col,
         entryElement.dataset.row,
@@ -207,7 +208,10 @@ export function menuLinkHandler(e: Event) {
   if (e.target instanceof HTMLAnchorElement && e.target.href !== "") {
     e.preventDefault();
 
-    const target = e.target.href.split("#")[1];
+    const parts = e.target.href.split("#");
+    if (parts.length < 2) return;
+    const target = parts[1];
+
     const targetElem = findTarget(target);
 
     if (targetElem) {
@@ -216,9 +220,9 @@ export function menuLinkHandler(e: Event) {
       console.error(`Target element '${target}' not found.`);
     }
 
-    const menuCheckbox = document.querySelector(
+    const menuCheckbox = document.querySelector<HTMLInputElement>(
       ".menu .burger-menu-button",
-    ) as HTMLInputElement | null;
+    );
     if (menuCheckbox) {
       menuCheckbox.checked = false;
     }
@@ -350,7 +354,7 @@ export function setupGrid(
     }
   }
 
-  rebalanceHeights(container, columns, cardSelector, grid);
+  rebalanceHeights(container, columns, cardSelector);
 }
 
 export function setupNav(selector?: string) {
@@ -365,7 +369,6 @@ export function setupNav(selector?: string) {
   );
 
   document.querySelectorAll(selector).forEach((arrow) => {
-    // Hide the link elements that are parent of the arrow
     arrow.parentElement?.classList.add("hidden");
   });
 
@@ -407,12 +410,11 @@ export function textEffects() {
     });
   });
 
-  // Return cleanup so callers can tear down observers
   return () => cleanups.forEach((stop) => stop());
 }
 
 export function checkColumns(root: string, columnSelector: string): number {
-  const startSelector = document.querySelector(root) as HTMLElement | null;
+  const startSelector = document.querySelector<HTMLElement>(root);
 
   if (!startSelector) {
     throw new Error(`Element with selector "${root}" not found`);
@@ -437,7 +439,6 @@ function rebalanceHeights(
   container: HTMLElement,
   columns: HTMLElement[],
   cardSelector: string,
-  grid: { cards: number; height: number }[],
 ) {
   if (window.getComputedStyle(container).display === "grid") return;
 
@@ -483,7 +484,7 @@ export function checkWindowResize(
       );
 
       checkColumns(root, columnSelector);
-      rebalanceHeights(container, columns, cardSelector, []);
+      rebalanceHeights(container, columns, cardSelector);
     }, 150);
   });
 }

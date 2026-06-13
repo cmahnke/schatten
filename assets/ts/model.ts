@@ -33,24 +33,24 @@ type Tile = {
   width: number;
 };
 
-type SeperatorArgs = Square & {
+type SeparatorArgs = Square & {
   distance: number;
   rotateX: number;
 };
 
-type Seperator = {
+type Separator = {
   callback: (
     width: number,
     height: number,
     tile: Tile,
-    size: SeperatorArgs,
+    size: SeparatorArgs,
   ) => THREE.Sprite[];
-  args: [Tile, SeperatorArgs];
+  args: [Tile, SeparatorArgs];
   sprite: undefined | THREE.Sprite[];
 };
 
-type Seperators = {
-  [ORIENTATION in Orientation]: Seperator;
+type Separators = {
+  [ORIENTATION in Orientation]: Separator;
 };
 
 export const ARRAY_SIZE = 9;
@@ -64,7 +64,7 @@ const tile: Tile = {
   width: 24,
 };
 
-export const DEFAULT_SEPARATORS: Seperators = {
+export const DEFAULT_SEPARATORS: Separators = {
   landscape: {
     callback: separatorVertical,
     args: [
@@ -76,7 +76,7 @@ export const DEFAULT_SEPARATORS: Seperators = {
         bottom: 0,
         distance: 12,
         rotateX: 35,
-      } as SeperatorArgs,
+      } as SeparatorArgs,
     ],
     sprite: undefined,
   },
@@ -91,7 +91,7 @@ export const DEFAULT_SEPARATORS: Seperators = {
         bottom: 3 / 4,
         distance: 12,
         rotateX: 35,
-      } as SeperatorArgs,
+      } as SeparatorArgs,
     ],
     sprite: undefined,
   },
@@ -134,7 +134,7 @@ export const DEFAULT_LAYOUTS: Layouts = {
 let scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
   views: Layouts,
-  dividers: Seperators,
+  dividers: Separators,
   sprites: THREE.Sprite[],
   cameraOrtho: THREE.OrthographicCamera,
   sceneOrtho: THREE.Scene,
@@ -192,7 +192,6 @@ export function render() {
     ) {
       view.camera.aspect = width / height;
       view.camera.updateProjectionMatrix();
-      //renderer.clear();
       renderer.clearDepth();
       renderer.render(scene, view.camera);
     }
@@ -217,54 +216,28 @@ export function render() {
   renderer.render(sceneOrtho, cameraOrtho);
 }
 
-function setupDivider(divider: Seperator, width: number, height: number) {
+function setupDivider(divider: Separator, width: number, height: number) {
   sprites = divider.callback(width, height, ...divider.args);
   sprites.forEach((sprite) => {
     sceneOrtho.add(sprite);
   });
 }
-/*
-function setupDivider(divider: Seperator, width: number, height: number) {
-  if (divider.callback !== undefined && divider.callback !== null) {
-    if (divider.args !== undefined && divider.args !== null) {
-      sprites = divider.callback(width, height, ...divider.args);
-    } else {
-      console.log("Tried to call divider callback without args!");
-      //sprites = divider.callback(width, height);
-    }
-  } else if ("sprite" in divider && divider["sprite"] !== undefined) {
-    sprites = divider.sprite as THREE.Sprite[];
-  } else {
-    console.log("Divider sprite or callback not set!");
-    return;
-  }
-
-  sprites.forEach((sprite) => {
-    if (sprite !== undefined && sprite !== null) {
-      sceneOrtho.add(sprite);
-    } else {
-      console.log("Sprite is undefined or null!");
-    }
-  });
-}
-*/
 
 export function initModel(
   canvas: HTMLCanvasElement,
   modelUrl: string,
-  layouts: Layouts,
-  seperators: Seperators,
+  layouts?: Layouts,
+  separators?: Separators,
   loadCallback?: () => void,
 ) {
-  if (layouts === undefined) {
-    views = DEFAULT_LAYOUTS;
-  } else {
-    views = layouts;
+  // Dispose previous renderer if re-initializing
+  if (renderer !== undefined) {
+    renderer.dispose();
+    window.removeEventListener("resize", resizeHandler);
   }
 
-  if (seperators !== undefined) {
-    dividers = seperators;
-  }
+  views = layouts ?? DEFAULT_LAYOUTS;
+  dividers = separators ?? DEFAULT_SEPARATORS;
 
   renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
   const ratio = window.devicePixelRatio || 1;
@@ -307,15 +280,11 @@ export function initModel(
       const model = gltf.scene;
 
       gltf.scene.traverse((child: THREE.Object3D) => {
-        if (
-          child instanceof THREE.Mesh &&
-          child.isMesh &&
-          !child.name.startsWith("Sphere")
-        ) {
+        if (child instanceof THREE.Mesh && !child.name.startsWith("Sphere")) {
           child.castShadow = true;
           child.receiveShadow = true;
           child.material.side = THREE.DoubleSide;
-        } else if (child instanceof THREE.SpotLight && child.isLight) {
+        } else if (child instanceof THREE.SpotLight) {
           child.intensity = 40;
           child.decay = 3.0;
           child.castShadow = true;
@@ -333,7 +302,6 @@ export function initModel(
         for (let i = 0; i < views[direction].length; i++) {
           gltf.cameras.forEach((cam: THREE.Camera) => {
             if (cam.name === views[direction][i].name) {
-              renderer.compile(model, cam, scene);
               views[direction][i].camera = cam;
               views[direction][i].raycaster = new THREE.Raycaster();
               views[direction][i].mouse = new THREE.Vector2(1, 1);
@@ -343,6 +311,9 @@ export function initModel(
       });
 
       scene.add(model);
+
+      // Compile once after model is added to scene
+      renderer.compile(scene, cameraOrtho);
 
       render();
       if (loadCallback !== undefined) {
@@ -357,7 +328,9 @@ export function initModel(
     },
   );
 
-  window.addEventListener("resize", () => {
+  window.addEventListener("resize", resizeHandler);
+
+  function resizeHandler() {
     if (canvas.parentElement != null) {
       renderer.setSize(
         canvas.parentElement.clientWidth,
@@ -365,11 +338,10 @@ export function initModel(
       );
     }
     render();
-  });
+  }
 
   function mouseHandler(e: MouseEvent) {
     e.preventDefault();
-    //const eTarget = e.target as HTMLElement;
 
     for (let i = 0; i < views[orientation].length; i++) {
       const view = views[orientation][i];
@@ -377,7 +349,6 @@ export function initModel(
         continue;
       }
       const mouse: THREE.Vector2 = view.mouse;
-      //const canvasRect = eTarget.getBoundingClientRect();
       const canvasRect = renderer.domElement.getBoundingClientRect();
 
       const canvasMouse = {
@@ -409,7 +380,7 @@ export function initModel(
         views[orientation][i].camera as THREE.Camera,
       );
 
-      if ("debug" in view && view.debug) {
+      if (view.debug) {
         if (arrow !== undefined) {
           scene.remove(arrow);
         }
@@ -427,12 +398,11 @@ export function initModel(
         }
       }
 
-      for (let j = 1; j < ARRAY_SIZE + 1; j++) {
+      for (let j = 1; j <= ARRAY_SIZE; j++) {
         const name = "Sphere" + String(j).padStart(3, "0");
         const obj = scene.getObjectByName(name);
         if (obj !== undefined) {
           const intersects = raycaster?.intersectObject(obj, true);
-
           if (intersects !== undefined && intersects.length > 0) {
             toggleNo(j);
             render();
@@ -462,7 +432,7 @@ export function initModel(
     if (!Array.isArray(lights) || lights.length !== ARRAY_SIZE) {
       return;
     }
-    for (let i = 1; i < ARRAY_SIZE + 1; i++) {
+    for (let i = 1; i <= ARRAY_SIZE; i++) {
       const light = lights[i - 1];
       ["Spot", "Sphere"].forEach((kind) => {
         const name = kind + String(i).padStart(3, "0");
@@ -505,7 +475,7 @@ export function separatorVertical(
   width: number,
   height: number,
   tile: Tile,
-  size: SeperatorArgs,
+  size: SeparatorArgs,
 ) {
   const tiles: THREE.Sprite[] = [];
   const tileHeight = size.rotateX
@@ -534,14 +504,13 @@ export function separatorHorizontal(
   width: number,
   height: number,
   tile: Tile,
-  size: SeperatorArgs,
+  size: SeparatorArgs,
 ) {
   const tiles: THREE.Sprite[] = [];
   const tileHeight = size.rotateX
     ? tile.height * Math.cos(size.rotateX * (Math.PI / 180))
     : tile.height;
 
-  // Fix: use tile.width (not tileHeight) for horizontal spacing
   const numX = Math.floor((width * size.width) / (tile.width + size.distance));
   const posY = height * size.bottom - tileHeight / 2;
   const startX = Math.floor((width - width * size.width) / 2);

@@ -20,22 +20,33 @@ function inView(fragment: Element, callback: () => void): void {
   observer.observe(fragment);
 }
 
-export function textEffects() {
+export function textEffects(): () => void {
   const inViewEffects: { [key: string]: { class: string; duration: number } } =
     {
       ".card .post-body": { class: "text-focus-in", duration: 1000 },
     };
 
+  const cleanups: (() => void)[] = [];
+
   Object.keys(inViewEffects).forEach((sel) => {
     document.querySelectorAll(sel).forEach((fragment: Element) => {
+      let disconnected = false;
       inView(fragment, () => {
         fragment.classList.add(inViewEffects[sel].class);
         setTimeout(() => {
           fragment.classList.remove(inViewEffects[sel].class);
         }, inViewEffects[sel].duration);
+        disconnected = true;
+      });
+      cleanups.push(() => {
+        if (!disconnected) {
+          fragment.classList.remove(inViewEffects[sel].class);
+        }
       });
     });
   });
+
+  return () => cleanups.forEach((stop) => stop());
 }
 
 type PreloadFonts = { [key: string]: string };
@@ -62,18 +73,24 @@ export function fontsLoaded(fonts: PreloadFonts): void {
     if (allLoaded && interval) {
       console.log("All fonts loaded!");
       clearInterval(interval);
+      interval = null;
       timeouts.forEach(clearTimeout);
     }
   }
 
   for (const font in fonts) {
-    setTimeout(() => {
-      document.body.classList.add(`${font}-loaded`);
-      const allForced = Object.keys(fonts).every((f) =>
-        document.body.classList.contains(`${f}-loaded`),
-      );
-      if (allForced && interval) clearInterval(interval);
-    }, 3000);
+    timeouts.push(
+      setTimeout(() => {
+        document.body.classList.add(`${font}-loaded`);
+        const allForced = Object.keys(fonts).every((f) =>
+          document.body.classList.contains(`${f}-loaded`),
+        );
+        if (allForced && interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      }, 3000),
+    );
   }
 
   interval = setInterval(fontCheck, 200);
@@ -114,8 +131,34 @@ export function displayHDRWarning() {
   }
 }
 
+function burgerClickHandler(e: MouseEvent) {
+  if (e.target instanceof HTMLInputElement) {
+    if (e.target.checked) {
+      const activeCard = document.querySelector(".card.active");
+      if (activeCard) {
+        e.target.dataset.caller = activeCard.id;
+      }
+      e.target.setAttribute("aria-expanded", "true");
+      document.body.classList.add("noscroll");
+    } else {
+      e.target.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("noscroll");
+      const activeId = e.target.dataset.caller;
+      if (activeId) {
+        const activeCard = document.getElementById(activeId);
+        if (activeCard) {
+          activeCard.scrollIntoView({ behavior: "smooth" });
+        } else {
+          console.error("Last active card is null!");
+        }
+      }
+    }
+  } else {
+    console.error("Burger menu button event target is not an input element.");
+  }
+}
+
 export function setupMenu(menuLinkHandler: (e: Event) => void): void {
-  // Add click event listener to menu links
   document.querySelectorAll("#menu a").forEach((link: Element) => {
     if (link instanceof HTMLAnchorElement) {
       link.removeEventListener("click", menuLinkHandler);
@@ -123,41 +166,13 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
     }
   });
 
-  // Add click event listener to burger menu button
   const burgerButton = document.querySelector<HTMLInputElement>(
     "input.burger-menu-button",
   );
 
   if (burgerButton) {
-    burgerButton.addEventListener("click", (e: MouseEvent) => {
-      if (e.target instanceof HTMLInputElement) {
-        if (e.target.checked) {
-          const activeCard = document.querySelector(".card.active");
-          if (activeCard) {
-            e.target.dataset.caller = activeCard.id;
-          }
-          e.target.setAttribute("aria-expanded", "true");
-          document.body.classList.add("noscroll");
-        } else {
-          e.target.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("noscroll");
-          const activeId = e.target.dataset.caller;
-          if (activeId) {
-            const activeCard = document.getElementById(activeId);
-            if (activeCard) {
-              activeCard.scrollIntoView({ behavior: "smooth" });
-            } else {
-              console.log("Last active card is null!");
-            }
-          }
-        }
-      } else {
-        console.error(
-          "Burger menu button event target is not an input element.",
-        );
-      }
-    });
-    console.log("Burger menu button event listener added.");
+    burgerButton.removeEventListener("click", burgerClickHandler);
+    burgerButton.addEventListener("click", burgerClickHandler);
   } else {
     console.error("Burger menu button not found!");
   }
