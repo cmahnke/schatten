@@ -179,7 +179,7 @@ export function createSwitchGrid(elem: HTMLElement, canvas: HTMLCanvasElement) {
   const parent = document.createElement("div");
   parent.classList.add("dial");
 
-  for (let i = 1; i < ARRAY_SIZE + 1; i++) {
+  for (let i = 1; i <= ARRAY_SIZE; i++) {
     const button = document.createElement("button");
     button.classList.add("button");
     const span = document.createElement("span");

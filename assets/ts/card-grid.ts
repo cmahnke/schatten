@@ -67,7 +67,8 @@ export function toggleNav(elem: HTMLElement) {
             console.error(`Target element '${targetId}' not found.`);
           }
         }
-        return false;
+        //TODO: check if we wnat e.preventDefault()
+        return;
       };
 
       document
@@ -228,7 +229,7 @@ export function buildThresholdList(numSteps: number): number[] {
   const thresholds: number[] = [];
   for (let i = 1.0; i <= numSteps; i++) {
     const ratio = i / numSteps;
-    thresholds.push(ratio);
+    thresholds.push(Math.min(1.0, ratio));
   }
   thresholds.push(0);
   return thresholds;
@@ -245,18 +246,17 @@ export function setupGrid(
     }, 0);
   }
 
-  const startSelector: HTMLElement | null = document.querySelector(root);
-  if (startSelector === null) {
+  const container: HTMLElement | null = document.querySelector(root);
+  if (container === null) {
     return;
   }
 
-  let maxHeight: number = 0;
   let maxCards: number = 0;
   let maxWidth: number = 0;
   const grid: { cards: number; height: number }[] = [];
 
   const columns: HTMLElement[] = Array.from(
-    startSelector.querySelectorAll(columnSelector),
+    container.querySelectorAll(columnSelector),
   );
 
   columns.forEach((column: HTMLElement) => {
@@ -268,7 +268,6 @@ export function setupGrid(
 
     maxWidth++;
     if (numCards > maxCards) maxCards = numCards;
-    if (overallHeight > maxHeight) maxHeight = overallHeight;
 
     grid[maxWidth - 1] = { cards: numCards, height: overallHeight };
 
@@ -284,9 +283,9 @@ export function setupGrid(
       }
     }
   });
-  console.log(
-    `Initial grid setup: maxWidth=${maxWidth}, maxCards=${maxCards}, maxHeight=${maxHeight}`,
-  );
+
+  console.log(`Initial grid setup: maxWidth=${maxWidth}, maxCards=${maxCards}`);
+
   // Make the grid even
   for (let i = 0; i < grid.length; i++) {
     const column = columns[i];
@@ -351,22 +350,7 @@ export function setupGrid(
     }
   }
 
-  // Check for height differences
-  if (window.getComputedStyle(startSelector).display !== "grid") {
-    for (let k = 0; k < grid.length; k++) {
-      if (grid[k].height < maxHeight) {
-        const heightDiff = maxHeight - grid[k].height;
-        const lastOfShort = columns[k].querySelector<HTMLElement>(
-          `${cardSelector}:last-child`,
-        );
-        if (lastOfShort !== null) {
-          const newHeight =
-            lastOfShort.getBoundingClientRect().height + heightDiff;
-          lastOfShort.style.height = `${newHeight}px`;
-        }
-      }
-    }
-  }
+  rebalanceHeights(container, columns, cardSelector, grid);
 }
 
 export function setupNav(selector?: string) {
@@ -449,8 +433,57 @@ export function checkColumns(root: string, columnSelector: string): number {
   return columns;
 }
 
-export function checkWindowResize() {
+function rebalanceHeights(
+  container: HTMLElement,
+  columns: HTMLElement[],
+  cardSelector: string,
+  grid: { cards: number; height: number }[],
+) {
+  if (window.getComputedStyle(container).display === "grid") return;
+
+  const heights = columns.map((col) =>
+    Array.from(col.querySelectorAll(".card")).reduce(
+      (h, card) => h + card.getBoundingClientRect().height,
+      0,
+    ),
+  );
+
+  const maxHeight = Math.max(...heights);
+
+  columns.forEach((col, k) => {
+    const last = col.querySelector<HTMLElement>(`${cardSelector}:last-child`);
+    if (!last) return;
+
+    last.style.height = "";
+
+    if (heights[k] < maxHeight) {
+      const diff = maxHeight - heights[k];
+      last.style.height = `${last.getBoundingClientRect().height + diff}px`;
+    }
+  });
+}
+
+export function checkWindowResize(
+  root: string,
+  columnSelector: string,
+  cardSelector: string,
+) {
+  let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+
   window.addEventListener("resize", () => {
-    console.log(`Resized window to ${window.innerWidth}x${window.innerHeight}`);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      console.log(`Resized to ${window.innerWidth}x${window.innerHeight}`);
+
+      const container = document.querySelector<HTMLElement>(root);
+      if (!container) return;
+
+      const columns = Array.from(
+        container.querySelectorAll<HTMLElement>(columnSelector),
+      );
+
+      checkColumns(root, columnSelector);
+      rebalanceHeights(container, columns, cardSelector, []);
+    }, 150);
   });
 }

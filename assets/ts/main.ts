@@ -38,6 +38,10 @@ export const fonts = {
 const modelUrl = "/gltf/model-uncompressed.glb";
 const modelSelector = "#renderer";
 
+const GRID_ROOT = ".cards";
+const GRID_COLUMN = ".stack";
+const GRID_CARD = "section";
+
 /*----- Reexport -----*/
 window.checkHDR = checkHDR || (() => false);
 
@@ -50,7 +54,7 @@ export function initializeApp(): void {
   //slider();
   fontsLoaded(fonts);
   console.log("Fonts loaded, setting up grid and observers");
-  setupGrid(".cards", ".stack", "section");
+  setupGrid(GRID_ROOT, GRID_COLUMN, GRID_CARD);
   const observer = new IntersectionObserver(handleCardIntersect, {
     root: null,
     rootMargin: "0px",
@@ -62,8 +66,8 @@ export function initializeApp(): void {
   document.querySelectorAll("section").forEach((section) => {
     observer.observe(section);
   });
-  checkColumns(".cards", ".stack");
-  checkWindowResize();
+  checkColumns(GRID_ROOT, GRID_COLUMN);
+  checkWindowResize(GRID_ROOT, GRID_COLUMN, GRID_CARD);
   displayHDRWarning();
   createMouseShadowEffect(pageTitleSelector);
   const canvas = document.querySelector<HTMLCanvasElement>(modelSelector);

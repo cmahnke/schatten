@@ -67,11 +67,13 @@ export function fontsLoaded(fonts: PreloadFonts): void {
   }
 
   for (const font in fonts) {
-    timeouts.push(
-      setTimeout(() => {
-        document.body.classList.add(`${font}-loaded`);
-      }, 3000),
-    );
+    setTimeout(() => {
+      document.body.classList.add(`${font}-loaded`);
+      const allForced = Object.keys(fonts).every((f) =>
+        document.body.classList.contains(`${f}-loaded`),
+      );
+      if (allForced && interval) clearInterval(interval);
+    }, 3000);
   }
 
   interval = setInterval(fontCheck, 200);
@@ -116,6 +118,7 @@ export function setupMenu(menuLinkHandler: (e: Event) => void): void {
   // Add click event listener to menu links
   document.querySelectorAll("#menu a").forEach((link: Element) => {
     if (link instanceof HTMLAnchorElement) {
+      link.removeEventListener("click", menuLinkHandler);
       link.addEventListener("click", menuLinkHandler);
     }
   });
