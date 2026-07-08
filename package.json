@@ -5,7 +5,7 @@
     "hdr-canvas": "^0.2.0",
     "motion": "^12.42.2",
     "three": "^0.185.1",
-    "i18next": "^26.3.4",
+    "i18next": "^26.3.5",
     "i18next-browser-languagedetector": "^8.2.1"
   },
   "devDependencies": {
