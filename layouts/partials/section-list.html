@@ -8,6 +8,9 @@
   {{- if eq .Kind "section" -}}
     {{- errorf "[section-list.html] Handling of sections not implemented yet; %s" .File.Dir -}}
   {{- end -}}
+  {{- if eq .Path "/meta" -}}
+    {{- continue -}}
+  {{- end -}}
 
   {{- $slug := lower (path.Base .File.Dir) -}}
   {{- $class := "" -}}

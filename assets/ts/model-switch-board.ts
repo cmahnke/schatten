@@ -1,3 +1,5 @@
+// schatten/assets/ts/model-switch-board.ts
+
 import { dispatchSwitch, ARRAY_SIZE, TOGGLE_EVENT_NAME } from "./model";
 // isTouchDevice uses (pointer: coarse) which matches the primary pointer device.
 import { isTouchDevice } from "./util";

@@ -1,3 +1,4 @@
+// schatten/assets/ts/lang.ts
 const defaultLang = "en";
 
 export function setupLangSwitch(

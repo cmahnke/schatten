@@ -1,3 +1,5 @@
+// schatten/assets/ts/util.ts
+
 import Cookies from "js-cookie";
 import { checkHDR } from "hdr-canvas";
 

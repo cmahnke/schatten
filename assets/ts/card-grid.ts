@@ -1,3 +1,4 @@
+// schatten/assets/ts/card-grid.ts
 import { inView } from "motion";
 import Color from "color";
 

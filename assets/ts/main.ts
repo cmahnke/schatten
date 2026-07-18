@@ -1,3 +1,4 @@
+// schatten/assets/ts/main.ts
 import { checkHDR } from "hdr-canvas";
 
 import {
@@ -43,7 +44,7 @@ const GRID_COLUMN = ".stack";
 const GRID_CARD = "section";
 
 /*----- Reexport -----*/
-window.checkHDR = checkHDR || (() => false);
+window.checkHDR = checkHDR;
 
 document.addEventListener("DOMContentLoaded", function () {
   initializeApp();

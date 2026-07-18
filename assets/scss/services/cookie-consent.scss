@@ -10,6 +10,7 @@ $button-background: gray;
 
 #cookie-notice {
   font-size: medium;
+
   padding: 2rem 4rem;
   display: none;
   text-align: center;
@@ -20,6 +21,8 @@ $button-background: gray;
   background: rgb(70, 70, 70);
   z-index: 999;
   font-family: vars.$text-font;
+  /* font-family: vars.$menu-heading-font; */
+  width: 100%;
 
   .close {
     height: 2.4em;
@@ -63,6 +66,7 @@ $button-background: gray;
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color .3s;
 
     span {
       vertical-align: sub;
@@ -81,10 +85,20 @@ $button-background: gray;
 
     &.cookie-notice-accept {
       color: $accept-color;
+      color: white;
+
+      &:hover {
+        background-color: color-mix(in oklab, $accept-color 15%, gray);
+      }
     }
 
     &.cookie-notice-deny {
       color: $decline-color;
+      color: white;
+
+      &:hover {
+        background-color: color-mix(in oklab, $decline-color 15%, gray);
+      }
     }
 
     &.cookie-notice-more {

@@ -3,6 +3,9 @@
 {{- $i := 1 -}}
 
 {{- range $sections -}}
+  {{- if eq .Path "/meta" -}}
+    {{- continue -}}
+  {{- end -}}
   {{- $slug := lower (path.Base .File.Dir) -}}
   {{- $class := "" -}}
   {{- if .Weight -}}
