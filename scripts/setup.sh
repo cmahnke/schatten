@@ -26,8 +26,10 @@ echo "Generate Previews"
 echo "Creating monocrome monogram"
 convert -density 300 -background none ./themes/projektemacher-base/static/images/cm.svg -monochrome -size 256x256  static/images/cm.png
 
+echo "Creating clip path"
 ./themes/projektemacher-base/scripts/saxon.sh -s:themes/projektemacher-base/static/images/cm.svg  -xsl:themes/projektemacher-base/scripts/xslt/svg-clippath.xsl -o:static/images/svgs/cm-clippath.svg
 
+echo "Converted 3D models"
 ./themes/projektemacher-base/scripts/3d-models.sh
 
 if [ -d ./scripts/post-build ] ; then
