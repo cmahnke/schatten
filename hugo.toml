@@ -1,9 +1,8 @@
 baseURL = "https://schatten.yaapb.projektemacher.org/"
 title = 'Nächtliche Schatten'
-languageCode = "en"
+locale = "en"
 publishDir = "docs"
 canonifyurls = true
-languagecode = "de"
 defaultcontentlanguage = "en"
 DefaultContentLanguage = "en"
 theme = ["projektemacher-base"]
@@ -13,7 +12,7 @@ enableGitInfo = true
 
 [languages]
   [languages.de]
-    languagename = "Deutsch"
+    label = "Deutsch"
     title = 'Nächtliche Schatten'
     languageCode = "de"
 
@@ -32,7 +31,7 @@ enableGitInfo = true
       url = "about/"
 
   [languages.en]
-    languagename = "English"
+    label = "English"
     title = 'Nocturnal shadows'
     languageCode = "en"
 
