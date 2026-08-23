@@ -14,7 +14,7 @@ enableGitInfo = true
   [languages.de]
     label = "Deutsch"
     title = 'Nächtliche Schatten'
-    languageCode = "de"
+    locale = "de"
 
   [languages.de.params]
 
@@ -33,7 +33,7 @@ enableGitInfo = true
   [languages.en]
     label = "English"
     title = 'Nocturnal shadows'
-    languageCode = "en"
+    locale = "en"
 
     [languages.en.params]
 
