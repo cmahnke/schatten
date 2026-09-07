@@ -8,9 +8,13 @@ import {
   setupNav,
   checkColumns,
   checkWindowResize,
+  checkScrollSettle,
+  setupScrollNav,
+  scrollToCard,
   colorSteps,
   menuLinkHandler,
   isDirection,
+  findTarget,
 } from "./card-grid";
 import { addListener, DEFAULT_HANDLERS } from "./model-switch-board";
 import { initModel, DEFAULT_SEPARATORS, DEFAULT_LAYOUTS } from "./model";
@@ -87,19 +91,34 @@ export function initializeApp(): void {
   }
   textEffects();
 
-  if (isDirection(window.location.hash.substring(1))) {
-    window.location.hash = "";
+  // Navigation: strip directional hashes left over from keyboard helpers,
+  // then handle deep links and the initial active card
+  const initialHash = window.location.hash.substring(1);
+  if (isDirection(initialHash)) {
+    history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search,
+    );
   }
 
-  if (window.location.hash !== "") {
-    let id: string;
-    const hashValue = window.location.hash.substring(1);
-    const target = document.querySelector(`*[data-slug='${hashValue}']`);
-    if (target instanceof HTMLElement && target.id !== "") {
-      id = target.id;
+  setupScrollNav();
+
+  const hashValue = window.location.hash.substring(1);
+  if (hashValue !== "") {
+    const target = findTarget(hashValue);
+    if (target instanceof HTMLElement) {
+      console.log(`Init: Moving to ${target.id || hashValue}`);
+      // Card positions shift when fonts are loaded, wait for them before
+      // scrolling to the deep link target
+      document.fonts.ready.then(() => {
+        scrollToCard(target, "instant");
+        checkScrollSettle();
+      });
     } else {
-      id = window.location.hash;
+      console.error(`Init: No target found for hash '${hashValue}'`);
     }
-    console.log(`Init: Moving to ${id}`);
+  } else {
+    checkScrollSettle();
   }
 }

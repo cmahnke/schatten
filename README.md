@@ -42,7 +42,6 @@ Nächtliche Schatten
   * Create template for single pages
 * Open Graph preview
 * Fix Issues
-  * Menu not working anymore
   * Check if arrows are right
   * Firefox
     * Animations not smooth

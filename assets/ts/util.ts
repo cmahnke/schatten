@@ -3,52 +3,56 @@
 import Cookies from "js-cookie";
 import { checkHDR } from "hdr-canvas";
 
-function inView(fragment: Element, callback: () => void): void {
-  const options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1.0,
-  };
+/*
+ * Text effects: the text of a card is hidden (CSS) until the card becomes
+ * the navigation target or scrolls into view, then it fades in while the
+ * card slides into place.
+ */
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        callback();
-        observer.disconnect();
+const textEffectSelector = ".card .post-body";
+const textEffectClass = "text-focus-in";
+
+export function showTextEffect(card: HTMLElement): void {
+  card.querySelectorAll(textEffectSelector).forEach((fragment) => {
+    fragment.classList.add(textEffectClass);
+  });
+}
+
+export function resetTextEffects(keepCard?: HTMLElement): void {
+  document
+    .querySelectorAll(`${textEffectSelector}.${textEffectClass}`)
+    .forEach((fragment) => {
+      if (keepCard && fragment.closest(".card") === keepCard) {
+        return;
       }
+      fragment.classList.remove(textEffectClass);
     });
-  }, options);
-
-  observer.observe(fragment);
 }
 
 export function textEffects(): () => void {
-  const inViewEffects: { [key: string]: { class: string; duration: number } } =
-    {
-      ".card .post-body": { class: "text-focus-in", duration: 1000 },
-    };
-
-  const cleanups: (() => void)[] = [];
-
-  Object.keys(inViewEffects).forEach((sel) => {
-    document.querySelectorAll(sel).forEach((fragment: Element) => {
-      let disconnected = false;
-      inView(fragment, () => {
-        fragment.classList.add(inViewEffects[sel].class);
-        setTimeout(() => {
-          fragment.classList.remove(inViewEffects[sel].class);
-        }, inViewEffects[sel].duration);
-        disconnected = true;
-      });
-      cleanups.push(() => {
-        if (!disconnected) {
-          fragment.classList.remove(inViewEffects[sel].class);
+  // Starts the fade while a card slides into view without an explicit
+  // navigation (swiping, scrolling). Navigations trigger the effect
+  // directly when the target is known.
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) {
+          return;
+        }
+        const card = entry.target.closest(".card");
+        if (card instanceof HTMLElement) {
+          showTextEffect(card);
         }
       });
-    });
+    },
+    { threshold: 0.25 },
+  );
+
+  document.querySelectorAll(textEffectSelector).forEach((fragment) => {
+    observer.observe(fragment);
   });
 
-  return () => cleanups.forEach((stop) => stop());
+  return () => observer.disconnect();
 }
 
 type PreloadFonts = { [key: string]: string };

@@ -93,6 +93,9 @@
     position: absolute !important;
     height: 100%;
     width: 100%;
+    /* Vertical gestures scroll the page, horizontal drags are left to the
+       model interaction */
+    touch-action: pan-y;
 
     &:hover + #touch-indicator {
       animation: unset;

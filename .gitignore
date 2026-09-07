@@ -28,3 +28,5 @@ content/**/ogPreview-overlay.*g
 assets/scss/flags/*
 assets/scss/npm-fonts/*
 *.bak
+test-results/
+playwright-report/

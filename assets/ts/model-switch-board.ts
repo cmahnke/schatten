@@ -77,39 +77,48 @@ export function handleTouch(
     canvas.addEventListener(
       "touchstart",
       (e: TouchEvent) => {
-        e.preventDefault();
+        // No preventDefault here, blocking the default behavior of the
+        // touch sequence would make the card impossible to scroll past on
+        // touch devices
         const current = e.changedTouches[0];
         startTouch = [current.pageX, current.pageY];
         if (touchIndicator) {
           touchIndicator.classList.add("hide");
         }
       },
-      { passive: false },
+      { passive: true },
     );
 
-    function endTouch(e: TouchEvent) {
-      e.preventDefault();
+    function endTouch() {
       startTouch = [NaN, NaN];
       if (touchIndicator) {
         touchIndicator.classList.remove("hide");
       }
     }
 
-    canvas.addEventListener("touchcancel", endTouch, { passive: false });
-    canvas.addEventListener("touchend", endTouch, { passive: false });
+    canvas.addEventListener("touchcancel", endTouch);
+    canvas.addEventListener("touchend", endTouch);
 
     canvas.addEventListener(
       "touchmove",
       (e: TouchEvent) => {
         if (isNaN(startTouch[0])) return;
 
-        const widthForLight = (canvas.clientWidth * scale) / ARRAY_SIZE;
         const current = e.changedTouches[0];
+        const horizontal = Math.abs(current.pageX - startTouch[0]);
+        const vertical = Math.abs(current.pageY - startTouch[1]);
 
-        const distance = Math.sqrt(
-          (current.pageX - startTouch[0]) ** 2 +
-            (current.pageY - startTouch[1]) ** 2,
-        );
+        // Vertical gestures scroll the page, they are handed back to the
+        // browser and the model stops following the gesture. Only
+        // horizontal drags manipulate the model.
+        if (vertical > horizontal) {
+          startTouch = [NaN, NaN];
+          return;
+        }
+        e.preventDefault();
+
+        const widthForLight = (canvas.clientWidth * scale) / ARRAY_SIZE;
+        const distance = Math.sqrt(horizontal ** 2 + vertical ** 2);
 
         getDirection(current);
 
@@ -129,7 +138,7 @@ export function handleTouch(
 
         switchLEDs(newLights);
       },
-      { passive: true },
+      { passive: false },
     );
 
     console.log("Touch events registered");

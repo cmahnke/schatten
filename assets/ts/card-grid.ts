@@ -1,6 +1,7 @@
 // schatten/assets/ts/card-grid.ts
-import { inView } from "motion";
 import Color from "color";
+
+import { showTextEffect, resetTextEffects } from "./util";
 
 type ColorInstance = InstanceType<typeof Color>;
 type Directions = "left" | "right" | "up" | "down";
@@ -26,7 +27,9 @@ export function isDirection(s: string): s is Directions {
 export function findTarget(target: string): HTMLElement | null {
   let targetElem = document.getElementById(target);
   if (!targetElem) {
-    targetElem = document.querySelector(`*[data-slug='${target}']`);
+    // Scope the slug lookup to the card grid, the menu icons carry the
+    // same data-slug attributes and would match first
+    targetElem = document.querySelector(`.cards *[data-slug='${target}']`);
   }
   return targetElem;
 }
@@ -37,9 +40,6 @@ export function generateURLFragment(
   fragment?: string,
 ): string | undefined {
   if (col === undefined || row === undefined) {
-    console.log(
-      "Column or row data attribute is undefined, cannot generate URL fragment.",
-    );
     return undefined;
   }
 
@@ -50,55 +50,77 @@ export function generateURLFragment(
   if (target !== null && "slug" in target.dataset) {
     id = target.dataset.slug!;
   }
-  console.log(`Generated URL fragment: ${id}`);
   return id;
 }
 
-export function toggleNav(elem: HTMLElement) {
-  console.log(`Toggling navigation for element ${elem.id}`, elem);
-  for (const direction of directions) {
-    if (direction in elem.dataset) {
-      const clickHandler = (e: Event) => {
-        e.preventDefault();
-        const targetId = elem.dataset[direction];
-        if (targetId !== undefined) {
-          const target = document.getElementById(targetId);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-          } else {
-            console.error(`Target element '${targetId}' not found.`);
-          }
-        }
-      };
+/*
+ * scrollIntoView is unreliable in combination with the mandatory scroll
+ * snapping (instant scrolling can be swallowed entirely), so navigation
+ * scrolls the viewport directly to the target position instead.
+ */
+export function scrollToCard(
+  card: HTMLElement,
+  behavior: ScrollBehavior = "smooth",
+) {
+  const rect = card.getBoundingClientRect();
+  const maxLeft = document.documentElement.scrollWidth - window.innerWidth;
+  const maxTop = document.documentElement.scrollHeight - window.innerHeight;
+  window.scrollTo({
+    left: Math.max(0, Math.min(window.scrollX + rect.left, maxLeft)),
+    top: Math.max(0, Math.min(window.scrollY + rect.top, maxTop)),
+    behavior,
+  });
+}
 
-      document
-        .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
-        .forEach((arrow: Element) => {
-          console.log(`Showing ${direction} arrow for element`, arrow);
-          if (arrow instanceof HTMLAnchorElement) {
-            arrow.classList.remove("hidden");
-            arrow.onclick = clickHandler;
-            console.trace(`Added click handler for ${direction} arrow`, arrow);
-          } else {
-            console.error(
-              `Arrow element for direction '${direction}' is not an anchor element.`,
-            );
-          }
-        });
+/*
+ * The card a smooth scroll is currently moving towards. Arrow clicks are
+ * relative to it while the scroll is still in flight, so repeated clicks
+ * keep moving in the same direction instead of acting on the stale
+ * position. It's cleared whenever the scrolling settles.
+ */
+let navTarget: HTMLElement | null = null;
+
+function arrowClickHandler(direction: Directions) {
+  return (e: Event) => {
+    e.preventDefault();
+    const base =
+      navTarget ?? document.querySelector<HTMLElement>("section.card.active");
+    const targetId: string | undefined = base?.dataset[direction];
+    if (targetId === undefined) return;
+    const target = document.getElementById(targetId);
+    if (target) {
+      navTarget = target;
+      // Start the text fade now, so it runs during the slide
+      showTextEffect(target);
+      scrollToCard(target);
     } else {
-      document
-        .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
-        .forEach((arrow: Element) => {
-          console.log(`Hiding ${direction} arrow for element`, arrow);
-          if (arrow instanceof HTMLAnchorElement) {
-            arrow.classList.add("hidden");
-          } else {
-            console.error(
-              `Arrow element for direction '${direction}' is not an anchor element.`,
-            );
-          }
-        });
+      console.error(`Target element '${targetId}' not found.`);
     }
+  };
+}
+
+/*
+ * Shows the arrows of the directions that the given card can move to and
+ * hides all others
+ */
+export function toggleNav(elem: HTMLElement) {
+  for (const direction of directions) {
+    const movable: boolean = elem.dataset[direction] !== undefined;
+    document
+      .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
+      .forEach((arrow: Element) => {
+        if (!(arrow instanceof HTMLAnchorElement)) {
+          console.error(
+            `Arrow element for direction '${direction}' is not an anchor element.`,
+          );
+          return;
+        }
+        if (movable) {
+          arrow.classList.remove("hidden");
+        } else {
+          arrow.classList.add("hidden");
+        }
+      });
   }
 }
 
@@ -108,7 +130,7 @@ export function generatedCallback(elem: HTMLElement) {
     if (targetId !== undefined) {
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
+        scrollToCard(target);
       } else {
         console.error(`Target element '${targetId}' not found.`);
       }
@@ -122,11 +144,6 @@ function lightenBy(color: ColorInstance, amount: number): ColorInstance {
 }
 
 export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
-  function roundToDecimals(num: number, decimals = 6) {
-    const factor = Math.pow(10, decimals);
-    return Math.round(num * factor) / factor;
-  }
-
   entries.forEach((entry: IntersectionObserverEntry) => {
     if (!(entry.target instanceof HTMLElement)) {
       return;
@@ -137,70 +154,6 @@ export function handleCardIntersect(entries: IntersectionObserverEntry[]) {
     const bg = lightenBy(bgColor, shade);
     if (!entryElement.classList.contains("__inserted")) {
       entryElement.style.backgroundColor = bg.hex();
-    }
-
-    if (!entry.isIntersecting || !entryElement.classList.contains("card")) {
-      return;
-    }
-
-    let ratio: number = 1;
-
-    if (entry.rootBounds === null || entryElement.parentNode === null) {
-      return;
-    }
-
-    if (
-      entry.rootBounds.height < entryElement.offsetHeight ||
-      entry.rootBounds.width < entryElement.offsetWidth
-    ) {
-      if (
-        entry.intersectionRect.width <
-        (entryElement.parentNode as HTMLElement).getBoundingClientRect().width
-      ) {
-        return;
-      }
-      if (
-        entry.intersectionRect.height <
-        entry.rootBounds.height - entry.rootBounds.height / 20
-      ) {
-        return;
-      }
-
-      const clientSize =
-        entry.boundingClientRect.width * entry.boundingClientRect.height;
-      const intersectionSize =
-        entry.intersectionRect.width * entry.intersectionRect.height;
-
-      // TODO: Check if the rounding is really needed (for the string from the
-      // data attribute) or if we can just compare the raw numbers
-      ratio = roundToDecimals(intersectionSize / clientSize, 6);
-
-      entryElement.dataset.ratio = `${ratio}`;
-    }
-
-    if (roundToDecimals(entry.intersectionRatio, 6) === ratio) {
-      entryElement.classList.add("active");
-      entryElement.classList.remove("previous");
-      const urlFragment = generateURLFragment(
-        entryElement.dataset.col,
-        entryElement.dataset.row,
-      );
-      if (urlFragment !== undefined) {
-        window.location.hash = urlFragment;
-      }
-      toggleNav(entryElement);
-
-      if (entryElement.classList.contains("__inserted")) {
-        generatedCallback(entryElement);
-      }
-    } else if (
-      entry.intersectionRatio < 1 &&
-      entryElement.classList.contains("active")
-    ) {
-      entryElement.classList.remove("active");
-      entryElement.classList.add("previous");
-    } else if (entryElement.classList.contains("previous")) {
-      entryElement.classList.remove("previous");
     }
   });
 }
@@ -213,19 +166,26 @@ export function menuLinkHandler(e: Event) {
     if (parts.length < 2) return;
     const target = parts[1];
 
-    const targetElem = findTarget(target);
-
-    if (targetElem) {
-      targetElem.scrollIntoView({ behavior: "smooth" });
-    } else {
-      console.error(`Target element '${target}' not found.`);
-    }
-
+    // Close the menu first: while it's open the body gets the "noscroll"
+    // class which locks the scrolling, so the scroll below wouldn't work
     const menuCheckbox = document.querySelector<HTMLInputElement>(
       ".menu .burger-menu-button",
     );
     if (menuCheckbox) {
       menuCheckbox.checked = false;
+      menuCheckbox.setAttribute("aria-expanded", "false");
+    }
+    document.body.classList.remove("noscroll");
+
+    const targetElem = findTarget(target);
+
+    if (targetElem) {
+      navTarget = targetElem;
+      // Start the text fade now, so it runs during the slide
+      showTextEffect(targetElem);
+      scrollToCard(targetElem);
+    } else {
+      console.error(`Target element '${target}' not found.`);
     }
   }
 }
@@ -365,53 +325,156 @@ export function setupNav(selector?: string) {
       .join(", ");
   }
 
-  console.log(
-    `Setting up navigation arrows with selector '${selector}', hiding arrows`,
-  );
-
+  // Start with all arrows hidden, visibility is managed by toggleNav()
   document.querySelectorAll(selector).forEach((arrow) => {
     arrow.parentElement?.classList.add("hidden");
   });
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove("hidden");
-        } else {
-          entry.target.classList.add("hidden");
+  // The click handlers are bound once and read the active card at click
+  // time, toggleNav() only manages the visibility of the arrows
+  for (const direction of directions) {
+    document
+      .querySelectorAll(`nav.stack-switcher a:has(.${direction})`)
+      .forEach((arrow) => {
+        if (arrow instanceof HTMLAnchorElement) {
+          arrow.onclick = arrowClickHandler(direction);
         }
       });
-    },
-    { threshold: 1.0 },
-  );
-
-  document.querySelectorAll(selector).forEach((arrow) => {
-    observer.observe(arrow);
-  });
+  }
 }
 
-export function textEffects() {
-  const inViewEffects: { [key: string]: { class: string; duration: number } } =
-    {
-      ".card .post-body": { class: "text-focus-in", duration: 1000 },
-    };
+/*
+ * The active card is the one the scrolling rests on (scroll snapping is
+ * mandatory on both axes). It's determined on scroll settle instead of
+ * evaluating IntersectionObserver ratios, because the resting ratio of a
+ * card can fall between two thresholds, so the observer never fires an
+ * entry for the final position.
+ */
 
-  const cleanups: (() => void)[] = [];
+function visibleArea(element: HTMLElement): number {
+  const rect = element.getBoundingClientRect();
+  const width =
+    Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
+  const height =
+    Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+  return Math.max(0, width) * Math.max(0, height);
+}
 
-  Object.keys(inViewEffects).forEach((sel) => {
-    document.querySelectorAll(sel).forEach((fragment) => {
-      const stop = inView(fragment, () => {
-        fragment.classList.add(inViewEffects[sel].class);
-        setTimeout(() => {
-          fragment.classList.remove(inViewEffects[sel].class);
-        }, inViewEffects[sel].duration);
-      });
-      cleanups.push(stop);
-    });
+export function findMostVisibleCard(
+  selector = "section.card",
+): HTMLElement | null {
+  let best: HTMLElement | null = null;
+  let bestArea = 0;
+  document.querySelectorAll<HTMLElement>(selector).forEach((card) => {
+    const area = visibleArea(card);
+    if (area > bestArea) {
+      bestArea = area;
+      best = card;
+    }
   });
+  return best;
+}
 
-  return () => cleanups.forEach((stop) => stop());
+export function setActiveCard(card: HTMLElement | null): boolean {
+  if (card === null || card.classList.contains("active")) {
+    return false;
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("section.card.active")
+    .forEach((current) => {
+      current.classList.remove("active");
+      current.classList.add("previous");
+    });
+  card.classList.remove("previous");
+  card.classList.add("active");
+
+  // The text of the active card fades in, everything else is reset and
+  // stays hidden until it becomes a navigation target or slides into view
+  resetTextEffects(card);
+  showTextEffect(card);
+
+  const urlFragment = generateURLFragment(card.dataset.col, card.dataset.row);
+  if (
+    urlFragment !== undefined &&
+    window.location.hash.substring(1) !== urlFragment
+  ) {
+    history.pushState({ fragment: urlFragment }, "", `#${urlFragment}`);
+  }
+  toggleNav(card);
+
+  if (card.classList.contains("__inserted")) {
+    generatedCallback(card);
+  }
+  return true;
+}
+
+export function checkScrollSettle(selector = "section.card") {
+  setActiveCard(findMostVisibleCard(selector));
+  navTarget = null;
+}
+
+let settleTimer: ReturnType<typeof setTimeout> | undefined;
+let scrollNavAttached = false;
+let popstateToken = 0;
+
+export function setupScrollNav(selector = "section.card") {
+  if (scrollNavAttached) {
+    return;
+  }
+  scrollNavAttached = true;
+
+  // Chrome's scroll restoration is unreliable for pushState entries with
+  // scroll snapping, the popstate handler below positions the view instead
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  const settle = () => checkScrollSettle(selector);
+
+  // scrollend doesn't bubble, use capturing to also get events from
+  // scrolling containers like the horizontally scrolling body
+  if (typeof onscrollend !== "undefined") {
+    window.addEventListener("scrollend", settle, { capture: true });
+  } else {
+    window.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(settle, 200);
+      },
+      { capture: true, passive: true },
+    );
+  }
+
+  window.addEventListener("popstate", () => {
+    const hashValue = window.location.hash.substring(1);
+    if (hashValue === "" || isDirection(hashValue)) {
+      return;
+    }
+    const target = findTarget(hashValue);
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+    showTextEffect(target);
+    // Defer and scroll instantly: scrolling synchronously inside the
+    // popstate handler doesn't work, and the traversal can swallow a
+    // programmatic scroll started too early, so the result gets verified
+    // and retried. The token guards against overlapping navigations.
+    const token = ++popstateToken;
+    requestAnimationFrame(() => {
+      if (token !== popstateToken) return;
+      scrollToCard(target, "instant");
+      checkScrollSettle(selector);
+    });
+    setTimeout(() => {
+      if (token !== popstateToken || target.classList.contains("active")) {
+        return;
+      }
+      scrollToCard(target, "instant");
+      checkScrollSettle(selector);
+    }, 250);
+  });
 }
 
 export function checkColumns(root: string, columnSelector: string): number {
@@ -486,6 +549,7 @@ export function checkWindowResize(
 
       checkColumns(root, columnSelector);
       rebalanceHeights(container, columns, cardSelector);
+      checkScrollSettle();
     }, 150);
   });
 }
