@@ -5,7 +5,7 @@
     "fitty": "^2.4.2",
     "hdr-canvas": "^0.2.0",
     "motion": "^13.2.0",
-    "three": "^0.185.1",
+    "three": "^0.186.0",
     "i18next": "^26.4.2",
     "i18next-browser-languagedetector": "^8.2.1"
   },
