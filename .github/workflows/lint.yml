@@ -1,0 +1,45 @@
+name: Publish on GitHub pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: 0.164.0
+  DEPENDENCY_MANAGER: npm
+  PYTHON_VERSION: '3.13'
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install Node dependencies
+        working-directory: "./Source Files/Mocks"
+        run: |
+          npm i --force
+
+      - name: Run lint
+        working-directory: "./Source Files/Mocks"
+        run: |
+          npm run lint
+          npx tsc
+          npx stylelint "../../assets/scss/*.scss"

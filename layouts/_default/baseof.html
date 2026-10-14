@@ -16,11 +16,20 @@
     <meta name="theme-color" content="#000000">
 
 
-    {{- template "_internal/opengraph.html" . -}}
-    {{- partial "html/head/dnt-cookie.html" . -}}
+  {{- template "_internal/opengraph.html" . -}}
+  {{- partial "html/head/dnt-cookie.html" . -}}
 
-    {{- partial "html/head/style.html" (dict "context" . "css" "css/style.css") -}}
-    {{- partial "html/head/script.html" (dict "context" . "js" (partial "html/head/iiif-js.html" .)) -}}
+  {{- partial "html/head/style.html" (dict "context" . "css" "css/style.css") -}}
+  {{- partial "html/head/script.html" (dict "context" . "js" (partial "html/head/iiif-js.html" .)) -}}
+
+    <noscript>
+      <style>
+        /* Without JS the cards never become active, keep the text visible */
+        .card .post-body {
+          opacity: 1;
+        }
+      </style>
+    </noscript>
 
     <link rel="icon" type="image/png" href="{{ .Site.Params.favicon_32 | default "/images/favicon-32.png" | absURL }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ .Site.Params.favicon_16 | default "/images/favicon-16.png" | absURL }}" sizes="16x16">
@@ -29,7 +38,7 @@
     {{ end }}
     <link rel="icon" href="{{ "/images/favicon.ico" | absURL }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ "/images/favicon.ico" | absURL }}" type="image/x-icon">
-
+    {{- partial "metadata/schema.org/schema.org.html" . -}}
   </head>
 
   {{- $class := "" }}
