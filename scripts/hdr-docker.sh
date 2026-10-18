@@ -24,7 +24,7 @@ docker cp scripts/enhance_image.py "$DOCKER_CONTAINER_HDRTOOL":/usr/local/bin/en
 docker exec "$DOCKER_CONTAINER_HDRTOOL" sh -c "chmod +x /usr/local/bin/enhance_image.py"
 docker exec "$DOCKER_CONTAINER_HDRTOOL" sh -c "ln -s /usr/bin/ultrahdr_app /usr/local/bin/"
 #docker exec "$DOCKER_CONTAINER_HDRTOOL" sh -c "rm /usr/lib/python3.12/EXTERNALLY-MANAGED"
-docker exec "$DOCKER_CONTAINER_HDRTOOL" sh -c "apk add $DEPS; pip install 'numpy<2' Pillow jxlpy ffmpeg-python coloraide termcolor"
+docker exec "$DOCKER_CONTAINER_HDRTOOL" sh -c "apk add $DEPS vips; pip install 'numpy<2' Pillow pyvips ffmpeg-python coloraide termcolor"
 docker commit --change='ENTRYPOINT ["/usr/local/bin/enhance_image.py"]' "$DOCKER_CONTAINER_HDRTOOL" "$DOCKER_IMAGE_LOCAL"
 docker stop "$DOCKER_CONTAINER_HDRTOOL"
 docker rm -f "$DOCKER_CONTAINER_HDRTOOL"
