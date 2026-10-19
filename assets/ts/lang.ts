@@ -29,6 +29,11 @@ export function setupLangSwitch(
     if (langLink instanceof HTMLAnchorElement) {
       const linkAttr = langLink.getAttribute("href");
       if (base !== undefined && linkAttr) {
+        // Hugo can emit absolute URLs depending on the configuration,
+        // prepending the base to those would produce doubled URLs
+        if (/^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(linkAttr)) {
+          return;
+        }
         const normalizedBase = base.endsWith("/") ? base.slice(0, -1) : base;
         const normalizedPath = linkAttr.startsWith("/")
           ? linkAttr

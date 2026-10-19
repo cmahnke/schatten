@@ -480,8 +480,10 @@ export function setupScrollNav(selector = "section.card") {
 export function checkColumns(root: string, columnSelector: string): number {
   const startSelector = document.querySelector<HTMLElement>(root);
 
+  // Pages without the card grid (about, privacy, …) are valid, there is
+  // nothing to balance there
   if (!startSelector) {
-    throw new Error(`Element with selector "${root}" not found`);
+    return 0;
   }
 
   const columns = startSelector.querySelectorAll(columnSelector).length;
