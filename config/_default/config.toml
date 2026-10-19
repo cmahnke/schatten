@@ -6,7 +6,6 @@
     enableImageViewer = true
     enablePDFViewer = false
     copyrightYears = "MMXXVI"
-    disableScale = true
     disableOpenGraph = true
     defaultScriptEntrypoint = "ts/main.ts"
     schemaPerson = "https://christianmahnke.de/person.jsonld"
