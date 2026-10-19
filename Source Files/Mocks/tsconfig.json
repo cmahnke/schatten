@@ -19,7 +19,7 @@
     "rootDirs": ["../../assets/ts", "card-grid/assets/ts", "model/assets/ts"],
     "paths": {
       "@hugo-assets/*": ["../../assets/ts/*"],
-      "hdr-canvas": ["./node_modules/hdr-canvas", "./node_modules/hdr-canvas/dist/index.d.ts"],
+      "@projektemacher/hdr-canvas": ["./node_modules/@projektemacher/hdr-canvas", "./node_modules/@projektemacher/hdr-canvas/dist/index.d.ts"],
       "colorjs.io": ["./node_modules/colorjs.io", "./node_modules/colorjs.io/types/index.d.ts"]
     }
   },

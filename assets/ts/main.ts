@@ -1,5 +1,5 @@
 // schatten/assets/ts/main.ts
-import { checkHDR } from "hdr-canvas";
+import { checkHDR } from "@projektemacher/hdr-canvas";
 
 import {
   buildThresholdList,

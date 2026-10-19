@@ -1,7 +1,7 @@
 // schatten/assets/ts/util.ts
 
 import Cookies from "js-cookie";
-import { checkHDR } from "hdr-canvas";
+import { checkHDR } from "@projektemacher/hdr-canvas";
 
 /*
  * Text effects: the text of a card is hidden (CSS) until the card becomes

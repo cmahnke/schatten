@@ -11,7 +11,7 @@
       </li>
     {{- end -}}
     {{/*
-    {{- with .Site.Menus.main -}}
+    {{- with site.Menus.main -}}
       {{- range sort . -}}
         {{- if ne (path.Base .URL) "/" -}}
           <li class='menu-item {{ if eq ("/") (.URL) }}menu-item-type-custom menu-item-object-custom{{ else }}menu-item-type-post_type menu-item-object-page{{ end }}'>

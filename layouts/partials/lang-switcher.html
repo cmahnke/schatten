@@ -1,8 +1,8 @@
 {{- if hugo.IsMultilingual -}}
   <menu class="lang-switch">
-    {{- range .Site.Home.AllTranslations -}}
+    {{- range site.Home.AllTranslations -}}
       {{- $lang := .Lang -}}
-      {{- if ne $.Site.Language .Language -}}
+      {{- if ne site.Language .Language -}}
         <li class="inactive lang"><a href="{{ .RelPermalink }}" data-lang="{{ $lang }}" data-url="{{ .RelPermalink }}" draggable="false">{{ upper $lang }}</a></li>
       {{- else -}}
         <li class="active lang"><a href="{{ .RelPermalink }}" data-lang="{{ $lang }}" data-url="{{ .RelPermalink }}" draggable="false">{{ upper $lang }}</a></li>

@@ -1,5 +1,5 @@
 {{- $context := . -}}
-{{- $sections := where $.Site.Pages "Kind" "section" -}}
+{{- $sections := where site.Pages "Kind" "section" -}}
 {{- $i := 1 -}}
 
 {{- range $sections -}}

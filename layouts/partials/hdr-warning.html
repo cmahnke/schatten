@@ -7,13 +7,3 @@
     <span>{{ i18n "hdrOk" }}</span>
   </a>
 </div>
-<script>
-  if (!checkHDR()) {
-
-
-    document.querySelector('#hdr-warning .close, #hdr-warning .button').addEventListener("click", function() {
-      createCookie('cookie-notice-option','false',31);
-      document.getElementById('hdr-warning').classList.add('hidden');
-    });
-  }
-</script>

@@ -3,7 +3,7 @@
     "@playwright/test": "^1.63.0",
     "colorjs.io": "^0.7.1",
     "fitty": "^2.4.2",
-    "hdr-canvas": "^0.2.0",
+    "@projektemacher/hdr-canvas": "^0.4.0",
     "motion": "^14.0.0",
     "three": "^0.186.0",
     "i18next": "^26.4.2",
@@ -20,5 +20,9 @@
   },
   "scripts": {
     "test:e2e": "playwright test"
+  },
+  "allowScripts": {
+    "gl": true,
+    "puppeteer": true
   }
 }

@@ -1,8 +1,8 @@
-import { checkHDR, checkHDRCanvas } from "hdr-canvas";
+import { checkHDR, checkHDRCanvas } from "@projektemacher/hdr-canvas";
 //import encodeHDR from "./hdr-encode";
 import { marked } from "marked";
 import Color from "colorjs.io";
-import { Float16Image } from "hdr-canvas";
+import { Float16Image } from "@projektemacher/hdr-canvas";
 
 //See https://github.com/w3c/ColorWeb-CG/blob/main/hdr_html_canvas_element.md
 /*
