@@ -1,8 +1,11 @@
 ---
 title: "Example post #2"
+params:
+  camera:
+  film:
 resources:
 - name: image-:counter
-  src: imm*.jpeg
+  src: imm*-hdr.jpeg
 ---
 
 This is a made up digital example file. This will be used to:

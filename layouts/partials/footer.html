@@ -5,11 +5,11 @@
       {{- if and hugo.Sites.Default.Copyright (eq hugo.Sites.Default.Copyright "false") -}}
           <span class="copyright"></span>
       {{- else if hugo.Sites.Default.Params.copyrightYears -}}
-          <span class="copyright">&copy; {{ hugo.Sites.Default.Params.copyrightYears }} {{ .Sites.Default.Copyright | safeHTML }}</span>
+          <span class="copyright">&copy; {{ hugo.Sites.Default.Params.copyrightYears }} {{ hugo.Sites.Default.Copyright | safeHTML }}</span>
       {{- else if hugo.Sites.Default.Params.copyright -}}
-          <span class="copyright">{{- .Sites.Default.Params.copyright | safeHTML -}}</span>
+          <span class="copyright">{{- hugo.Sites.Default.Params.copyright | safeHTML -}}</span>
       {{- else -}}
-          <span class="copyright">&copy; {{ hugo.Sites.Default.LastChange.Year }} {{ hugo.Sites.Default.Title }}</span>
+          <span class="copyright">&copy; {{ hugo.Sites.Default.Lastmod.Year }} {{ hugo.Sites.Default.Title }}</span>
       {{- end -}}
 		</div>
 </footer>
