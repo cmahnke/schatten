@@ -56,6 +56,8 @@
     {{ $class = printf "%s %s" $class "meta" }}
   {{ end }}
   <body class="{{ $class }} {{ if .IsHome }}home{{ end }}">
+    <a class="skip-link" href="#main">{{ i18n "skipToContent" }}</a>
+    <span id="main"></span>
     {{- if not hugo.IsServer -}}
       {{- if templates.Exists ( printf "_partials/analytics.html") -}}
         {{- partial "analytics.html" . -}}
