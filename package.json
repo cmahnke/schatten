@@ -3,20 +3,11 @@
     "@playwright/test": "^1.63.0",
     "colorjs.io": "^0.7.1",
     "fitty": "^2.4.2",
-    "@projektemacher/hdr-canvas": "^0.4.0",
-    "motion": "^14.0.0",
-    "three": "^0.186.0",
-    "i18next": "^26.4.2",
-    "i18next-browser-languagedetector": "^8.2.1"
+    "motion": "^14.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@types/color": "^4.2.1",
-    "@types/js-cookie": "^3.0.6",
-    "@types/three": "^0.186.0",
-    "@types/i18next": "^13.0.0",
-    "node-addon-api": "^8.9.2",
-    "node-gyp": "^13.0.2"
+    "@types/i18next": "^13.0.0"
   },
   "scripts": {
     "test:e2e": "playwright test"
