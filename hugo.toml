@@ -3,7 +3,6 @@ title = 'Nächtliche Schatten'
 locale = "en"
 publishDir = "docs"
 canonifyURLs = true
-defaultcontentlanguage = "en"
 DefaultContentLanguage = "en"
 theme = ["projektemacher-base"]
 disableKinds = ["taxonomy"]
