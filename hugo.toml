@@ -117,3 +117,6 @@ enableGitInfo = true
   [[module.mounts]]
       source = "assets/js"
       target = "assets/js"
+
+[params.js]
+  format = "esm"
