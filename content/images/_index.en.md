@@ -1,6 +1,7 @@
 ---
 title: Images
 weight: 1
-metaPage: true
-displayInList: false
+params:
+  metaPage: true
+  displayInList: false
 ---

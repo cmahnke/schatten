@@ -1,7 +1,8 @@
 ---
 title: "Colophon"
 weight: 6
-class: small-text
+params:
+  class: small-text
 ---
 
 ## Page

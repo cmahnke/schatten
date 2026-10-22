@@ -1,5 +1,6 @@
 ---
 title: "Metamodernism"
 weight: 4
-todo: true
+params:
+  todo: true
 ---

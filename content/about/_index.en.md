@@ -1,6 +1,7 @@
 ---
 title: About
-metaPage: true
-displayInList: false
+params:
+  metaPage: true
+  displayInList: false
 weight: 2
 ---

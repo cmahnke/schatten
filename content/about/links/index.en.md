@@ -1,7 +1,8 @@
 ---
 title: "Acknowledgements and Links"
 weight: 5
-class: small-text
+params:
+  class: small-text
 ---
 
 ## HDR

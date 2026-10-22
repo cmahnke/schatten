@@ -1,7 +1,8 @@
 ---
 title: "Metamoderne"
 weight: 4
-todo: true
+params:
+  todo: true
 ---
 
 
