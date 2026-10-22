@@ -9,6 +9,8 @@ disableKinds = ["taxonomy"]
 ignoreErrors = ["error-disable-taxonomy"]
 enableGitInfo = true
 
+enableRobotsTXT = true
+
 [languages]
   [languages.de]
     label = "Deutsch"
@@ -122,3 +124,6 @@ enableGitInfo = true
 
 [params.js]
   format = "esm"
+
+[params.robots]
+  llmsTXT = true
