@@ -23,8 +23,8 @@
     "motion": "^14.6.0",
     "sirv": "^3.0.2",
     "three": "0.186.1",
-    "i18next": "^26.5.10",
-    "i18next-browser-languagedetector": "^8.2.2"
+    "i18next": "^26.5.11",
+    "i18next-browser-languagedetector": "^8.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
