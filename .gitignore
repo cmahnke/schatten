@@ -31,11 +31,10 @@ assets/scss/npm-fonts/*
 test-results/
 playwright-report/
 
-/package-lock.json
+/package-lock.json.bak
 
 /npm-shrinkwrap.json
 
 /pnpm-lock.yaml
 
 /yarn.lock
-package.json

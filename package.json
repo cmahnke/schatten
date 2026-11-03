@@ -6,12 +6,19 @@
     "motion": "^14.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/color": "^4.2.1",
-    "@types/i18next": "^13.0.0"
+    "@types/i18next": "^13.0.0",
+    "@types/js-cookie": "^3.0.6",
+    "@types/three": "^0.187.0",
+    "eslint": "^10.14.0",
+    "globals": "^17.13.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
   },
   "scripts": {
     "lint-scss": "stylelint 'assets/scss/*'",
-    "lint-js": "eslint 'assets/js' 'assets/ts'",
+    "lint-js": "eslint 'assets/ts'",
     "lint-toml": "eslint i18n",
     "typecheck": "tsc --noEmit",
     "lint": "npm run lint-scss && npm run lint-js && npm run lint-toml",

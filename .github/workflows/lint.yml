@@ -32,6 +32,10 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: Install Node dependencies (root)
+        run: |
+          npm ci --no-audit --no-fund
+
       - name: Install Node dependencies
         working-directory: "./Source Files/Mocks"
         run: |
