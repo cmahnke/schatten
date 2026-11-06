@@ -14,8 +14,8 @@
 
   {{- $slug := lower (path.Base .File.Dir) -}}
   {{- $class := "" -}}
-  {{- if .Params.type -}}
-    {{ $class = .Params.type }}
+  {{- if .Params.itemType -}}
+    {{ $class = .Params.itemType }}
   {{- end -}}
   {{- if .Weight -}}
     {{- $class = printf "%s row%d" $class .Weight -}}
