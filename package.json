@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@allmaps/iiif-parser": "^1.0.0-beta.49",
-    "@maplibre/maplibre-gl-style-spec": "^26.5.0",
+    "@maplibre/maplibre-gl-style-spec": "^26.7.0",
     "@pagefind/modular-ui": "1.6.0",
     "@projektemacher/code-citation-lint": "^0.1.1",
     "@projektemacher/hdr-canvas": "^0.4.0",
@@ -36,10 +36,10 @@
     "tify": "^0.36.2",
     "vis-timeline": "8.5.6",
     "yargs": "^18.2.0",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "colorjs.io": "^0.7.1",
     "fitty": "^2.4.2",
-    "motion": "^14.12.0"
+    "motion": "^14.14.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -59,7 +59,7 @@
     "cors": "^2.8.6",
     "cssnano": "^9.9.0",
     "doiuse": "^6.0.6",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-config-prettier": "~10.1.8",
     "eslint-plugin-jsonc": "^3.4.2",
     "eslint-plugin-toml": "1.5.0",
@@ -73,7 +73,7 @@
     "node-addon-api": "^8.9.2",
     "node-gyp": "^13.1.0",
     "obj2gltf": "^3.2.0",
-    "postcss": "^8.5.32",
+    "postcss": "^8.5.33",
     "postcss-cli": "^12.0.0",
     "postcss-discard-duplicates": "^9.0.7",
     "postcss-import": "^17.0.1",
@@ -87,7 +87,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "stylelint": "^18.0.0",
-    "stylelint-config-recommended-scss": "^17.0.1",
+    "stylelint-config-recommended-scss": "^18.0.0",
     "stylelint-prettier": "^5.0.3",
     "stylelint-scss": "^7.4.0",
     "svgo": "^4.1.0",
