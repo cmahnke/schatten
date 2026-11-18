@@ -1,0 +1,13 @@
+User-agent: *
+
+
+Disallow: /*.bib$
+
+Disallow: /*.json$
+
+Disallow: /*.xml$
+
+Sitemap: https://schatten.yaapb.projektemacher.org/de/sitemap.xml
+
+
+llms-txt: https://schatten.yaapb.projektemacher.org/llms.txt
